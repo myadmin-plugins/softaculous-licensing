@@ -10,8 +10,8 @@ return [
 	'help' => 'Softaculous is a great Auto Installer having 175 great scripts and we are still adding more. Softaculous is ideal for Web Hosting companies and it could give a significant boost to your sales. These scripts cover most of the uses a customer could ever have. We have covered a wide array of Categories so that everyone could find the required script one would need to power their Web Site. The best part is we keep on adding new scripts which we know will satisfy the needs of a User.',
 	'module' => 'licenses',
 	'author' => 'detain@interserver.net',
-	'home' => 'https://github.com/detain/myadmin-softaculous',
-	'repo' => 'https://github.com/detain/myadmin-softaculous',
+	'home' => 'https://github.com/detain/myadmin-softaculous-licensing',
+	'repo' => 'https://github.com/detain/myadmin-softaculous-licensing',
 	'version' => '1.0.0',
 	'type' => 'licenses',
 	'hooks' => [
