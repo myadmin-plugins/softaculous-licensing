@@ -6,8 +6,8 @@
 */
 return [
 	'name' => 'Softaculous Licensing',
-	'description' => 'Allows selling of Softaculous Server and VPS License Types.  More info at https://www.netenberg.com/softaculous.php',
-	'help' => 'It provides more than one million end users the ability to quickly install dozens of the leading open source content management systems into their web space.  	Must have a pre-existing cPanel license with cPanelDirect to purchase a softaculous license. Allow 10 minutes for activation.',
+	'description' => 'Allows selling of Softaculous Server and VPS License Types.  More info at http://softaculous.com/',
+	'help' => 'Softaculous is a great Auto Installer having 175 great scripts and we are still adding more. Softaculous is ideal for Web Hosting companies and it could give a significant boost to your sales. These scripts cover most of the uses a customer could ever have. We have covered a wide array of Categories so that everyone could find the required script one would need to power their Web Site. The best part is we keep on adding new scripts which we know will satisfy the needs of a User.',
 	'module' => 'licenses',
 	'author' => 'detain@interserver.net',
 	'home' => 'https://github.com/detain/myadmin-softaculous',
