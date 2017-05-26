@@ -11,12 +11,21 @@ class Plugin {
 	}
 
 	public static function Activate(GenericEvent $event) {
-		// will be executed when the licenses.license event is dispatched
 		$license = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
 			myadmin_log('licenses', 'info', 'Softaculous Activation', __LINE__, __FILE__);
 			function_requirements('activate_softaculous');
 			activate_softaculous($license->get_ip(), $event['field1'], $event['email']);
+			$event->stopPropagation();
+		}
+	}
+
+	public static function Deactivate(GenericEvent $event) {
+		$license = $event->getSubject();
+		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
+			myadmin_log('licenses', 'info', 'Softaculous Deactivation', __LINE__, __FILE__);
+			function_requirements('deactivate_softaculous');
+			deactivate_softaculous($license->get_ip());
 			$event->stopPropagation();
 		}
 	}
