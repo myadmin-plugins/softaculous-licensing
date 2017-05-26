@@ -16,7 +16,7 @@ class Plugin {
 		if ($event['category'] == SERVICE_TYPES_FANTASTICO) {
 			myadmin_log('licenses', 'info', 'Softaculous Activation', __LINE__, __FILE__);
 			function_requirements('activate_softaculous');
-			activate_softaculous($license->get_ip(), $event['field1']);
+			activate_softaculous($license->get_ip(), $event['field1'], $event['email']);
 			$event->stopPropagation();
 		}
 	}

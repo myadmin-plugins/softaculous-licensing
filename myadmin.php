@@ -16,8 +16,8 @@ return [
 	'type' => 'licenses',
 	'hooks' => [
 		'licenses.settings' => ['Detain\MyAdminSoftaculous\Plugin', 'Settings'],
-		/* 'function.requirements' => ['Detain\MyAdminSoftaculous\Plugin', 'Requirements'],
 		'licenses.activate' => ['Detain\MyAdminSoftaculous\Plugin', 'Activate'],
+		/* 'function.requirements' => ['Detain\MyAdminSoftaculous\Plugin', 'Requirements'],
 		'licenses.change_ip' => ['Detain\MyAdminSoftaculous\Plugin', 'ChangeIp'],
 		'ui.menu' => ['Detain\MyAdminSoftaculous\Plugin', 'Menu'] */
 	],
