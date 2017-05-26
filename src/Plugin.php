@@ -13,7 +13,7 @@ class Plugin {
 	public static function Activate(GenericEvent $event) {
 		// will be executed when the licenses.license event is dispatched
 		$license = $event->getSubject();
-		if ($event['category'] == SERVICE_TYPES_FANTASTICO) {
+		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
 			myadmin_log('licenses', 'info', 'Softaculous Activation', __LINE__, __FILE__);
 			function_requirements('activate_softaculous');
 			activate_softaculous($license->get_ip(), $event['field1'], $event['email']);
@@ -22,21 +22,24 @@ class Plugin {
 	}
 
 	public static function ChangeIp(GenericEvent $event) {
-		if ($event['category'] == SERVICE_TYPES_FANTASTICO) {
+		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
 			$license = $event->getSubject();
 			$settings = get_module_settings('licenses');
-			$softaculous = new Softaculous(FANTASTICO_USERNAME, FANTASTICO_PASSWORD);
 			myadmin_log('licenses', 'info', "IP Change - (OLD:".$license->get_ip().") (NEW:{$event['newip']})", __LINE__, __FILE__);
-			$result = $softaculous->editIp($license->get_ip(), $event['newip']);
-			if (isset($result['faultcode'])) {
-				myadmin_log('licenses', 'error', 'Softaculous editIp('.$license->get_ip().', '.$event['newip'].') returned Fault '.$result['faultcode'].': '.$result['fault'], __LINE__, __FILE__);
-				$event['status'] = 'error';
-				$event['status_text'] = 'Error Code '.$result['faultcode'].': '.$result['fault'];
-			} else {
+			function_requirements('get_softaculous_licenses');
+			function_requirements('class.softaculous');
+			$data = get_softaculous_licenses($license->get_ip());
+			$lid = array_keys($data['licenses']);
+			$lid = $lid[0];
+			$noc = new SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+			if ($noc->editips($lid[0], $event['newip']) !== false) {
 				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $license->get_ip());
 				$license->set_ip($event['newip'])->save();
-				$event['status'] = 'ok';
-				$event['status_text'] = 'The IP Address has been changed.';
+				$return['status'] = 'ok';
+				$return['status_text'] = 'The IP Address has been changed.';
+			} else {
+				$return['status'] = 'error';
+				$return['status_text'] = 'Error occurred during deactivation.';
 			}
 			$event->stopPropagation();
 		}
