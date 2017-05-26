@@ -2,7 +2,7 @@
 
 namespace Detain\MyAdminSoftaculous;
 
-use Detain\Softaculous\Softaculous;
+//use Detain\Softaculous\Softaculous;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 class Plugin {
