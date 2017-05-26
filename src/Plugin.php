@@ -31,7 +31,7 @@ class Plugin {
 			$data = get_softaculous_licenses($license->get_ip());
 			$lid = array_keys($data['licenses']);
 			$lid = $lid[0];
-			$noc = new SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+			$noc = new \SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 			if ($noc->editips($lid[0], $event['newip']) !== false) {
 				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $license->get_ip());
 				$license->set_ip($event['newip'])->save();
