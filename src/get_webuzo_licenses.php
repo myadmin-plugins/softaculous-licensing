@@ -14,7 +14,7 @@
  * @return array|bool
  */
 function get_webuzo_licenses($ip = '') {
-	function_requirements('class.softaculous');
+	function_requirements('class.SOFT_NOC');
 	$noc = new SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 	return $noc->webuzo_licenses('', $ip);
 }

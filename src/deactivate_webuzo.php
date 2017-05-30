@@ -16,7 +16,7 @@
 function deactivate_webuzo($ip) {
 	myadmin_log('softaculous', 'info', "deactivating webuzo({$ip})", __LINE__, __FILE__);
 	try {
-		function_requirements('class.softaculous');
+		function_requirements('class.SOFT_NOC');
 		$noc = new SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 		// Buy / renew a License
 		$matches = $noc->webuzo_licenses('', $ip);

@@ -76,7 +76,7 @@ class Plugin {
 			$settings = get_module_settings('licenses');
 			myadmin_log('licenses', 'info', "IP Change - (OLD:".$license->get_ip().") (NEW:{$event['newip']})", __LINE__, __FILE__);
 			function_requirements('get_softaculous_licenses');
-			function_requirements('class.softaculous');
+			function_requirements('class.SOFT_NOC');
 			$data = get_softaculous_licenses($license->get_ip());
 			$lid = array_keys($data['licenses']);
 			$lid = $lid[0];
@@ -107,7 +107,7 @@ class Plugin {
 	public static function Requirements(GenericEvent $event) {
 		// will be executed when the licenses.loader event is dispatched
 		$loader = $event->getSubject();
-		$loader->add_requirement('class.softaculous', '/licenses/class.softaculous.inc.php');
+		$loader->add_requirement('class.SOFT_NOC', '/licenses/SOFT_NOC.php');
 		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
 		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
 		$loader->add_requirement('softaculous_list', '/../vendor/detain/myadmin-softaculous-licensing/src/softaculous_list.php');
