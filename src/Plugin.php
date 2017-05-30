@@ -107,7 +107,7 @@ class Plugin {
 	public static function Requirements(GenericEvent $event) {
 		// will be executed when the licenses.loader event is dispatched
 		$loader = $event->getSubject();
-		$loader->add_requirement('class.SOFT_NOC', '/licenses/SOFT_NOC.php');
+		$loader->add_requirement('class.SOFT_NOC', '/../vendor/detain/myadmin-softaculous-licensing/src/SOFT_NOC.php');
 		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
 		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
 		$loader->add_requirement('softaculous_list', '/../vendor/detain/myadmin-softaculous-licensing/src/softaculous_list.php');
