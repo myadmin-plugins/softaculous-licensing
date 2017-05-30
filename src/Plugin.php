@@ -59,27 +59,17 @@ class Plugin {
 		$menu = $event->getSubject();
 		$module = 'licenses';
 		if ($GLOBALS['tf']->ima == 'admin') {
-			$menu->add_link($module, 'choice=none.reusable_softaculous', 'icons/database_warning_48.png', 'ReUsable Softaculous Licenses');
-			$menu->add_link($module, 'choice=none.softaculous_list', 'icons/database_warning_48.png', 'Softaculous Licenses Breakdown');
-			$menu->add_link('licensesapi', 'choice=none.softaculous_licenses_list', 'whm/createacct.gif', 'List all Softaculous Licenses');
+			$menu->add_link($module.'api', 'choice=none.softaculous_list', 'whm/createacct.gif', 'List all Softaculous Licenses');
 		}
 	}
 
 	public static function Requirements(GenericEvent $event) {
 		// will be executed when the licenses.loader event is dispatched
 		$loader = $event->getSubject();
-		$loader->add_requirement('crud_softaculous_list', '/../vendor/detain/crud/src/crud/crud_softaculous_list.php');
-		$loader->add_requirement('crud_reusable_softaculous', '/../vendor/detain/crud/src/crud/crud_reusable_softaculous.php');
-		$loader->add_requirement('get_softaculous_licenses', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('get_softaculous_list', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('softaculous_licenses_list', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('softaculous_list', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('get_available_softaculous', '/licenses/softaculous.functions.inc.php');
+		$loader->add_requirement('class.softaculous', '/licenses/class.softaculous.inc.php');
 		$loader->add_requirement('activate_softaculous', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('get_reusable_softaculous', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('reusable_softaculous', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('class.softaculous', '/../vendor/detain/softaculous/class.softaculous.inc.php');
-		$loader->add_requirement('vps_add_softaculous', '/vps/addons/vps_add_softaculous.php');
+		$loader->add_requirement('deactivate_softaculous', '/licenses/softaculous.functions.inc.php');
+		$loader->add_requirement('get_softaculous_licenses', '/licenses/softaculous.functions.inc.php');
 	}
 
 	public static function Settings(GenericEvent $event) {

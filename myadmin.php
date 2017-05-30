@@ -19,7 +19,7 @@ return [
 		'licenses.activate' => ['Detain\MyAdminSoftaculous\Plugin', 'Activate'],
 		'licenses.deactivate' => ['Detain\MyAdminSoftaculous\Plugin', 'Deactivate'],
 		'licenses.change_ip' => ['Detain\MyAdminSoftaculous\Plugin', 'ChangeIp'],
-		/* 'function.requirements' => ['Detain\MyAdminSoftaculous\Plugin', 'Requirements'],
-		'ui.menu' => ['Detain\MyAdminSoftaculous\Plugin', 'Menu'] */
+		'function.requirements' => ['Detain\MyAdminSoftaculous\Plugin', 'Requirements'],
+		'ui.menu' => ['Detain\MyAdminSoftaculous\Plugin', 'Menu']
 	],
 ];
