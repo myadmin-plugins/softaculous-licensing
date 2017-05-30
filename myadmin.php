@@ -12,7 +12,7 @@ return [
 	'author' => 'detain@interserver.net',
 	'home' => 'https://github.com/detain/myadmin-softaculous-licensing',
 	'repo' => 'https://github.com/detain/myadmin-softaculous-licensing',
-	'version' => '1.0.0',
+	'version' => '1.0.1',
 	'type' => 'licenses',
 	'hooks' => [
 		'licenses.settings' => ['Detain\MyAdminSoftaculous\Plugin', 'Settings'],
