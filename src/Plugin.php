@@ -1,9 +1,49 @@
 <?php
+/**
+ * Softaculous Related Functionality
+ * Last Changed: $LastChangedDate: 2015-09-23 14:50:01 -0400 (Wed, 23 Sep 2015) $
+ * @author detain
+ * @version $Revision: 15402 $
+ * @copyright 2017
+ * @package MyAdmin-Softaculous-Licensing
+ * @category Licenses
+ */
 
 namespace Detain\MyAdminSoftaculous;
 
 //use Detain\Softaculous\Softaculous;
 use Symfony\Component\EventDispatcher\GenericEvent;
+
+/*
+ * $noc = new SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+ * // Buy / renew a License
+ * $noc->r($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
+ * // Refund a Transaction
+ * $noc->r($noc->refund(100));
+ * // Get me all my licenses
+ * $noc->r($noc->licenses());
+ * // Search for a license by IP
+ * $noc->r($noc->licenses('', '198.198.198.198'));
+ * // Search for a license by KEY
+ * $noc->r($noc->licenses('88888-88888-88888-88888-88888'));
+ * // All Expired Licenses
+ * $noc->r($noc->licenses('', '', 1));
+ * // Expiring in next 7 Days
+ * $noc->r($noc->licenses('', '', 2));
+ * // Expiring in next 15 Days
+ * $noc->r($noc->licenses('', '', 3));
+ * // Get all transactions of a Invoice
+ * $noc->r($noc->invoicedetails(100));
+ * // Get all unbilled transactions for the current month
+ * $noc->r($noc->invoicedetails());
+ * // Cancel a License
+ * $noc->r($noc->cancel('88888-88888-88888-88888-88888')); // Cancel by License Key
+ * $noc->r($noc->cancel('', '198.198.198.198')); // Cancel by IP
+ * // EDIT IP of a License
+ * $noc->r($noc->editips(1000, '198.198.198.198')); // LID and new IP Address
+ * // Get the Action/Activity Logs of a License
+ * $noc->r($noc->licenselogs('88888-88888-88888-88888-88888'));
+ */
 
 class Plugin {
 
@@ -60,6 +100,7 @@ class Plugin {
 		$module = 'licenses';
 		if ($GLOBALS['tf']->ima == 'admin') {
 			$menu->add_link($module.'api', 'choice=none.softaculous_list', 'whm/createacct.gif', 'List all Softaculous Licenses');
+			$menu->add_link($module.'api', 'choice=none.webuzo_list', 'whm/createacct.gif', 'List all Webuzo Licenses');
 		}
 	}
 
@@ -67,9 +108,14 @@ class Plugin {
 		// will be executed when the licenses.loader event is dispatched
 		$loader = $event->getSubject();
 		$loader->add_requirement('class.softaculous', '/licenses/class.softaculous.inc.php');
-		$loader->add_requirement('activate_softaculous', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('deactivate_softaculous', '/licenses/softaculous.functions.inc.php');
-		$loader->add_requirement('get_softaculous_licenses', '/licenses/softaculous.functions.inc.php');
+		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
+		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
+		$loader->add_requirement('softaculous_list', '/../vendor/detain/myadmin-softaculous-licensing/src/softaculous_list.php');
+		$loader->add_requirement('webuzo_list', '/../vendor/detain/myadmin-softaculous-licensing/src/webuzo_list.php');
+		$loader->add_requirement('deactivate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/deactivate_softaculous.php');
+		$loader->add_requirement('deactivate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/deactivate_webuzo.php');
+		$loader->add_requirement('get_softaculous_licenses', '/../vendor/detain/myadmin-softaculous-licensing/src/get_softaculous_licenses.php');
+		$loader->add_requirement('get_webuzo_licenses', '/../vendor/detain/myadmin-softaculous-licensing/src/get_webuzo_licenses.php');
 	}
 
 	public static function Settings(GenericEvent $event) {
