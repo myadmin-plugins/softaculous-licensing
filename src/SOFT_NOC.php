@@ -9,6 +9,8 @@
  * @category Licenses
  */
 
+namespace Detain\MyAdminSoftaculous;
+
 class SOFT_NOC{
 	private $nocname;
 	private $nocpass;
