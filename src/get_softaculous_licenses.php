@@ -15,7 +15,7 @@
  */
 function get_softaculous_licenses($ip = '') {
 	function_requirements('class.SOFT_NOC');
-	$noc = new SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+	$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 	return $noc->licenses('', $ip);
 }
 
