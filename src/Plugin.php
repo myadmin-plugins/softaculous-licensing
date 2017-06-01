@@ -67,6 +67,11 @@ class Plugin {
 			function_requirements('deactivate_softaculous');
 			deactivate_softaculous($license->get_ip());
 			$event->stopPropagation();
+		} elseif ($event['category'] == SERVICE_TYPES_WEBUZO) {
+			myadmin_log('licenses', 'info', 'Webuzo Deactivation', __LINE__, __FILE__);
+			function_requirements('deactivate_webuzo');
+			deactivate_webuzo($license->get_ip());
+			$event->stopPropagation();
 		}
 	}
 
