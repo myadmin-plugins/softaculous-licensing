@@ -13,7 +13,7 @@ return [
 	'home' => 'https://github.com/detain/myadmin-softaculous-licensing',
 	'repo' => 'https://github.com/detain/myadmin-softaculous-licensing',
 	'version' => '1.0.3',
-	'type' => 'licenses',
+	'type' => 'service',
 	'hooks' => [
 		'licenses.settings' => ['Detain\MyAdminSoftaculous\Plugin', 'Settings'],
 		'licenses.activate' => ['Detain\MyAdminSoftaculous\Plugin', 'Activate'],
