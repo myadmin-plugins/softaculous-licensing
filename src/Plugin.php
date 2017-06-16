@@ -59,12 +59,12 @@ class Plugin {
 
 	public static function Hooks() {
 		return [
-			'licenses.settings' => ['Detain\MyAdminSoftaculous\Plugin', 'Settings'],
-			'licenses.activate' => ['Detain\MyAdminSoftaculous\Plugin', 'Activate'],
-			'licenses.deactivate' => ['Detain\MyAdminSoftaculous\Plugin', 'Deactivate'],
-			'licenses.change_ip' => ['Detain\MyAdminSoftaculous\Plugin', 'ChangeIp'],
-			'function.requirements' => ['Detain\MyAdminSoftaculous\Plugin', 'Requirements'],
-			'ui.menu' => ['Detain\MyAdminSoftaculous\Plugin', 'Menu'],
+			'licenses.settings' => [__CLASS__, 'Settings'],
+			'licenses.activate' => [__CLASS__, 'Activate'],
+			'licenses.deactivate' => [__CLASS__, 'Deactivate'],
+			'licenses.change_ip' => [__CLASS__, 'ChangeIp'],
+			'function.requirements' => [__CLASS__, 'Requirements'],
+			'ui.menu' => [__CLASS__, 'Menu'],
 		];
 	}
 
