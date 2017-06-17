@@ -19,7 +19,7 @@ function deactivate_webuzo($ip) {
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 		// Buy / renew a License
 		$matches = $noc->webuzo_licenses('', $ip);
-		$need = true;
+		$need = TRUE;
 		if ($matches['num_results'] > 0) {
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				myadmin_log('softaculous', 'info', "canceling webuzo license {$lid}", __LINE__, __FILE__);
@@ -31,8 +31,8 @@ function deactivate_webuzo($ip) {
 		//myadmin_log('softaculous', 'info', "noc response " . json_encode($noc->response), __LINE__, __FILE__);
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);
-		return false;
+		return FALSE;
 	}
-	return true;
+	return TRUE;
 }
 

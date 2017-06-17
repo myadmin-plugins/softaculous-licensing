@@ -54,8 +54,8 @@ class SOFT_NOC {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		// Turn off the server and peer verification (TrustManager Concept).
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 		$this->post = array('nocname' => $this->nocname, 'nocpass' => $this->nocpass);
 		$this->post = http_build_query($this->post);
 		curl_setopt($ch, CURLOPT_POST, 1);
@@ -65,7 +65,7 @@ class SOFT_NOC {
 		$this->raw_response = curl_exec($ch);
 		if (!$this->raw_response) {
 			$this->error[] = 'There was some error in connecting to Softaculous. This may be because of no internet connectivity at your end.';
-			return false;
+			return FALSE;
 		}
 		// Extract the response details.
 		$this->response = $this->APImyadmin_unstringify($this->raw_response);
@@ -74,7 +74,7 @@ class SOFT_NOC {
 			return $this->response;
 		} else {
 			$this->error = array_merge($this->error, $this->response['error']);
-			return false;
+			return FALSE;
 		}
 	}
 
@@ -86,7 +86,7 @@ class SOFT_NOC {
 	 */
 	public function APImyadmin_unstringify($response) {
 		if (!empty($this->json))
-			return json_decode($response, true);
+			return json_decode($response, TRUE);
 		return myadmin_unstringify($response);
 	}
 
@@ -161,7 +161,7 @@ class SOFT_NOC {
 				return $ldata['license'];
 			}
 		}
-		return false;
+		return FALSE;
 	}
 
 	/**
@@ -173,8 +173,8 @@ class SOFT_NOC {
 		if ($key == '' && $ip != '')
 			$key = $this->ip_to_key($ip);
 		$logs = $this->licenselogs($key);
-		$oldest_action = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_sub(null, 'INTERVAL 7 DAY')));
-		$oldest_expire = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_add(null, 'INTERVAL 1 MONTH')));
+		$oldest_action = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_sub(NULL, 'INTERVAL 7 DAY')));
+		$oldest_expire = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_add(NULL, 'INTERVAL 1 MONTH')));
 		//myadmin_log('licenses', 'info', "noc->licenselogs({$key}) = " . json_encode($logs), __LINE__, __FILE__);
 		if (isset($logs['actions']))
 			foreach ($logs['actions'] as $actid => $adata)
@@ -219,7 +219,7 @@ class SOFT_NOC {
 			// No license with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
-				return false;
+				return FALSE;
 			}
 			$my_lic = current(current($lic));
 			$key = $my_lic['license'];
@@ -227,7 +227,7 @@ class SOFT_NOC {
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
-			return false;
+			return FALSE;
 		}
 		// Lets get the logs
 		$logs = $this->licenselogs($key);
@@ -421,7 +421,7 @@ class SOFT_NOC {
 			// No licenses with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
-				return false;
+				return FALSE;
 			}
 			$my_lic = current(current($lic));
 			$key = $my_lic['license'];
@@ -429,7 +429,7 @@ class SOFT_NOC {
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
-			return false;
+			return FALSE;
 		}
 		// Lets get the logs
 		$logs = $this->webuzo_licenselogs($key);
@@ -636,7 +636,7 @@ class SOFT_NOC {
 			// No licenses with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
-				return false;
+				return FALSE;
 			}
 			$my_lic = current(current($lic));
 			$key = $my_lic['license'];
@@ -644,7 +644,7 @@ class SOFT_NOC {
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
-			return false;
+			return FALSE;
 		}
 		// Lets get the logs
 		$logs = $this->virt_licenselogs($key);
@@ -830,7 +830,7 @@ class SOFT_NOC {
 			// No licenes with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
-				return false;
+				return FALSE;
 			}
 			$my_lic = current(current($lic));
 			$key = $my_lic['license'];
@@ -838,7 +838,7 @@ class SOFT_NOC {
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
-			return false;
+			return FALSE;
 		}
 		// Lets get the logs
 		$logs = $this->sitemush_licenselogs($key);
@@ -972,12 +972,12 @@ class ArrayToXML
 	 * @param SimpleXMLElement $xml - should only be used recursively
 	 * @return string XML
 	 */
-	public function toXML($data, $rootNodeName = 'ResultSet', $xml = null) {
+	public function toXML($data, $rootNodeName = 'ResultSet', $xml = NULL) {
 		if (is_null($xml)) //$xml = simplexml_load_string( "" );
 			$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
 		// loop through the data passed in.
 		foreach ($data as $key => $value) {
-			$numeric = false;
+			$numeric = FALSE;
 			// no numeric keys in our xml please!
 			if (is_numeric($key)) {
 				$numeric = 1;
@@ -1027,7 +1027,7 @@ class ArrayToXML
 
 			// if the node is already set, put it into an array
 			if (isset($arr[$key])) {
-				if (!is_array($arr[$key]) || $arr[$key][0] == null) $arr[$key] = array($arr[$key]);
+				if (!is_array($arr[$key]) || $arr[$key][0] == NULL) $arr[$key] = array($arr[$key]);
 				$arr[$key][] = $node;
 			} else {
 				$arr[$key] = $node;
@@ -1061,16 +1061,16 @@ class ArrayToXML
 function array2json($arr) {
 	if (function_exists('json_encode')) return json_encode($arr); //Lastest versions of PHP already has this functionality.
 	$parts = [];
-	$is_list = false;
+	$is_list = FALSE;
 
 	//Find out if the given array is a numerical array
 	$keys = array_keys($arr);
 	$max_length = count($arr) - 1;
 	if (($keys[0] == 0) and ($keys[$max_length] == $max_length)) {//See if the first key is 0 and last key is length - 1
-		$is_list = true;
+		$is_list = TRUE;
 		for ($i = 0, $iMax = count($keys); $i < $iMax; $i++) { //See if each key corresponds to its position
 			if ($i != $keys[$i]) { //A key fails at position check.
-				$is_list = false; //It is an associative array.
+				$is_list = FALSE; //It is an associative array.
 				break;
 			}
 		}
@@ -1086,8 +1086,8 @@ function array2json($arr) {
 
 			//Custom handling for multiple data types
 			if (is_numeric($value)) $str .= $value; //Numbers
-			elseif ($value === false) $str .= 'false'; //The booleans
-			elseif ($value === true) $str .= 'true';
+			elseif ($value === FALSE) $str .= 'false'; //The booleans
+			elseif ($value === TRUE) $str .= 'true';
 			else $str .= '"'.addslashes($value).'"'; //All other things
 			// :TODO: Is there any more datatype we should be in the lookout for? (Object?)
 

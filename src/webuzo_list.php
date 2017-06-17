@@ -13,7 +13,7 @@ function webuzo_list() {
 	if ($GLOBALS['tf']->ima == 'admin') {
 		$table = new TFTable;
 		$table->set_title('webuzo License List');
-		$header = false;
+		$header = FALSE;
 		function_requirements('get_webuzo_licenses');
 		$licenses = get_webuzo_licenses();
 		foreach ($licenses['licenses'] as $lid => $data) {
@@ -21,7 +21,7 @@ function webuzo_list() {
 				foreach (array_keys($data) as $field)
 					$table->add_field(ucwords(str_replace('_', ' ', $field)));
 				$table->add_row();
-				$header = true;
+				$header = TRUE;
 			}
 			foreach ($data as $key => $field)
 				$table->add_field($field);

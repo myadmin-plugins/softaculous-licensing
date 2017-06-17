@@ -10,10 +10,10 @@
 */
 
 	require_once(__DIR__.'/../../include/functions.inc.php');
-	$webpage = false;
-	define('VERBOSE_MODE', false);
-	$show_help = false;
-	$endprog = false;
+	$webpage = FALSE;
+	define('VERBOSE_MODE', FALSE);
+	$show_help = FALSE;
+	$endprog = FALSE;
 	$module = 'licenses';
 	$GLOBALS['tf']->accounts->set_db_module($module);
 	$GLOBALS['tf']->history->set_db_module($module);
@@ -33,7 +33,7 @@
 		$key = $license['license'];
 		$ip = $license['ip'];
 		$custid = $GLOBALS['tf']->accounts->cross_reference($email);
-		if ($custid === false)
+		if ($custid === FALSE)
 		{
 			echo "Couldnt match up {$email} for license ip {$ip} key {$key} to customer id\n";
 			continue;
@@ -44,7 +44,7 @@
 			$hostname = trim($license['hostname']);
 			$esc_hostname = $db->real_escape($hostname);
 			$query = "update licenses set license_hostname='{$hostname}' where license_ip='{$ip}'";
-			if ($custid !== false)
+			if ($custid !== FALSE)
 			{
 				$query .= " and license_custid={$custid}";
 			}

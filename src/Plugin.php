@@ -103,7 +103,7 @@ class Plugin {
 			$lid = array_keys($data['licenses']);
 			$lid = $lid[0];
 			$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-			if ($noc->editips($lid[0], $event['newip']) !== false) {
+			if ($noc->editips($lid[0], $event['newip']) !== FALSE) {
 				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $license->get_ip());
 				$license->set_ip($event['newip'])->save();
 				$return['status'] = 'ok';
