@@ -15,7 +15,7 @@
  * @param mixed $ip
  * @param mixed $field
  * @param mixed $email
- * @return void
+ * @return boolean
  */
 function activate_webuzo($ip, $field = '', $email = '') {
 	myadmin_log('softaculous', 'info', "activating webuzo({$ip}, {$field}, {$email})", __LINE__, __FILE__);

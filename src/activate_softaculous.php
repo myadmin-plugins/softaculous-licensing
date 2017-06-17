@@ -15,7 +15,7 @@
  * @param mixed $ip
  * @param mixed $field
  * @param mixed $email
- * @return void
+ * @return boolean
  */
 function activate_softaculous($ip, $field, $email) {
 	myadmin_log('softaculous', 'info', "activating softaculous({$ip}, {$field}, {$email})", __LINE__, __FILE__);

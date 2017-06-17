@@ -94,10 +94,10 @@ class SOFT_NOC {
 	 * Buy or Renew a License
 	 *
 	 * @param mixed $ip The IP of the license to be Purchased or Renewed
-	 * @param mixed $toadd Time to extend. Valid extension e.g. '1M' will extend by one months  '8M' will extend by eight months  '1Y' will extend by One year
+	 * @param string $toadd Time to extend. Valid extension e.g. '1M' will extend by one months  '8M' will extend by eight months  '1Y' will extend by One year
 	 * @param mixed $servertype 1 for Dedicated and 2 for VPS
 	 * @param mixed $authemail When a new license is purchased an Authorisation email is required to verify the owner of the License or for reminders when the license is expiring. This is not required in case of renewals
-	 * @param mixed $autorenew To be renewed Automatically before expiry. Values - 1 for true   0 (i.e. any empty value) or 2 for false   Emails will be sent when renewed.
+	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for true   0 (i.e. any empty value) or 2 for false   Emails will be sent when renewed.
 	 * @return false|array
 	 */
 	public function buy($ip, $toadd, $servertype, $authemail, $autorenew) {
@@ -150,7 +150,7 @@ class SOFT_NOC {
 	}
 
 	/**
-	 * @param $ip
+	 * @param string $ip
 	 * @return bool|string
 	 */
 	public function ip_to_key($ip) {
@@ -336,7 +336,7 @@ class SOFT_NOC {
 	 * @param string $toadd Time to extend. Valid extension e.g.  '1M' will extend by one months     '8M' will extend by eight months     '1Y' will extend by One year
 	 * @param int $servertype 1 for Dedicated and 2 for VPS
 	 * @param string $authemail When a new license is purchased an Authorisation email is required to verify the owner of the License or for reminders when the license is expiring. This is not required in case of renewals
-	 * @param mixed $autorenew To be renewed Automatically before expiry. Values - 1 for true    0 (i.e. any empty value) or 2 for false     Emails will be sent when renewed.
+	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for true    0 (i.e. any empty value) or 2 for false     Emails will be sent when renewed.
 	 * @return false|array
 	 */
 	public function webuzo_buy($ip, $toadd, $servertype, $authemail, $autorenew) {
