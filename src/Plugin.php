@@ -47,7 +47,25 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class Plugin {
 
+	public static $name = 'Softaculous Licensing';
+	public static $description = 'Allows selling of Softaculous Server and VPS License Types.  More info at http://softaculous.com/';
+	public static $help = 'Softaculous is a great Auto Installer having 175 great scripts and we are still adding more. Softaculous is ideal for Web Hosting companies and it could give a significant boost to your sales. These scripts cover most of the uses a customer could ever have. We have covered a wide array of Categories so that everyone could find the required script one would need to power their Web Site. The best part is we keep on adding new scripts which we know will satisfy the needs of a User.';
+	public static $module = 'licenses';
+	public static $type = 'service';
+
+
 	public function __construct() {
+	}
+
+	public static function Hooks() {
+		return [
+			'licenses.settings' => [__CLASS__, 'Settings'],
+			'licenses.activate' => [__CLASS__, 'Activate'],
+			'licenses.deactivate' => [__CLASS__, 'Deactivate'],
+			'licenses.change_ip' => [__CLASS__, 'ChangeIp'],
+			'function.requirements' => [__CLASS__, 'Requirements'],
+			'ui.menu' => [__CLASS__, 'Menu'],
+		];
 	}
 
 	public static function Activate(GenericEvent $event) {
