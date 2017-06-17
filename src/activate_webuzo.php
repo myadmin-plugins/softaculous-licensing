@@ -39,10 +39,10 @@ function activate_webuzo($ip, $field = '', $email = '') {
 		if ($need == true) {
 			$response = $noc->webuzo_buy($ip, '1M', $field, $email, 1);
 			if ($response === false) {
-				myadmin_log('softaculous', 'error', "webuzo->buy({$ip}, 1M, {$field}, {$email}) failed with error" . json_encode($noc->error), __LINE__, __FILE__);
+				myadmin_log('softaculous', 'error', "webuzo->buy({$ip}, 1M, {$field}, {$email}) failed with error".json_encode($noc->error), __LINE__, __FILE__);
 				$output = $noc->error;
 			} else
-				myadmin_log('softaculous', 'info', 'webuzo order output ' . json_encode($response), __LINE__, __FILE__);
+				myadmin_log('softaculous', 'info', 'webuzo order output '.json_encode($response), __LINE__, __FILE__);
 		}
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);

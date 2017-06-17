@@ -9,7 +9,7 @@
 * @copyright 2017
 */
 
-	require_once(__DIR__ . '/../../include/functions.inc.php');
+	require_once(__DIR__.'/../../include/functions.inc.php');
 	$webpage = false;
 	define('VERBOSE_MODE', false);
 	$show_help = false;

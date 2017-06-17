@@ -23,8 +23,8 @@ function deactivate_webuzo($ip) {
 		if ($matches['num_results'] > 0) {
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				myadmin_log('softaculous', 'info', "canceling webuzo license {$lid}", __LINE__, __FILE__);
-				myadmin_log('softaculous', 'info', "noc->cancel_with_refund('{$ldata['license']}','') = " . json_encode($noc->cancel_with_refund($ldata['license'])), __LINE__, __FILE__);
-				myadmin_log('softaculous', 'info', 'noc response ' . json_encode($noc->response), __LINE__, __FILE__);
+				myadmin_log('softaculous', 'info', "noc->cancel_with_refund('{$ldata['license']}','') = ".json_encode($noc->cancel_with_refund($ldata['license'])), __LINE__, __FILE__);
+				myadmin_log('softaculous', 'info', 'noc response '.json_encode($noc->response), __LINE__, __FILE__);
 			}
 		}
 		//myadmin_log('softaculous', 'info', "noc->cancel('','$ip') = " . json_encode($noc->cancel('', $ip)), __LINE__, __FILE__);

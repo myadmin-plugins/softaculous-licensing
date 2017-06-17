@@ -11,7 +11,7 @@
 
 namespace Detain\MyAdminSoftaculous;
 
-class SOFT_NOC{
+class SOFT_NOC {
 	private $nocname;
 	private $nocpass;
 	public $softaculous = 'https://www.softaculous.com/noc';
@@ -33,9 +33,9 @@ class SOFT_NOC{
 	public function __construct($nocname, $nocpass, $url = '', $json = 0) {
 		$this->nocname = $nocname;
 		$this->nocpass = $nocpass;
-		if(!empty($url))
+		if (!empty($url))
 			$this->softaculous = $url;
-		if(!empty($json))
+		if (!empty($json))
 			$this->json = 1;
 	}
 
@@ -45,9 +45,9 @@ class SOFT_NOC{
 	 */
 	public function req() {
 		$url = $this->softaculous.'?';
-		foreach($this->params as $k => $v)
+		foreach ($this->params as $k => $v)
 			$url .= '&'.$k.'='.rawurlencode($v);
-		if(!empty($this->json))
+		if (!empty($this->json))
 			$url .= '&json=1';
 		//echo $url.'<br>';
 		// Set the curl parameters.
@@ -63,7 +63,7 @@ class SOFT_NOC{
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		// Get response from the server.
 		$this->raw_response = curl_exec($ch);
-		if(!$this->raw_response) {
+		if (!$this->raw_response) {
 			$this->error[] = 'There was some error in connecting to Softaculous. This may be because of no internet connectivity at your end.';
 			return false;
 		}
@@ -155,7 +155,7 @@ class SOFT_NOC{
 	 */
 	public function ip_to_key($ip) {
 		$matches = $this->licenses('', $ip);
-		myadmin_log('licenses', 'info', "noc->licenses('', {$ip}) = " . json_encode($matches), __LINE__, __FILE__);
+		myadmin_log('licenses', 'info', "noc->licenses('', {$ip}) = ".json_encode($matches), __LINE__, __FILE__);
 		if ($matches['num_results'] > 0) {
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				return $ldata['license'];
@@ -179,8 +179,8 @@ class SOFT_NOC{
 		if (isset($logs['actions']))
 			foreach ($logs['actions'] as $actid => $adata)
 				if ($adata['date'] >= $oldest_action || $logs['license']['expires'] >= $oldest_expire)
-					myadmin_log('licenses', 'info', "noc->refund({$actid}) = " . json_encode($this->refund($actid)), __LINE__, __FILE__);
-				myadmin_log('licenses', 'info', "noc->cancel('{$key}','{$ip}') = " . json_encode($this->cancel($key, $ip)), __LINE__, __FILE__);
+					myadmin_log('licenses', 'info', "noc->refund({$actid}) = ".json_encode($this->refund($actid)), __LINE__, __FILE__);
+				myadmin_log('licenses', 'info', "noc->cancel('{$key}','{$ip}') = ".json_encode($this->cancel($key, $ip)), __LINE__, __FILE__);
 		//myadmin_log('licenses', 'info', "noc->cancel response " . json_encode($this->response), __LINE__, __FILE__);
 	}
 
@@ -213,11 +213,11 @@ class SOFT_NOC{
 	 * @return bool|mixed
 	 */
 	public function refund_and_cancel($key = '', $ip = '') {
-		if(!empty($ip)){
+		if (!empty($ip)) {
 			// Search for a license
 			$lic = $this->licenses('', $ip);
 			// No license with this IP
-			if(empty($lic['licenses'])){
+			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
 				return false;
 			}
@@ -225,7 +225,7 @@ class SOFT_NOC{
 			$key = $my_lic['license'];
 		}
 		// No key to search for the logs or to cancel
-		if(empty($key)){
+		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
 			return false;
 		}
@@ -233,11 +233,11 @@ class SOFT_NOC{
 		$logs = $this->licenselogs($key);
 		// Did we get any logs ?
 		if (!empty($logs['actions']))
-			foreach ($logs['actions'] as $k => $v){
+			foreach ($logs['actions'] as $k => $v) {
 				// Is it a valid transaction ?
-				if(($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
+				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
-				if((time() - $v['time'])/(24*60*60) < 7){
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
 					$this->refund($v['actid']);
 				}
 			}
@@ -415,11 +415,11 @@ class SOFT_NOC{
 	 * @return bool|mixed
 	 */
 	public function webuzo_refund_and_cancel($key = '', $ip = '') {
-		if(!empty($ip)){
+		if (!empty($ip)) {
 			// Search for a license
 			$lic = $this->webuzo_licenses('', $ip);
 			// No licenses with this IP
-			if(empty($lic['licenses'])){
+			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
 				return false;
 			}
@@ -427,19 +427,19 @@ class SOFT_NOC{
 			$key = $my_lic['license'];
 		}
 		// No key to search for the logs or to cancel
-		if(empty($key)){
+		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
 			return false;
 		}
 		// Lets get the logs
 		$logs = $this->webuzo_licenselogs($key);
 		// Did we get any logs ?
-		if(!empty($logs['actions']))
-			foreach($logs['actions'] as $k => $v) {
+		if (!empty($logs['actions']))
+			foreach ($logs['actions'] as $k => $v) {
 				// Is it a valid transaction ?
-				if(($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
+				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
-				if((time() - $v['time'])/(24*60*60) < 7){
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
 					$this->webuzo_refund($v['actid']);
 				}
 			}
@@ -630,11 +630,11 @@ class SOFT_NOC{
 	 * @return bool|mixed
 	 */
 	public function virt_refund_and_cancel($key = '', $ip = '') {
-		if(!empty($ip)){
+		if (!empty($ip)) {
 			// Search for a license
 			$lic = $this->virt_licenses('', $ip);
 			// No licenses with this IP
-			if(empty($lic['licenses'])){
+			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
 				return false;
 			}
@@ -642,7 +642,7 @@ class SOFT_NOC{
 			$key = $my_lic['license'];
 		}
 		// No key to search for the logs or to cancel
-		if(empty($key)){
+		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
 			return false;
 		}
@@ -652,9 +652,9 @@ class SOFT_NOC{
 		if (!empty($logs['actions']))
 			foreach ($logs['actions'] as $k => $v) {
 				// Is it a valid transaction ?
-				if(($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
+				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
-				if((time() - $v['time'])/(24*60*60) < 7){
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
 					$this->virt_refund($v['actid']);
 				}
 			}
@@ -691,7 +691,7 @@ class SOFT_NOC{
 		$this->params['ca'] = 'virtualizor_licenselogs';
 		$this->params['key'] = $key;
 		$this->params['licip'] = $ip;
-		if(!empty($limit))
+		if (!empty($limit))
 			$this->params['limit'] = $limit;
 		return $this->req();
 	}
@@ -755,7 +755,7 @@ class SOFT_NOC{
 	 * @param int $autorenew To be renewed Automatically before expiry. Values - 1 for true   0 (i.e. any empty value) or 2 for false    Emails will be sent when renewed.
 	 * @return false|array
 	 */
-	public function sitemush_buy($ip, $toadd, $autorenew){
+	public function sitemush_buy($ip, $toadd, $autorenew) {
 		$this->params['ca'] = 'sitemush_buy';
 		$this->params['purchase'] = 1;
 		$this->params['ips'] = $ip;
@@ -770,7 +770,7 @@ class SOFT_NOC{
 	 *
 	 * @param mixed $actid The Action ID for which you want to claim refund
 	 */
-	public function sitemush_refund($actid){
+	public function sitemush_refund($actid) {
 		$this->params['ca'] = 'sitemush_refund';
 		$this->params['actid'] = $actid;
 		return $this->req();
@@ -788,7 +788,7 @@ class SOFT_NOC{
 	 * @param int $len (Optional) The length to return from the start. e.g.  If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify  $start = 99 and $len = 200
 	 * @param string $email (Optional) The authorised email of the user for which you want to get the list of licenses.
 	 */
-	public function sitemush_licenses($key = '', $ip = '', $expiry = '', $start = 0, $len = 1000000, $email = ''){
+	public function sitemush_licenses($key = '', $ip = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'sitemush';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ip;
@@ -807,7 +807,7 @@ class SOFT_NOC{
 	 *
 	 * @param string $key The License KEY
 	 */
-	public function sitemush_remove($key){
+	public function sitemush_remove($key) {
 		$this->params['ca'] = 'sitemush_cancel';
 		$this->params['lickey'] = $key;
 		$this->params['cancel_license'] = 1;
@@ -823,12 +823,12 @@ class SOFT_NOC{
 	 * @param string $key (Optional) The License KEY
 	 * @param string $ip (Optional) The Primary IP of the License
 	 */
-	public function sitemush_refund_and_cancel($key = '', $ip = ''){
-		if(!empty($ip)){
+	public function sitemush_refund_and_cancel($key = '', $ip = '') {
+		if (!empty($ip)) {
 			// Search for a license
 			$lic = $this->sitemush_licenses('', $ip);
 			// No licenes with this IP
-			if(empty($lic['licenses'])){
+			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
 				return false;
 			}
@@ -836,19 +836,19 @@ class SOFT_NOC{
 			$key = $my_lic['license'];
 		}
 		// No key to search for the logs or to cancel
-		if(empty($key)){
+		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
 			return false;
 		}
 		// Lets get the logs
 		$logs = $this->sitemush_licenselogs($key);
 		// Did we get any logs ?
-		if(!empty($logs['actions'])){
-			foreach($logs['actions'] as $k => $v){
+		if (!empty($logs['actions'])) {
+			foreach ($logs['actions'] as $k => $v) {
 				// Is it a valid transaction ?
-				if(($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
+				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
-				if((time() - $v['time'])/(24*60*60) < 7){
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
 					$this->sitemush_refund($v['actid']);
 				}
 			}
@@ -864,7 +864,7 @@ class SOFT_NOC{
 	 * @param string|int $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param string|array $ips The NEW IP of the server
 	 */
-	public function sitemush_editips($lid, $ips){
+	public function sitemush_editips($lid, $ips) {
 		$this->params['ca'] = 'sitemush_showlicense';
 		$this->params['lid'] = $lid;
 		$this->params['ips'] = $ips;
@@ -880,11 +880,11 @@ class SOFT_NOC{
 	 * @param int $limit The number of action logs to be retrieved
 	 * @param string$ip The License IP
 	 */
-	public function sitemush_licenselogs($key, $limit = 0, $ip = ''){
+	public function sitemush_licenselogs($key, $limit = 0, $ip = '') {
 		$this->params['ca'] = 'sitemush_licenselogs';
 		$this->params['key'] = $key;
 		$this->params['licip'] = $ip;
-		if(!empty($limit)){
+		if (!empty($limit)) {
 			$this->params['limit'] = $limit;
 		}
 		return $this->req();
@@ -900,7 +900,7 @@ class SOFT_NOC{
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from  the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from  the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 */
-	public function sitemush_renewals($key = '', $ip = '', $start = 0, $len = 1000000){
+	public function sitemush_renewals($key = '', $ip = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'sitemush_renewals';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ip;
@@ -914,7 +914,7 @@ class SOFT_NOC{
 	 *
 	 * @param string $key The License KEY that has to be added toAuto Renewal
 	 */
-	public function sitemush_addautorenewal($key = ''){
+	public function sitemush_addautorenewal($key = '') {
 		$this->params['ca'] = 'sitemush_renewals';
 		$this->params['addrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -927,7 +927,7 @@ class SOFT_NOC{
 	 *
 	 * @param string $key The License KEY that has to be removed from Auto Renewal
 	 */
-	public function sitemush_removeautorenewal($key = ''){
+	public function sitemush_removeautorenewal($key = '') {
 		$this->params['ca'] = 'sitemush_renewals';
 		$this->params['cancelrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -951,7 +951,7 @@ class SOFT_NOC{
 	 * @param $r
 	 */
 	public function r($r) {
-		if(empty($r))
+		if (empty($r))
 			$r = $this->error;
 		myadmin_log('licenses', 'info', '<pre>'.json_encode($r).'</pre>', __LINE__, __FILE__);
 	}
@@ -972,11 +972,11 @@ class ArrayToXML
 	 * @param SimpleXMLElement $xml - should only be used recursively
 	 * @return string XML
 	 */
-	public function toXML($data, $rootNodeName = 'ResultSet', $xml=null) {
+	public function toXML($data, $rootNodeName = 'ResultSet', $xml = null) {
 		if (is_null($xml)) //$xml = simplexml_load_string( "" );
 			$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
 		// loop through the data passed in.
-		foreach($data as $key => $value) {
+		foreach ($data as $key => $value) {
 			$numeric = false;
 			// no numeric keys in our xml please!
 			if (is_numeric($key)) {
@@ -1017,7 +1017,7 @@ class ArrayToXML
 	public function toArray($xml) {
 		if (is_string($xml)) $xml = new SimpleXMLElement($xml);
 		$children = $xml->children();
-		if (!$children) return (string)$xml;
+		if (!$children) return (string) $xml;
 		$arr = [];
 		foreach ($children as $key => $node) {
 			$node = ArrayToXML::toArray($node);
@@ -1027,7 +1027,7 @@ class ArrayToXML
 
 			// if the node is already set, put it into an array
 			if (isset($arr[$key])) {
-				if (!is_array($arr[$key]) || $arr[$key][0] == null) $arr[$key] = array( $arr[$key] );
+				if (!is_array($arr[$key]) || $arr[$key][0] == null) $arr[$key] = array($arr[$key]);
 				$arr[$key][] = $node;
 			} else {
 				$arr[$key] = $node;
@@ -1059,36 +1059,36 @@ class ArrayToXML
  * @since     	 3.9
  */
 function array2json($arr) {
-	if(function_exists('json_encode')) return json_encode($arr); //Lastest versions of PHP already has this functionality.
+	if (function_exists('json_encode')) return json_encode($arr); //Lastest versions of PHP already has this functionality.
 	$parts = [];
 	$is_list = false;
 
 	//Find out if the given array is a numerical array
 	$keys = array_keys($arr);
-	$max_length = count($arr)-1;
-	if(($keys[0] == 0) and ($keys[$max_length] == $max_length)) {//See if the first key is 0 and last key is length - 1
+	$max_length = count($arr) - 1;
+	if (($keys[0] == 0) and ($keys[$max_length] == $max_length)) {//See if the first key is 0 and last key is length - 1
 		$is_list = true;
-		for($i=0, $iMax = count($keys); $i<$iMax; $i++) { //See if each key corresponds to its position
-			if($i != $keys[$i]) { //A key fails at position check.
+		for ($i = 0, $iMax = count($keys); $i < $iMax; $i++) { //See if each key corresponds to its position
+			if ($i != $keys[$i]) { //A key fails at position check.
 				$is_list = false; //It is an associative array.
 				break;
 			}
 		}
 	}
 
-	foreach($arr as $key=>$value) {
-		if(is_array($value)) { //Custom handling for arrays
-			if($is_list) $parts[] = array2json($value); /* :RECURSION: */
-			else $parts[] = '"' . $key . '":' . array2json($value); /* :RECURSION: */
+	foreach ($arr as $key=>$value) {
+		if (is_array($value)) { //Custom handling for arrays
+			if ($is_list) $parts[] = array2json($value); /* :RECURSION: */
+			else $parts[] = '"'.$key.'":'.array2json($value); /* :RECURSION: */
 		} else {
 			$str = '';
-			if(!$is_list) $str = '"' . $key . '":';
+			if (!$is_list) $str = '"'.$key.'":';
 
 			//Custom handling for multiple data types
-			if(is_numeric($value)) $str .= $value; //Numbers
-			elseif($value === false) $str .= 'false'; //The booleans
-			elseif($value === true) $str .= 'true';
-			else $str .= '"' . addslashes($value) . '"'; //All other things
+			if (is_numeric($value)) $str .= $value; //Numbers
+			elseif ($value === false) $str .= 'false'; //The booleans
+			elseif ($value === true) $str .= 'true';
+			else $str .= '"'.addslashes($value).'"'; //All other things
 			// :TODO: Is there any more datatype we should be in the lookout for? (Object?)
 
 			$parts[] = $str;
@@ -1096,8 +1096,8 @@ function array2json($arr) {
 	}
 	$json = implode(',', $parts);
 
-	if($is_list) return '[' . $json . ']';//Return numerical JSON
-	return '{' . $json . '}';//Return associative JSON
+	if ($is_list) return '['.$json.']'; //Return numerical JSON
+	return '{'.$json.'}'; //Return associative JSON
 }
 
 

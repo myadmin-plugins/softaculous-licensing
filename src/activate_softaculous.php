@@ -39,7 +39,7 @@ function activate_softaculous($ip, $field, $email) {
 		if ($need == true) {
 			$response = $noc->buy($ip, '1M', $field, $email, 1);
 			$output = print_r($response, true);
-			myadmin_log('softaculous', 'info', 'Softaculous order output ' . str_replace("\n", '', $output), __LINE__, __FILE__);
+			myadmin_log('softaculous', 'info', 'Softaculous order output '.str_replace("\n", '', $output), __LINE__, __FILE__);
 		}
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);
