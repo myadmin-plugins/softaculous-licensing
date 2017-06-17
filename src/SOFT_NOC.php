@@ -19,7 +19,7 @@ class SOFT_NOC {
 	public $params = [];
 	public $response = [];
 	public $post = [];
-	public $raw_response;
+	public $rawResponse;
 	public $json = 0;
 
 	/**
@@ -62,13 +62,13 @@ class SOFT_NOC {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $this->post);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		// Get response from the server.
-		$this->raw_response = curl_exec($ch);
-		if (!$this->raw_response) {
+		$this->rawResponse = curl_exec($ch);
+		if (!$this->rawResponse) {
 			$this->error[] = 'There was some error in connecting to Softaculous. This may be because of no internet connectivity at your end.';
 			return FALSE;
 		}
 		// Extract the response details.
-		$this->response = $this->APImyadmin_unstringify($this->raw_response);
+		$this->response = $this->APImyadmin_unstringify($this->rawResponse);
 		if (empty($this->response['error'])) {
 			unset($this->response['error']);
 			return $this->response;
