@@ -93,17 +93,17 @@ class SOFT_NOC {
 	/**
 	 * Buy or Renew a License
 	 *
-	 * @param mixed $ip The IP of the license to be Purchased or Renewed
+	 * @param mixed $ipAddress The IP of the license to be Purchased or Renewed
 	 * @param string $toadd Time to extend. Valid extension e.g. '1M' will extend by one months  '8M' will extend by eight months  '1Y' will extend by One year
 	 * @param mixed $servertype 1 for Dedicated and 2 for VPS
 	 * @param mixed $authemail When a new license is purchased an Authorisation email is required to verify the owner of the License or for reminders when the license is expiring. This is not required in case of renewals
 	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for true   0 (i.e. any empty value) or 2 for false   Emails will be sent when renewed.
 	 * @return false|array
 	 */
-	public function buy($ip, $toadd, $servertype, $authemail, $autorenew) {
+	public function buy($ipAddress, $toadd, $servertype, $authemail, $autorenew) {
 		$this->params['ca'] = 'softaculous_buy';
 		$this->params['purchase'] = 1;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['toadd'] = $toadd;
 		$this->params['servertype'] = $servertype;
 		$this->params['authemail'] = $authemail;
@@ -127,21 +127,21 @@ class SOFT_NOC {
 	/**
 	 * gets a list of licenses
 	 *
-	 * NOTE: $key, $ip, $expiry, $start, $len (i.e. All Paras) are Optional
+	 * NOTE: $key, $ipAddress, $expiry, $start, $len (i.e. All Paras) are Optional
 	 *  When nothing is specified a list of all your license will be returned.
 	 *
 	 * @param string $key (Optional) The License KEY to get the details of that particular License
-	 * @param string $ip (Optional) The Primary IP of a License to get the details of that particular License
+	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param string $expiry (Optional) To get a List of License that are expiring. Valid Options - 1 , 2 , 3 . Explanation is as follows: $expiry = 1; (All Expired License in your account)     $expiry = 2; (Expiring in 7 Days)  $expiry = 3; (Expiring in 15 Days)
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @param string $email (Optional) The authorised email of the user for which  you want to get the list of licenses.
 	 * @return false|array
 	 */
-	public function licenses($key = '', $ip = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
+	public function licenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'softaculous';
 		$this->params['lickey'] = $key;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['expiry'] = $expiry;
 		$this->params['start'] = $start;
 		$this->params['len'] = $len;
@@ -150,12 +150,12 @@ class SOFT_NOC {
 	}
 
 	/**
-	 * @param string $ip
+	 * @param string $ipAddress
 	 * @return bool|string
 	 */
-	public function ip_to_key($ip) {
-		$matches = $this->licenses('', $ip);
-		myadmin_log('licenses', 'info', "noc->licenses('', {$ip}) = ".json_encode($matches), __LINE__, __FILE__);
+	public function ip_to_key($ipAddress) {
+		$matches = $this->licenses('', $ipAddress);
+		myadmin_log('licenses', 'info', "noc->licenses('', {$ipAddress}) = ".json_encode($matches), __LINE__, __FILE__);
 		if ($matches['num_results'] > 0) {
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				return $ldata['license'];
@@ -166,12 +166,12 @@ class SOFT_NOC {
 
 	/**
 	 * @param string $key
-	 * @param string $ip
+	 * @param string $ipAddress
 	 */
-	public function cancel_with_refund($key = '', $ip = '') {
-		myadmin_log('licenses', 'info', "noc->cancel_with_refund('{$key}','{$ip}') called", __LINE__, __FILE__);
-		if ($key == '' && $ip != '')
-			$key = $this->ip_to_key($ip);
+	public function cancel_with_refund($key = '', $ipAddress = '') {
+		myadmin_log('licenses', 'info', "noc->cancel_with_refund('{$key}','{$ipAddress}') called", __LINE__, __FILE__);
+		if ($key == '' && $ipAddress != '')
+			$key = $this->ip_to_key($ipAddress);
 		$logs = $this->licenselogs($key);
 		$oldest_action = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_sub(NULL, 'INTERVAL 7 DAY')));
 		$oldest_expire = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_add(NULL, 'INTERVAL 1 MONTH')));
@@ -180,42 +180,42 @@ class SOFT_NOC {
 			foreach ($logs['actions'] as $actid => $adata)
 				if ($adata['date'] >= $oldest_action || $logs['license']['expires'] >= $oldest_expire)
 					myadmin_log('licenses', 'info', "noc->refund({$actid}) = ".json_encode($this->refund($actid)), __LINE__, __FILE__);
-				myadmin_log('licenses', 'info', "noc->cancel('{$key}','{$ip}') = ".json_encode($this->cancel($key, $ip)), __LINE__, __FILE__);
+				myadmin_log('licenses', 'info', "noc->cancel('{$key}','{$ipAddress}') = ".json_encode($this->cancel($key, $ipAddress)), __LINE__, __FILE__);
 		//myadmin_log('licenses', 'info', "noc->cancel response " . json_encode($this->response), __LINE__, __FILE__);
 	}
 
 	/**
 	 * remove license and its auto renewal
-	 * NOTE: 1) Either of $ip, $key needs to be specified
+	 * NOTE: 1) Either of $ipAddress, $key needs to be specified
 	 *	2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
 	 *	3) Also a refund is not made when you cancel a license. You must first claim the refund using the refund() API
 	 *
 	 * @param string $key (Optional) The License KEY
-	 * @param string $ip (Optional) The Primary IP of the License
+	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return false|array
 	 */
-	public function cancel($key = '', $ip = '') {
+	public function cancel($key = '', $ipAddress = '') {
 		$this->params['ca'] = 'softaculous_cancel';
 		$this->params['lickey'] = $key;
-		$this->params['licip'] = $ip;
+		$this->params['licip'] = $ipAddress;
 		$this->params['cancel_license'] = 1;
 		return $this->req();
 	}
 
 	/**
 	 * refund license and then remove license and its auto renewal
-	 * NOTE: 1) Either of $ip, $key needs to be specified
+	 * NOTE: 1) Either of $ipAddress, $key needs to be specified
 	 *	2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
 	 *	3) We will try to refund you if the license is purchased less than 7 days ago. And then we will cancel the license.
 	 *
 	 * @param string $key (Optional) The License KEY
-	 * @param string $ip (Optional) The Primary IP of the License
+	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function refund_and_cancel($key = '', $ip = '') {
-		if (!empty($ip)) {
+	public function refund_and_cancel($key = '', $ipAddress = '') {
+		if (!empty($ipAddress)) {
 			// Search for a license
-			$lic = $this->licenses('', $ip);
+			$lic = $this->licenses('', $ipAddress);
 			// No license with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
@@ -247,7 +247,7 @@ class SOFT_NOC {
 
 	/**
 	 * Edit the IPs of a License
-	 * NOTE: Either of $ip, $key needs to be specified
+	 * NOTE: Either of $ipAddress, $key needs to be specified
 	 *
 	 * @param int $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param string|array $ips The list of IPs of the same VPS / Server. The first IP you enter will be the primary IP Address of the License. You can enter up to a maximum of 8 IP Address per license.
@@ -267,13 +267,13 @@ class SOFT_NOC {
 	 *
 	 * @param string $key The License KEY
 	 * @param int $limit The number of action logs to be retrieved
-	 * @param string $ip The License IP
+	 * @param string $ipAddress The License IP
 	 * @return false|array
 	 */
-	public function licenselogs($key, $limit = 0, $ip = '') {
+	public function licenselogs($key, $limit = 0, $ipAddress = '') {
 		$this->params['ca'] = 'softaculous_licenselogs';
 		$this->params['key'] = $key;
-		$this->params['licip'] = $ip;
+		$this->params['licip'] = $ipAddress;
 		if (!empty($limit))
 			$this->params['limit'] = $limit;
 		return $this->req();
@@ -281,19 +281,19 @@ class SOFT_NOC {
 
 	/**
 	 * List the Auto Renewing Licenses
-	 * NOTE: $key, $ip, $start, $len (i.e. All Params) are Optional When nothing is specified
+	 * NOTE: $key, $ipAddress, $start, $len (i.e. All Params) are Optional When nothing is specified
 	 *  a list of all your licenses under auto renewals will be returned.
 	 *
 	 * @param string $key (Optional) The License KEY to get the details of that particular License
-	 * @param string $ip (Optional) The Primary IP of a License to get the details of  that particular License
+	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of  that particular License
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @return false|array
 	 */
-	public function autorenewals($key = '', $ip = '', $start = 0, $len = 1000000) {
+	public function autorenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'softaculous_renewals';
 		$this->params['lickey'] = $key;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['start'] = $start;
 		$this->params['len'] = $len;
 		return $this->req();
@@ -332,17 +332,17 @@ class SOFT_NOC {
 	/**
 	 * To Buy or Renew a License
 	 *
-	 * @param string $ip The IP of the license to be Purchased or Renewed
+	 * @param string $ipAddress The IP of the license to be Purchased or Renewed
 	 * @param string $toadd Time to extend. Valid extension e.g.  '1M' will extend by one months     '8M' will extend by eight months     '1Y' will extend by One year
 	 * @param int $servertype 1 for Dedicated and 2 for VPS
 	 * @param string $authemail When a new license is purchased an Authorisation email is required to verify the owner of the License or for reminders when the license is expiring. This is not required in case of renewals
 	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for true    0 (i.e. any empty value) or 2 for false     Emails will be sent when renewed.
 	 * @return false|array
 	 */
-	public function webuzo_buy($ip, $toadd, $servertype, $authemail, $autorenew) {
+	public function webuzo_buy($ipAddress, $toadd, $servertype, $authemail, $autorenew) {
 		$this->params['ca'] = 'webuzo_buy';
 		$this->params['purchase'] = 1;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['toadd'] = $toadd;
 		$this->params['servertype'] = $servertype;
 		$this->params['authemail'] = $authemail;
@@ -365,20 +365,20 @@ class SOFT_NOC {
 
 	/**
 	 * gets a list of licenses
-	 * NOTE: $key, $ip, $expiry, $start, $len (i.e. All Paras) are Optional When nothing is specified a list of all your license will be returned.
+	 * NOTE: $key, $ipAddress, $expiry, $start, $len (i.e. All Paras) are Optional When nothing is specified a list of all your license will be returned.
 	 *
 	 * @param string $key (Optional) The License KEY to get the details of that particular License
-	 * @param string $ip (Optional) The Primary IP of a License to get the details of that particular License
+	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param string $expiry (Optional) To get a List of License that are expiring. Valid Options - 1 , 2 , 3 . Explanation is as follows:  $expiry = 1; (All Expired License in your account)    $expiry = 2; (Expiring in 7 Days)   $expiry = 3; (Expiring in 15 Days)
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from  the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @param string $email (Optional) The authorised email of the user for which you want to get the list of licenses.
 	 * @return false|array
 	 */
-	public function webuzo_licenses($key = '', $ip = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
+	public function webuzo_licenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'webuzo';
 		$this->params['lickey'] = $key;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['expiry'] = $expiry;
 		$this->params['start'] = $start;
 		$this->params['len'] = $len;
@@ -388,36 +388,36 @@ class SOFT_NOC {
 
 	/**
 	 * remove license and its auto renewal
-	 * NOTE: 1) Either of $ip, $key needs to be specified
+	 * NOTE: 1) Either of $ipAddress, $key needs to be specified
 	 * 	2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
 	 * 	3) Also a refund is not made when you cancel a license. You must first claim the refund using the refund() API
 	 *
 	 * @param string $key (Optional) The License KEY
-	 * @param string $ip (Optional) The Primary IP of the License
+	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return false|array
 	 */
-	public function webuzo_cancel($key = '', $ip = '') {
+	public function webuzo_cancel($key = '', $ipAddress = '') {
 		$this->params['ca'] = 'webuzo_cancel';
 		$this->params['lickey'] = $key;
-		$this->params['licip'] = $ip;
+		$this->params['licip'] = $ipAddress;
 		$this->params['cancel_license'] = 1;
 		return $this->req();
 	}
 
 	/**
 	 * refund webuzo license and then remove webuzo license and its auto renewal
-	 * NOTE: 1) Either of $ip, $key needs to be specified
+	 * NOTE: 1) Either of $ipAddress, $key needs to be specified
 	 *	2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
 	 * 	3) We will try to refund you if the license is purchased less than 7 days ago. And then we will cancel the license.
 	 *
 	 * @param string $key (Optional) The License KEY
-	 * @param string $ip (Optional) The Primary IP of the License
+	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function webuzo_refund_and_cancel($key = '', $ip = '') {
-		if (!empty($ip)) {
+	public function webuzo_refund_and_cancel($key = '', $ipAddress = '') {
+		if (!empty($ipAddress)) {
 			// Search for a license
-			$lic = $this->webuzo_licenses('', $ip);
+			$lic = $this->webuzo_licenses('', $ipAddress);
 			// No licenses with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
@@ -449,7 +449,7 @@ class SOFT_NOC {
 
 	/**
 	 * Edit the IPs of a License
-	 * NOTE: Either of $ip, $key needs to be specified
+	 * NOTE: Either of $ipAddress, $key needs to be specified
 	 *
 	 * @param $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param $ips The IP (SINGLE IP ONLY) of the VPS / Server. Unlike Softaculous only one IP is allowed here
@@ -469,13 +469,13 @@ class SOFT_NOC {
 	 *
 	 * @param string $key The License KEY
 	 * @param int $limit The number of action logs to be retrieved
-	 * @param string $ip The License IP
+	 * @param string $ipAddress The License IP
 	 * @return false|array
 	 */
-	public function webuzo_licenselogs($key, $limit = 0, $ip = '') {
+	public function webuzo_licenselogs($key, $limit = 0, $ipAddress = '') {
 		$this->params['ca'] = 'webuzo_licenselogs';
 		$this->params['key'] = $key;
-		$this->params['licip'] = $ip;
+		$this->params['licip'] = $ipAddress;
 		if (!empty($limit))
 			$this->params['limit'] = $limit;
 		return $this->req();
@@ -483,19 +483,19 @@ class SOFT_NOC {
 
 	/**
 	 * List the Auto Renewing Licenses
-	 * NOTE: $key, $ip, $start, $len (i.e. All Params) are Optional When nothing is specified
+	 * NOTE: $key, $ipAddress, $start, $len (i.e. All Params) are Optional When nothing is specified
 	 * a list of all your licenses under auto renewals will be returned.
 	 *
 	 * @param string $key (Optional) The License KEY to get the details of that particular License
-	 * @param string $ip (Optional) The Primary IP of a License to get the details of that particular License
+	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @return false|array
 	 */
-	public function webuzo_autorenewals($key = '', $ip = '', $start = 0, $len = 1000000) {
+	public function webuzo_autorenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'webuzo_renewals';
 		$this->params['lickey'] = $key;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['start'] = $start;
 		$this->params['len'] = $len;
 		return $this->req();
@@ -530,13 +530,13 @@ class SOFT_NOC {
 	/**
 	 * Webuzo Trial
 	 *
-	 * @param $ip The IP that has to be licensed with a TRIAL License
+	 * @param $ipAddress The IP that has to be licensed with a TRIAL License
 	 * @param $servertype Whether its a VPS or a Dedicated Server License
 	 * @return false|array
 	 */
-	public function webuzotrial($ip, $servertype) {
+	public function webuzotrial($ipAddress, $servertype) {
 		$this->params['ca'] = 'webuzotrial';
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['type'] = $servertype;
 		$this->params['gettrial'] = 1;
 		return $this->req();
@@ -550,15 +550,15 @@ class SOFT_NOC {
 	/**
 	 * To Buy or Renew a Virtualizor License
 	 *
-	 * @param string $ip = The IP of the license to be Purchased or Renewed
+	 * @param string $ipAddress = The IP of the license to be Purchased or Renewed
 	 * @param string $toadd Time to extend. Valid extension e.g.  - '1M' will extend by one months - '8M' will extend by eight months - '1Y' will extend by One year
 	 * @param int $autorenew To be renewed Automatically before expiry.  Values - 1 for true    0 for false.
 	 * @return false|array
 	 */
-	public function virt_buy($ip, $toadd, $autorenew) {
+	public function virt_buy($ipAddress, $toadd, $autorenew) {
 		$this->params['ca'] = 'virtualizor_buy';
 		$this->params['purchase'] = 1;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['toadd'] = $toadd;
 		$this->params['autorenew'] = $autorenew;
 		return $this->req();
@@ -579,21 +579,21 @@ class SOFT_NOC {
 
 	/**
 	 * gets a list of Virtualizor licenses
-	 * NOTE: $key, $ip, $expiry, $start, $len (i.e. All Paras) are Optional When nothing
+	 * NOTE: $key, $ipAddress, $expiry, $start, $len (i.e. All Paras) are Optional When nothing
 	 * is specified a list of all your license will be returned.
 	 *
 	 * @param string $key (Optional) The License KEY to get the details of that particular License
-	 * @param string $ip (Optional) The Primary IP of a License to get the details of that particular License
+	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param string $expiry (Optional) To get a List of License that are expiring. Valid Options - 1 , 2 , 3 . Explanation is as follows: $expiry = 1; (All Expired License in your account) $expiry = 2; (Expiring in 7 Days) $expiry = 3; (Expiring in 15 Days)
 	 * @param int $start
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @param string $email
 	 * @return false|array
 	 */
-	public function virt_licenses($key = '', $ip = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
+	public function virt_licenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'virtualizor';
 		$this->params['lickey'] = $key;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['expiry'] = $expiry;
 		$this->params['start'] = '(Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99';
 		$this->params['len'] = $len;
@@ -620,19 +620,19 @@ class SOFT_NOC {
 
 
 	/**
-	 * NOTE: 1) Either of $ip, $key needs to be specified
+	 * NOTE: 1) Either of $ipAddress, $key needs to be specified
 	 *		 2) A cancel will not be allowed if you have a license expiring
 	 *				after MORE than a MONTH.
 	 *		 3) We will try to refund you if the license is purchased less than 7 days ago. And then we will cancel the license.
 	 * refund virtualizor license and then remove virtualizor license and its auto renewal
 	 * @param string $key (Optional) The License KEY
-	 * @param string $ip (Optional) The Primary IP of the License
+	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function virt_refund_and_cancel($key = '', $ip = '') {
-		if (!empty($ip)) {
+	public function virt_refund_and_cancel($key = '', $ipAddress = '') {
+		if (!empty($ipAddress)) {
 			// Search for a license
-			$lic = $this->virt_licenses('', $ip);
+			$lic = $this->virt_licenses('', $ipAddress);
 			// No licenses with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
@@ -664,7 +664,7 @@ class SOFT_NOC {
 
 	/**
 	 * Edit the IPs of a Virtualizor License
-	 * NOTE: Either of $ip, $key needs to be specified
+	 * NOTE: Either of $ipAddress, $key needs to be specified
 	 *
 	 * @param $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param $ips The NEW IP of the server
@@ -684,13 +684,13 @@ class SOFT_NOC {
 	 *
 	 * @param $key The License KEY
 	 * @param int $limit The number of action logs to be retrieved
-	 * @param string $ip The License IP
+	 * @param string $ipAddress The License IP
 	 * @return false|array
 	 */
-	public function virt_licenselogs($key, $limit = 0, $ip = '') {
+	public function virt_licenselogs($key, $limit = 0, $ipAddress = '') {
 		$this->params['ca'] = 'virtualizor_licenselogs';
 		$this->params['key'] = $key;
-		$this->params['licip'] = $ip;
+		$this->params['licip'] = $ipAddress;
 		if (!empty($limit))
 			$this->params['limit'] = $limit;
 		return $this->req();
@@ -698,19 +698,19 @@ class SOFT_NOC {
 
 	/**
 	 * List the Auto Renewing Virtualizor Licenses
-	 * NOTE: $key, $ip, $start, $len (i.e. All Params) are Optional When nothing is
+	 * NOTE: $key, $ipAddress, $start, $len (i.e. All Params) are Optional When nothing is
 	 * 		specified a list of all your licenses under auto renewals will be returned.
 	 *
 	 * @param string $key (Optional) The License KEY to get the details of that particular License
-	 * @param string $ip (Optional) The Primary IP of a License to get the details of that particular License
+	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @return false|array
 	 */
-	public function virt_renewals($key = '', $ip = '', $start = 0, $len = 1000000) {
+	public function virt_renewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'virtualizor_renewals';
 		$this->params['lickey'] = $key;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['start'] = $start;
 		$this->params['len'] = $len;
 		return $this->req();
@@ -750,15 +750,15 @@ class SOFT_NOC {
 	/**
 	 * To Buy or Renew a License
 	 *
-	 * @param string $ip The IP of the license to be Purchased or Renewed
+	 * @param string $ipAddress The IP of the license to be Purchased or Renewed
 	 * @param string $toadd Time to extend. Valid extension e.g. - '1M' will extend by one months - '3M' will extend by three months - '6M' will extend by six months - '9M' will extend by nine months - '1Y' will extend by One year - '2Y' will extend by Two year - '3Y' will extend by Three year
 	 * @param int $autorenew To be renewed Automatically before expiry. Values - 1 for true   0 (i.e. any empty value) or 2 for false    Emails will be sent when renewed.
 	 * @return false|array
 	 */
-	public function sitemush_buy($ip, $toadd, $autorenew) {
+	public function sitemush_buy($ipAddress, $toadd, $autorenew) {
 		$this->params['ca'] = 'sitemush_buy';
 		$this->params['purchase'] = 1;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['toadd'] = $toadd;
 		$this->params['autorenew'] = $autorenew;
 		return $this->req();
@@ -778,20 +778,20 @@ class SOFT_NOC {
 
 	/**
 	 * gets a list of SiteMush licenses
-	 * NOTE: $key, $ip, $expiry, $start, $len (i.e. All Paras) are Optional When
+	 * NOTE: $key, $ipAddress, $expiry, $start, $len (i.e. All Paras) are Optional When
 	 * nothing is specified a list of all your license will be returned.
 	 *
 	 * @param string $key (Optional) The License KEY to get the details of that particular License
-	 * @param string $ip (Optional) The Primary IP of a License to get the details of that particular License
+	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param string $expiry (Optional) To get a List of License that are expiring. Valid Options - 1 , 2 , 3 . Explanation is as follows:  $expiry = 1; (All Expired License in your account)   $expiry = 2; (Expiring in 7 Days)  $expiry = 3; (Expiring in 15 Days)
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g.  If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify  $start = 99 and $len = 200
 	 * @param string $email (Optional) The authorised email of the user for which you want to get the list of licenses.
 	 */
-	public function sitemush_licenses($key = '', $ip = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
+	public function sitemush_licenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'sitemush';
 		$this->params['lickey'] = $key;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['expiry'] = $expiry;
 		$this->params['start'] = $start;
 		$this->params['len'] = $len;
@@ -816,17 +816,17 @@ class SOFT_NOC {
 
 	/**
 	 * refund SiteMush license and then remove SiteMush license and its auto renewal
-	 * NOTE: 1) Either of $ip, $key needs to be specified
+	 * NOTE: 1) Either of $ipAddress, $key needs to be specified
 	 *			  2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
 	 *			  3) We will try to refund you if the license is purchased less than 7 days ago. And then we will cancel the license.
 	 *
 	 * @param string $key (Optional) The License KEY
-	 * @param string $ip (Optional) The Primary IP of the License
+	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 */
-	public function sitemush_refund_and_cancel($key = '', $ip = '') {
-		if (!empty($ip)) {
+	public function sitemush_refund_and_cancel($key = '', $ipAddress = '') {
+		if (!empty($ipAddress)) {
 			// Search for a license
-			$lic = $this->sitemush_licenses('', $ip);
+			$lic = $this->sitemush_licenses('', $ipAddress);
 			// No licenes with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
@@ -859,7 +859,7 @@ class SOFT_NOC {
 
 	/**
 	 * Edit the IPs of a SiteMush License
-	 * NOTE: Either of $ip, $key needs to be specified
+	 * NOTE: Either of $ipAddress, $key needs to be specified
 	 *
 	 * @param string|int $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param string|array $ips The NEW IP of the server
@@ -878,12 +878,12 @@ class SOFT_NOC {
 	 *
 	 * @param string $key The License KEY
 	 * @param int $limit The number of action logs to be retrieved
-	 * @param string$ip The License IP
+	 * @param string$ipAddress The License IP
 	 */
-	public function sitemush_licenselogs($key, $limit = 0, $ip = '') {
+	public function sitemush_licenselogs($key, $limit = 0, $ipAddress = '') {
 		$this->params['ca'] = 'sitemush_licenselogs';
 		$this->params['key'] = $key;
-		$this->params['licip'] = $ip;
+		$this->params['licip'] = $ipAddress;
 		if (!empty($limit)) {
 			$this->params['limit'] = $limit;
 		}
@@ -892,18 +892,18 @@ class SOFT_NOC {
 
 	/**
 	 * List the Auto Renewing SiteMush Licenses
-	 * NOTE: $key, $ip, $start, $len (i.e. All Params) are Optional When nothing
+	 * NOTE: $key, $ipAddress, $start, $len (i.e. All Params) are Optional When nothing
 	 * is specified a list of all your licenses under auto renewals will be returned.
 	 *
 	 * @param string $key (Optional) The License KEY to get the details of that particular License
-	 * @param string $ip (Optional) The Primary IP of a License to get the details of that particular License
+	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from  the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from  the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 */
-	public function sitemush_renewals($key = '', $ip = '', $start = 0, $len = 1000000) {
+	public function sitemush_renewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'sitemush_renewals';
 		$this->params['lickey'] = $key;
-		$this->params['ips'] = $ip;
+		$this->params['ips'] = $ipAddress;
 		$this->params['start'] = $start;
 		$this->params['len'] = $len;
 		return $this->req();

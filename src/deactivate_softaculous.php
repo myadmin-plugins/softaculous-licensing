@@ -10,15 +10,15 @@
  */
 
 /**
- * @param $ip
+ * @param $ipAddress
  * @return bool
  */
-function deactivate_softaculous($ip) {
-	myadmin_log('softaculous', 'info', 'deactivating softaculous($ip)', __LINE__, __FILE__);
+function deactivate_softaculous($ipAddress) {
+	myadmin_log('softaculous', 'info', 'deactivating softaculous($ipAddress)', __LINE__, __FILE__);
 	try {
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 		// Buy / renew a License
-		$matches = $noc->licenses('', $ip);
+		$matches = $noc->licenses('', $ipAddress);
 		$need = TRUE;
 		if ($matches['num_results'] > 0) {
 			foreach ($matches['licenses'] as $lid => $ldata) {
@@ -27,7 +27,7 @@ function deactivate_softaculous($ip) {
 				myadmin_log('softaculous', 'info', 'noc response '.json_encode($noc->response), __LINE__, __FILE__);
 			}
 		}
-		//myadmin_log('softaculous', 'info', "noc->cancel('','$ip') = " . json_encode($noc->cancel('', $ip)), __LINE__, __FILE__);
+		//myadmin_log('softaculous', 'info', "noc->cancel('','$ipAddress') = " . json_encode($noc->cancel('', $ipAddress)), __LINE__, __FILE__);
 		//myadmin_log('softaculous', 'info', "noc response " . json_encode($noc->response), __LINE__, __FILE__);
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);

@@ -12,20 +12,20 @@
 /**
  * activate_webuzo()
  *
- * @param mixed $ip
+ * @param mixed $ipAddress
  * @param mixed $field
  * @param mixed $email
  * @return boolean
  */
-function activate_webuzo($ip, $field = '', $email = '') {
-	myadmin_log('softaculous', 'info', "activating webuzo({$ip}, {$field}, {$email})", __LINE__, __FILE__);
+function activate_webuzo($ipAddress, $field = '', $email = '') {
+	myadmin_log('softaculous', 'info', "activating webuzo({$ipAddress}, {$field}, {$email})", __LINE__, __FILE__);
 	try {
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 		// Buy / renew a License
-		$matches = $noc->webuzo_licenses('', $ip);
+		$matches = $noc->webuzo_licenses('', $ipAddress);
 		$need = TRUE;
 		if ($matches['num_results'] > 0) {
-			myadmin_log('softaculous', 'info', "Found Existing webuzo licenses on {$ip}, scanning them", __LINE__, __FILE__);
+			myadmin_log('softaculous', 'info', "Found Existing webuzo licenses on {$ipAddress}, scanning them", __LINE__, __FILE__);
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				if ($ldata['type'] == $field) {
 					myadmin_log('softaculous', 'info', 'Found matching license type, skipping creating a new one', __LINE__, __FILE__);
@@ -37,9 +37,9 @@ function activate_webuzo($ip, $field = '', $email = '') {
 			}
 		}
 		if ($need == TRUE) {
-			$response = $noc->webuzo_buy($ip, '1M', $field, $email, 1);
+			$response = $noc->webuzo_buy($ipAddress, '1M', $field, $email, 1);
 			if ($response === FALSE) {
-				myadmin_log('softaculous', 'error', "webuzo->buy({$ip}, 1M, {$field}, {$email}) failed with error".json_encode($noc->error), __LINE__, __FILE__);
+				myadmin_log('softaculous', 'error', "webuzo->buy({$ipAddress}, 1M, {$field}, {$email}) failed with error".json_encode($noc->error), __LINE__, __FILE__);
 				$output = $noc->error;
 			} else
 				myadmin_log('softaculous', 'info', 'webuzo order output '.json_encode($response), __LINE__, __FILE__);

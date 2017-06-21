@@ -10,11 +10,11 @@
  */
 
 /**
- * @param string $ip
+ * @param string $ipAddress
  * @return false|array
  */
-function get_softaculous_licenses($ip = '') {
+function get_softaculous_licenses($ipAddress = '') {
 	$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-	return $noc->licenses('', $ip);
+	return $noc->licenses('', $ipAddress);
 }
 

@@ -31,11 +31,11 @@
 	{
 		$email = $license['authemail'];
 		$key = $license['license'];
-		$ip = $license['ip'];
+		$ipAddress = $license['ip'];
 		$custid = $GLOBALS['tf']->accounts->cross_reference($email);
 		if ($custid === FALSE)
 		{
-			echo "Couldnt match up {$email} for license ip {$ip} key {$key} to customer id\n";
+			echo "Couldnt match up {$email} for license ip {$ipAddress} key {$key} to customer id\n";
 			continue;
 		}
 		$esc_email = $db->real_escape($email);
@@ -43,7 +43,7 @@
 		{
 			$hostname = trim($license['hostname']);
 			$esc_hostname = $db->real_escape($hostname);
-			$query = "update licenses set license_hostname='{$hostname}' where license_ip='{$ip}'";
+			$query = "update licenses set license_hostname='{$hostname}' where license_ip='{$ipAddress}'";
 			if ($custid !== FALSE)
 			{
 				$query .= " and license_custid={$custid}";
@@ -55,7 +55,7 @@
 			$hostdates++;
 			$db->query($query);
 		}
-		$db->query("select * from licenses where license_custid={$custid} and license_ip='{$ip}' and license_type in (select services_id from services where services_category={$softaculous_type} and services_module='{$module}')", __LINE__, __FILE__);
+		$db->query("select * from licenses where license_custid={$custid} and license_ip='{$ipAddress}' and license_type in (select services_id from services where services_category={$softaculous_type} and services_module='{$module}')", __LINE__, __FILE__);
 		$status = 'unknown';
 		while ($db->next_record(MYSQL_ASSOC))
 		{
@@ -70,13 +70,13 @@
 		}
 		if ($status == 'unknown')
 		{
-			echo "Couldnt find any order for Softaculous License {$ip}\n";
+			echo "Couldnt find any order for Softaculous License {$ipAddress}\n";
 			$unknowns++;
 		}
 		elseif ($status != 'active')
 		{
-			echo "I wanted to cancel with refund {$ip} {$key}\n";
-			deactivate_softaculous($ip);
+			echo "I wanted to cancel with refund {$ipAddress} {$key}\n";
+			deactivate_softaculous($ipAddress);
 			$cancels++;
 		}
 		else

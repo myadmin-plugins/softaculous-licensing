@@ -12,20 +12,20 @@
 /**
  * activate_softaculous()
  *
- * @param mixed $ip
+ * @param mixed $ipAddress
  * @param mixed $field
  * @param mixed $email
  * @return boolean
  */
-function activate_softaculous($ip, $field, $email) {
-	myadmin_log('softaculous', 'info', "activating softaculous({$ip}, {$field}, {$email})", __LINE__, __FILE__);
+function activate_softaculous($ipAddress, $field, $email) {
+	myadmin_log('softaculous', 'info', "activating softaculous({$ipAddress}, {$field}, {$email})", __LINE__, __FILE__);
 	try {
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 		// Buy / renew a License
-		$matches = $noc->licenses('', $ip);
+		$matches = $noc->licenses('', $ipAddress);
 		$need = TRUE;
 		if ($matches['num_results'] > 0) {
-			myadmin_log('softaculous', 'info', "Found Existing Softaculous licenses on {$ip}, scanning them", __LINE__, __FILE__);
+			myadmin_log('softaculous', 'info', "Found Existing Softaculous licenses on {$ipAddress}, scanning them", __LINE__, __FILE__);
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				if ($ldata['type'] == $field) {
 					myadmin_log('softaculous', 'info', 'Found matching license type, skipping creating a new one', __LINE__, __FILE__);
@@ -37,7 +37,7 @@ function activate_softaculous($ip, $field, $email) {
 			}
 		}
 		if ($need == TRUE) {
-			$response = $noc->buy($ip, '1M', $field, $email, 1);
+			$response = $noc->buy($ipAddress, '1M', $field, $email, 1);
 			$output = print_r($response, TRUE);
 			myadmin_log('softaculous', 'info', 'Softaculous order output '.str_replace("\n", '', $output), __LINE__, __FILE__);
 		}
