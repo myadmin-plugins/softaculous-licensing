@@ -163,12 +163,12 @@ class SOFT_NOC {
 		if ($key == '' && $ipAddress != '')
 			$key = $this->ip_to_key($ipAddress);
 		$logs = $this->licenselogs($key);
-		$oldest_action = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_sub(NULL, 'INTERVAL 7 DAY')));
-		$oldest_expire = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_add(NULL, 'INTERVAL 1 MONTH')));
+		$oldestAction = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_sub(NULL, 'INTERVAL 7 DAY')));
+		$oldestExpire = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_add(NULL, 'INTERVAL 1 MONTH')));
 		//myadmin_log('licenses', 'info', "noc->licenselogs({$key}) = " . json_encode($logs), __LINE__, __FILE__);
 		if (isset($logs['actions']))
 			foreach ($logs['actions'] as $actid => $adata)
-				if ($adata['date'] >= $oldest_action || $logs['license']['expires'] >= $oldest_expire)
+				if ($adata['date'] >= $oldestAction || $logs['license']['expires'] >= $oldestExpire)
 					myadmin_log('licenses', 'info', "noc->refund({$actid}) = ".json_encode($this->refund($actid)), __LINE__, __FILE__);
 				myadmin_log('licenses', 'info', "noc->cancel('{$key}','{$ipAddress}') = ".json_encode($this->cancel($key, $ipAddress)), __LINE__, __FILE__);
 		//myadmin_log('licenses', 'info', "noc->cancel response " . json_encode($this->response), __LINE__, __FILE__);
@@ -211,8 +211,8 @@ class SOFT_NOC {
 				$this->error[] = 'No Licenses found.';
 				return FALSE;
 			}
-			$my_lic = current(current($lic));
-			$key = $my_lic['license'];
+			$myLicense = current(current($lic));
+			$key = $myLicense['license'];
 		}
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
@@ -413,8 +413,8 @@ class SOFT_NOC {
 				$this->error[] = 'No Licenses found.';
 				return FALSE;
 			}
-			$my_lic = current(current($lic));
-			$key = $my_lic['license'];
+			$myLicense = current(current($lic));
+			$key = $myLicense['license'];
 		}
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
@@ -628,8 +628,8 @@ class SOFT_NOC {
 				$this->error[] = 'No Licenses found.';
 				return FALSE;
 			}
-			$my_lic = current(current($lic));
-			$key = $my_lic['license'];
+			$myLicense = current(current($lic));
+			$key = $myLicense['license'];
 		}
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
@@ -822,8 +822,8 @@ class SOFT_NOC {
 				$this->error[] = 'No Licenses found.';
 				return FALSE;
 			}
-			$my_lic = current(current($lic));
-			$key = $my_lic['license'];
+			$myLicense = current(current($lic));
+			$key = $myLicense['license'];
 		}
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
@@ -965,8 +965,8 @@ function array2json($arr) {
 
 	//Find out if the given array is a numerical array
 	$keys = array_keys($arr);
-	$max_length = count($arr) - 1;
-	if (($keys[0] == 0) and ($keys[$max_length] == $max_length)) {//See if the first key is 0 and last key is length - 1
+	$maxLength = count($arr) - 1;
+	if (($keys[0] == 0) and ($keys[$maxLength] == $maxLength)) {//See if the first key is 0 and last key is length - 1
 		$isList = TRUE;
 		for ($i = 0, $iMax = count($keys); $i < $iMax; $i++) { //See if each key corresponds to its position
 			if ($i != $keys[$i]) { //A key fails at position check.
