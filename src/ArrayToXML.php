@@ -54,9 +54,9 @@ class ArrayToXML
 		return $xml->asXML();
 		// if you want the XML to be formatted, use the below instead to return the XML
 		//$doc = new DOMDocument('1.0');
-		//$doc->preserveWhiteSpace = false;
+		//$doc->preserveWhiteSpace = FALSE;
 		//$doc->loadXML( $xml->asXML() );
-		//$doc->formatOutput = true;
+		//$doc->formatOutput = TRUE;
 		//return $doc->saveXML();
 	}
 

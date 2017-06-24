@@ -43,7 +43,7 @@ class SOFT_NOC {
 
 	/**
 	 * Handles the API curl Call, parsing the response and storing it
-	 * @return false|array false if there was an error (setting  $this->error or returning the response)
+	 * @return FALSE|array FALSE if there was an error (setting  $this->error or returning the response)
 	 */
 	public function req() {
 		$url = $this->softaculous.'?';
@@ -87,8 +87,8 @@ class SOFT_NOC {
 	 * @param string $toadd Time to extend. Valid extension e.g. '1M' will extend by one months  '8M' will extend by eight months  '1Y' will extend by One year
 	 * @param mixed $servertype 1 for Dedicated and 2 for VPS
 	 * @param mixed $authemail When a new license is purchased an Authorisation email is required to verify the owner of the License or for reminders when the license is expiring. This is not required in case of renewals
-	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for true   0 (i.e. any empty value) or 2 for false   Emails will be sent when renewed.
-	 * @return false|array
+	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for TRUE   0 (i.e. any empty value) or 2 for FALSE   Emails will be sent when renewed.
+	 * @return FALSE|array
 	 */
 	public function buy($ipAddress, $toadd, $servertype, $authemail, $autorenew) {
 		$this->params['ca'] = 'softaculous_buy';
@@ -106,7 +106,7 @@ class SOFT_NOC {
 	 * NOTE: A refund can be claimed only within 7 days of buying/renewing the license
 	 *
 	 * @param mixed $actid The Action ID for which you want to claim refund
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function refund($actid) {
 		$this->params['ca'] = 'softaculous_refund';
@@ -126,7 +126,7 @@ class SOFT_NOC {
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @param string $email (Optional) The authorised email of the user for which  you want to get the list of licenses.
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function licenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'softaculous';
@@ -182,7 +182,7 @@ class SOFT_NOC {
 	 *
 	 * @param string $key (Optional) The License KEY
 	 * @param string $ipAddress (Optional) The Primary IP of the License
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function cancel($key = '', $ipAddress = '') {
 		$this->params['ca'] = 'softaculous_cancel';
@@ -241,7 +241,7 @@ class SOFT_NOC {
 	 *
 	 * @param int $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param string|array $ips The list of IPs of the same VPS / Server. The first IP you enter will be the primary IP Address of the License. You can enter up to a maximum of 8 IP Address per license.
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function editips($lid, $ips) {
 		$this->params['ca'] = 'softaculous_showlicense';
@@ -258,7 +258,7 @@ class SOFT_NOC {
 	 * @param string $key The License KEY
 	 * @param int $limit The number of action logs to be retrieved
 	 * @param string $ipAddress The License IP
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function licenselogs($key, $limit = 0, $ipAddress = '') {
 		$this->params['ca'] = 'softaculous_licenselogs';
@@ -278,7 +278,7 @@ class SOFT_NOC {
 	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of  that particular License
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function autorenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'softaculous_renewals';
@@ -293,7 +293,7 @@ class SOFT_NOC {
 	 * Add Auto Renewals
 	 *
 	 * @param string $key The License KEY to get the details of that particular License
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function addautorenewal($key = '') {
 		$this->params['ca'] = 'softaculous_renewals';
@@ -306,7 +306,7 @@ class SOFT_NOC {
 	 * Remove Auto Renewals
 	 *
 	 * @param string $key The License KEY to get the details of that particular License
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function removeautorenewal($key = '') {
 		$this->params['ca'] = 'softaculous_renewals';
@@ -326,8 +326,8 @@ class SOFT_NOC {
 	 * @param string $toadd Time to extend. Valid extension e.g.  '1M' will extend by one months     '8M' will extend by eight months     '1Y' will extend by One year
 	 * @param int $servertype 1 for Dedicated and 2 for VPS
 	 * @param string $authemail When a new license is purchased an Authorisation email is required to verify the owner of the License or for reminders when the license is expiring. This is not required in case of renewals
-	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for true    0 (i.e. any empty value) or 2 for false     Emails will be sent when renewed.
-	 * @return false|array
+	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for TRUE    0 (i.e. any empty value) or 2 for FALSE     Emails will be sent when renewed.
+	 * @return FALSE|array
 	 */
 	public function webuzoBuy($ipAddress, $toadd, $servertype, $authemail, $autorenew) {
 		$this->params['ca'] = 'webuzoBuy';
@@ -345,7 +345,7 @@ class SOFT_NOC {
 	 * NOTE: A refund can be claimed only within 7 days of buying/renewing the license
 	 *
 	 * @param string $actid The Action ID for which you want to claim refund
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzoRefund($actid) {
 		$this->params['ca'] = 'webuzoRefund';
@@ -363,7 +363,7 @@ class SOFT_NOC {
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from  the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @param string $email (Optional) The authorised email of the user for which you want to get the list of licenses.
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzoLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'webuzo';
@@ -384,7 +384,7 @@ class SOFT_NOC {
 	 *
 	 * @param string $key (Optional) The License KEY
 	 * @param string $ipAddress (Optional) The Primary IP of the License
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzoCancel($key = '', $ipAddress = '') {
 		$this->params['ca'] = 'webuzoCancel';
@@ -443,7 +443,7 @@ class SOFT_NOC {
 	 *
 	 * @param $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param $ips The IP (SINGLE IP ONLY) of the VPS / Server. Unlike Softaculous only one IP is allowed here
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzoEditips($lid, $ips) {
 		$this->params['ca'] = 'webuzo_showlicense';
@@ -460,7 +460,7 @@ class SOFT_NOC {
 	 * @param string $key The License KEY
 	 * @param int $limit The number of action logs to be retrieved
 	 * @param string $ipAddress The License IP
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzoLicenselogs($key, $limit = 0, $ipAddress = '') {
 		$this->params['ca'] = 'webuzoLicenselogs';
@@ -480,7 +480,7 @@ class SOFT_NOC {
 	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzoAutorenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'webuzo_renewals';
@@ -495,7 +495,7 @@ class SOFT_NOC {
 	 * Add Auto Renewals
 	 *
 	 * @param string $key The License KEY that has to be added to Auto Renewal
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzoAddautorenewal($key = '') {
 		$this->params['ca'] = 'webuzo_renewals';
@@ -508,7 +508,7 @@ class SOFT_NOC {
 	 * Remove Auto Renewals\
 	 *
 	 * @param string $key The License KEY that has to be removed from Auto Renewal
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzoRemoveautorenewal($key = '') {
 		$this->params['ca'] = 'webuzo_renewals';
@@ -522,7 +522,7 @@ class SOFT_NOC {
 	 *
 	 * @param $ipAddress The IP that has to be licensed with a TRIAL License
 	 * @param $servertype Whether its a VPS or a Dedicated Server License
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function webuzotrial($ipAddress, $servertype) {
 		$this->params['ca'] = 'webuzotrial';
@@ -542,8 +542,8 @@ class SOFT_NOC {
 	 *
 	 * @param string $ipAddress = The IP of the license to be Purchased or Renewed
 	 * @param string $toadd Time to extend. Valid extension e.g.  - '1M' will extend by one months - '8M' will extend by eight months - '1Y' will extend by One year
-	 * @param int $autorenew To be renewed Automatically before expiry.  Values - 1 for true    0 for false.
-	 * @return false|array
+	 * @param int $autorenew To be renewed Automatically before expiry.  Values - 1 for TRUE    0 for FALSE.
+	 * @return FALSE|array
 	 */
 	public function virtBuy($ipAddress, $toadd, $autorenew) {
 		$this->params['ca'] = 'virtualizor_buy';
@@ -559,7 +559,7 @@ class SOFT_NOC {
 	 * NOTE: A refund can be claimed only within 7 days of buying/renewing the license
 	 *
 	 * @param $actid The Action ID for which you want to claim refund
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function virtRefund($actid) {
 		$this->params['ca'] = 'virtualizor_refund';
@@ -578,7 +578,7 @@ class SOFT_NOC {
 	 * @param int $start
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @param string $email
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function virtLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'virtualizor';
@@ -599,7 +599,7 @@ class SOFT_NOC {
 	 *       3) Also a refund is not made when you cancel a license. You must first claim the refund using the refund() API
 	 *
 	 * @param string $key The License KEY
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function virtRemove($key) {
 		$this->params['ca'] = 'virtualizor_cancel';
@@ -658,7 +658,7 @@ class SOFT_NOC {
 	 *
 	 * @param $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param $ips The NEW IP of the server
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function virtEditips($lid, $ips) {
 		$this->params['ca'] = 'virtualizor_showlicense';
@@ -675,7 +675,7 @@ class SOFT_NOC {
 	 * @param $key The License KEY
 	 * @param int $limit The number of action logs to be retrieved
 	 * @param string $ipAddress The License IP
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function virtLicenselogs($key, $limit = 0, $ipAddress = '') {
 		$this->params['ca'] = 'virtualizor_licenselogs';
@@ -695,7 +695,7 @@ class SOFT_NOC {
 	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function virtRenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'virtualizor_renewals';
@@ -710,7 +710,7 @@ class SOFT_NOC {
 	 * Add Virtualizor Auto Renewals
 	 *
 	 * @param string $key The License KEY that has to be added to Auto Renewal
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function virtAddautorenewal($key = '') {
 		$this->params['ca'] = 'virtualizor_renewals';
@@ -723,7 +723,7 @@ class SOFT_NOC {
 	 * Remove Virtualizor Auto Renewals
 	 *
 	 * @param string $key The License KEY that has to be removed from Auto Renewal
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function virtRemoveautorenewal($key = '') {
 		$this->params['ca'] = 'virtualizor_renewals';
@@ -742,8 +742,8 @@ class SOFT_NOC {
 	 *
 	 * @param string $ipAddress The IP of the license to be Purchased or Renewed
 	 * @param string $toadd Time to extend. Valid extension e.g. - '1M' will extend by one months - '3M' will extend by three months - '6M' will extend by six months - '9M' will extend by nine months - '1Y' will extend by One year - '2Y' will extend by Two year - '3Y' will extend by Three year
-	 * @param int $autorenew To be renewed Automatically before expiry. Values - 1 for true   0 (i.e. any empty value) or 2 for false    Emails will be sent when renewed.
-	 * @return false|array
+	 * @param int $autorenew To be renewed Automatically before expiry. Values - 1 for TRUE   0 (i.e. any empty value) or 2 for FALSE    Emails will be sent when renewed.
+	 * @return FALSE|array
 	 */
 	public function sitemushBuy($ipAddress, $toadd, $autorenew) {
 		$this->params['ca'] = 'sitemushBuy';
@@ -929,7 +929,7 @@ class SOFT_NOC {
 	 * Details of an invoice
 	 *
 	 * @param int $invoid The Invoice ID the details of which you want to see. If nothing is specified i.e. invoid = 0 then all unbilled transactions for the current month will be returned
-	 * @return false|array
+	 * @return FALSE|array
 	 */
 	public function invoicedetails($invoid = 0) {
 		$this->params['ca'] = 'invoicedetails';
