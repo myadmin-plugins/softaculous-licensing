@@ -60,10 +60,10 @@ class Plugin {
 
 	public static function getHooks() {
 		return [
-			'licenses.settings' => [__CLASS__, 'getSettings'],
-			'licenses.activate' => [__CLASS__, 'getActivate'],
-			'licenses.deactivate' => [__CLASS__, 'Deactivate'],
-			'licenses.change_ip' => [__CLASS__, 'ChangeIp'],
+			self::$module.'.settings' => [__CLASS__, 'getSettings'],
+			self::$module.'.activate' => [__CLASS__, 'getActivate'],
+			self::$module.'.deactivate' => [__CLASS__, 'Deactivate'],
+			self::$module.'.change_ip' => [__CLASS__, 'ChangeIp'],
 			'function.requirements' => [__CLASS__, 'getRequirements'],
 			'ui.menu' => [__CLASS__, 'getMenu'],
 		];
@@ -72,12 +72,12 @@ class Plugin {
 	public static function getActivate(GenericEvent $event) {
 		$license = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
-			myadmin_log('licenses', 'info', 'Softaculous Activation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'Softaculous Activation', __LINE__, __FILE__);
 			function_requirements('activate_softaculous');
 			activate_softaculous($license->get_ip(), $event['field1'], $event['email']);
 			$event->stopPropagation();
 		} elseif ($event['category'] == SERVICE_TYPES_WEBUZO) {
-			myadmin_log('licenses', 'info', 'Webuzo Activation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'Webuzo Activation', __LINE__, __FILE__);
 			function_requirements('activate_webuzo');
 			activate_webuzo($license->get_ip(), $event['field1'], $event['email']);
 			$event->stopPropagation();
@@ -87,12 +87,12 @@ class Plugin {
 	public static function Deactivate(GenericEvent $event) {
 		$license = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
-			myadmin_log('licenses', 'info', 'Softaculous Deactivation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'Softaculous Deactivation', __LINE__, __FILE__);
 			function_requirements('deactivate_softaculous');
 			deactivate_softaculous($license->get_ip());
 			$event->stopPropagation();
 		} elseif ($event['category'] == SERVICE_TYPES_WEBUZO) {
-			myadmin_log('licenses', 'info', 'Webuzo Deactivation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'Webuzo Deactivation', __LINE__, __FILE__);
 			function_requirements('deactivate_webuzo');
 			deactivate_webuzo($license->get_ip());
 			$event->stopPropagation();
@@ -102,11 +102,11 @@ class Plugin {
 	public static function ChangeIp(GenericEvent $event) {
 		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
 			$license = $event->getSubject();
-			$settings = get_module_settings('licenses');
-			myadmin_log('licenses', 'info', "IP Change - (OLD:".$license->get_ip().") (NEW:{$event['newip']})", __LINE__, __FILE__);
+			$settings = get_module_settings(self::$module);
+			myadmin_log(self::$module, 'info', "IP Change - (OLD:".$license->get_ip().") (NEW:{$event['newip']})", __LINE__, __FILE__);
 			function_requirements('get_softaculous_licenses');
 			$data = get_softaculous_licenses($license->get_ip());
-			$lid = array_keys($data['licenses']);
+			$lid = array_keys($data[self::$module]);
 			$lid = $lid[0];
 			$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 			if ($noc->editips($lid[0], $event['newip']) !== FALSE) {
@@ -124,7 +124,7 @@ class Plugin {
 
 	public static function getMenu(GenericEvent $event) {
 		$menu = $event->getSubject();
-		$module = 'licenses';
+		$module = self::$module;
 		if ($GLOBALS['tf']->ima == 'admin') {
 			$menu->add_link($module.'api', 'choice=none.softaculous_list', 'whm/createacct.gif', 'List all Softaculous Licenses');
 			$menu->add_link($module.'api', 'choice=none.webuzo_list', 'whm/createacct.gif', 'List all Webuzo Licenses');
@@ -145,11 +145,11 @@ class Plugin {
 
 	public static function getSettings(GenericEvent $event) {
 		$settings = $event->getSubject();
-		$settings->add_text_setting('licenses', 'Softaculous', 'softaculous_username', 'Softaculous Username:', 'Softaculous Username', $settings->get_setting('SOFTACULOUS_USERNAME'));
-		$settings->add_text_setting('licenses', 'Softaculous', 'softaculous_password', 'Softaculous Password:', 'Softaculous Password', $settings->get_setting('SOFTACULOUS_PASSWORD'));
-		$settings->add_text_setting('licenses', 'Softaculous', 'webuzo_username', 'Webuzo Username:', 'Webuzo Username', $settings->get_setting('WEBUZO_USERNAME'));
-		$settings->add_text_setting('licenses', 'Softaculous', 'webuzo_password', 'Webuzo Password:', 'Webuzo Password', $settings->get_setting('WEBUZO_PASSWORD'));
-		$settings->add_dropdown_setting('licenses', 'Softaculous', 'outofstock_licenses_softaculous', 'Out Of Stock Softaculous Licenses', 'Enable/Disable Sales Of This Type', $settings->get_setting('OUTOFSTOCK_LICENSES_SOFTACULOUS'), array('0', '1'), array('No', 'Yes',));
+		$settings->add_text_setting(self::$module, 'Softaculous', 'softaculous_username', 'Softaculous Username:', 'Softaculous Username', $settings->get_setting('SOFTACULOUS_USERNAME'));
+		$settings->add_text_setting(self::$module, 'Softaculous', 'softaculous_password', 'Softaculous Password:', 'Softaculous Password', $settings->get_setting('SOFTACULOUS_PASSWORD'));
+		$settings->add_text_setting(self::$module, 'Softaculous', 'webuzo_username', 'Webuzo Username:', 'Webuzo Username', $settings->get_setting('WEBUZO_USERNAME'));
+		$settings->add_text_setting(self::$module, 'Softaculous', 'webuzo_password', 'Webuzo Password:', 'Webuzo Password', $settings->get_setting('WEBUZO_PASSWORD'));
+		$settings->add_dropdown_setting(self::$module, 'Softaculous', 'outofstock_licenses_softaculous', 'Out Of Stock Softaculous Licenses', 'Enable/Disable Sales Of This Type', $settings->get_setting('OUTOFSTOCK_LICENSES_SOFTACULOUS'), array('0', '1'), array('No', 'Yes',));
 	}
 
 }
