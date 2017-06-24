@@ -8,589 +8,589 @@ use PHPUnit\Framework\TestCase;
  */
 class SOFT_NOCTest extends TestCase
 {
-    /**
-     * @var SOFT_NOC
-     */
-    protected $object;
+	/**
+	 * @var SOFT_NOC
+	 */
+	protected $object;
 
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-        $this->object = new SOFT_NOC;
-    }
+	/**
+	 * Sets up the fixture, for example, opens a network connection.
+	 * This method is called before a test is executed.
+	 */
+	protected function setUp()
+	{
+		$this->object = new SOFT_NOC(getenv('SOFTACULOUS_USERNAME'), getenv('SOFTACULOUS_PASSWORD'));
+	}
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
+	/**
+	 * Tears down the fixture, for example, closes a network connection.
+	 * This method is called after a test is executed.
+	 */
+	protected function tearDown()
+	{
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::req
-     * @todo   Implement testReq().
-     */
-    public function testReq()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::req
+	 * @todo   Implement testReq().
+	 */
+	public function testReq()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::APImyadmin_unstringify
-     * @todo   Implement testAPImyadmin_unstringify().
-     */
-    public function testAPImyadmin_unstringify()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::APImyadmin_unstringify
+	 * @todo   Implement testAPImyadmin_unstringify().
+	 */
+	public function testAPImyadmin_unstringify()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::buy
-     * @todo   Implement testBuy().
-     */
-    public function testBuy()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::buy
+	 * @todo   Implement testBuy().
+	 */
+	public function testBuy()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::refund
-     * @todo   Implement testRefund().
-     */
-    public function testRefund()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::refund
+	 * @todo   Implement testRefund().
+	 */
+	public function testRefund()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::licenses
-     * @todo   Implement testLicenses().
-     */
-    public function testLicenses()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::licenses
+	 * @todo   Implement testLicenses().
+	 */
+	public function testLicenses()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::ip_to_key
-     * @todo   Implement testIp_to_key().
-     */
-    public function testIp_to_key()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::ip_to_key
+	 * @todo   Implement testIp_to_key().
+	 */
+	public function testIp_to_key()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::cancel_with_refund
-     * @todo   Implement testCancel_with_refund().
-     */
-    public function testCancel_with_refund()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::cancel_with_refund
+	 * @todo   Implement testCancel_with_refund().
+	 */
+	public function testCancel_with_refund()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::cancel
-     * @todo   Implement testCancel().
-     */
-    public function testCancel()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::cancel
+	 * @todo   Implement testCancel().
+	 */
+	public function testCancel()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::refund_and_cancel
-     * @todo   Implement testRefund_and_cancel().
-     */
-    public function testRefund_and_cancel()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::refund_and_cancel
+	 * @todo   Implement testRefund_and_cancel().
+	 */
+	public function testRefund_and_cancel()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::editips
-     * @todo   Implement testEditips().
-     */
-    public function testEditips()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::editips
+	 * @todo   Implement testEditips().
+	 */
+	public function testEditips()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::licenselogs
-     * @todo   Implement testLicenselogs().
-     */
-    public function testLicenselogs()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::licenselogs
+	 * @todo   Implement testLicenselogs().
+	 */
+	public function testLicenselogs()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::autorenewals
-     * @todo   Implement testAutorenewals().
-     */
-    public function testAutorenewals()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::autorenewals
+	 * @todo   Implement testAutorenewals().
+	 */
+	public function testAutorenewals()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::addautorenewal
-     * @todo   Implement testAddautorenewal().
-     */
-    public function testAddautorenewal()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::addautorenewal
+	 * @todo   Implement testAddautorenewal().
+	 */
+	public function testAddautorenewal()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::removeautorenewal
-     * @todo   Implement testRemoveautorenewal().
-     */
-    public function testRemoveautorenewal()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::removeautorenewal
+	 * @todo   Implement testRemoveautorenewal().
+	 */
+	public function testRemoveautorenewal()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_buy
-     * @todo   Implement testWebuzo_buy().
-     */
-    public function testWebuzo_buy()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_buy
+	 * @todo   Implement testWebuzo_buy().
+	 */
+	public function testWebuzo_buy()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_refund
-     * @todo   Implement testWebuzo_refund().
-     */
-    public function testWebuzo_refund()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_refund
+	 * @todo   Implement testWebuzo_refund().
+	 */
+	public function testWebuzo_refund()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_licenses
-     * @todo   Implement testWebuzo_licenses().
-     */
-    public function testWebuzo_licenses()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_licenses
+	 * @todo   Implement testWebuzo_licenses().
+	 */
+	public function testWebuzo_licenses()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_cancel
-     * @todo   Implement testWebuzo_cancel().
-     */
-    public function testWebuzo_cancel()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_cancel
+	 * @todo   Implement testWebuzo_cancel().
+	 */
+	public function testWebuzo_cancel()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_refund_and_cancel
-     * @todo   Implement testWebuzo_refund_and_cancel().
-     */
-    public function testWebuzo_refund_and_cancel()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_refund_and_cancel
+	 * @todo   Implement testWebuzo_refund_and_cancel().
+	 */
+	public function testWebuzo_refund_and_cancel()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_editips
-     * @todo   Implement testWebuzo_editips().
-     */
-    public function testWebuzo_editips()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_editips
+	 * @todo   Implement testWebuzo_editips().
+	 */
+	public function testWebuzo_editips()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_licenselogs
-     * @todo   Implement testWebuzo_licenselogs().
-     */
-    public function testWebuzo_licenselogs()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_licenselogs
+	 * @todo   Implement testWebuzo_licenselogs().
+	 */
+	public function testWebuzo_licenselogs()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_autorenewals
-     * @todo   Implement testWebuzo_autorenewals().
-     */
-    public function testWebuzo_autorenewals()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_autorenewals
+	 * @todo   Implement testWebuzo_autorenewals().
+	 */
+	public function testWebuzo_autorenewals()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_addautorenewal
-     * @todo   Implement testWebuzo_addautorenewal().
-     */
-    public function testWebuzo_addautorenewal()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_addautorenewal
+	 * @todo   Implement testWebuzo_addautorenewal().
+	 */
+	public function testWebuzo_addautorenewal()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_removeautorenewal
-     * @todo   Implement testWebuzo_removeautorenewal().
-     */
-    public function testWebuzo_removeautorenewal()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_removeautorenewal
+	 * @todo   Implement testWebuzo_removeautorenewal().
+	 */
+	public function testWebuzo_removeautorenewal()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzotrial
-     * @todo   Implement testWebuzotrial().
-     */
-    public function testWebuzotrial()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzotrial
+	 * @todo   Implement testWebuzotrial().
+	 */
+	public function testWebuzotrial()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_buy
-     * @todo   Implement testVirt_buy().
-     */
-    public function testVirt_buy()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_buy
+	 * @todo   Implement testVirt_buy().
+	 */
+	public function testVirt_buy()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_refund
-     * @todo   Implement testVirt_refund().
-     */
-    public function testVirt_refund()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_refund
+	 * @todo   Implement testVirt_refund().
+	 */
+	public function testVirt_refund()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_licenses
-     * @todo   Implement testVirt_licenses().
-     */
-    public function testVirt_licenses()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_licenses
+	 * @todo   Implement testVirt_licenses().
+	 */
+	public function testVirt_licenses()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_remove
-     * @todo   Implement testVirt_remove().
-     */
-    public function testVirt_remove()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_remove
+	 * @todo   Implement testVirt_remove().
+	 */
+	public function testVirt_remove()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_refund_and_cancel
-     * @todo   Implement testVirt_refund_and_cancel().
-     */
-    public function testVirt_refund_and_cancel()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_refund_and_cancel
+	 * @todo   Implement testVirt_refund_and_cancel().
+	 */
+	public function testVirt_refund_and_cancel()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_editips
-     * @todo   Implement testVirt_editips().
-     */
-    public function testVirt_editips()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_editips
+	 * @todo   Implement testVirt_editips().
+	 */
+	public function testVirt_editips()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_licenselogs
-     * @todo   Implement testVirt_licenselogs().
-     */
-    public function testVirt_licenselogs()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_licenselogs
+	 * @todo   Implement testVirt_licenselogs().
+	 */
+	public function testVirt_licenselogs()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_renewals
-     * @todo   Implement testVirt_renewals().
-     */
-    public function testVirt_renewals()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_renewals
+	 * @todo   Implement testVirt_renewals().
+	 */
+	public function testVirt_renewals()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_addautorenewal
-     * @todo   Implement testVirt_addautorenewal().
-     */
-    public function testVirt_addautorenewal()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_addautorenewal
+	 * @todo   Implement testVirt_addautorenewal().
+	 */
+	public function testVirt_addautorenewal()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_removeautorenewal
-     * @todo   Implement testVirt_removeautorenewal().
-     */
-    public function testVirt_removeautorenewal()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_removeautorenewal
+	 * @todo   Implement testVirt_removeautorenewal().
+	 */
+	public function testVirt_removeautorenewal()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_buy
-     * @todo   Implement testSitemush_buy().
-     */
-    public function testSitemush_buy()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_buy
+	 * @todo   Implement testSitemush_buy().
+	 */
+	public function testSitemush_buy()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_refund
-     * @todo   Implement testSitemush_refund().
-     */
-    public function testSitemush_refund()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_refund
+	 * @todo   Implement testSitemush_refund().
+	 */
+	public function testSitemush_refund()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_licenses
-     * @todo   Implement testSitemush_licenses().
-     */
-    public function testSitemush_licenses()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_licenses
+	 * @todo   Implement testSitemush_licenses().
+	 */
+	public function testSitemush_licenses()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_remove
-     * @todo   Implement testSitemush_remove().
-     */
-    public function testSitemush_remove()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_remove
+	 * @todo   Implement testSitemush_remove().
+	 */
+	public function testSitemush_remove()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_refund_and_cancel
-     * @todo   Implement testSitemush_refund_and_cancel().
-     */
-    public function testSitemush_refund_and_cancel()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_refund_and_cancel
+	 * @todo   Implement testSitemush_refund_and_cancel().
+	 */
+	public function testSitemush_refund_and_cancel()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_editips
-     * @todo   Implement testSitemush_editips().
-     */
-    public function testSitemush_editips()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_editips
+	 * @todo   Implement testSitemush_editips().
+	 */
+	public function testSitemush_editips()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_licenselogs
-     * @todo   Implement testSitemush_licenselogs().
-     */
-    public function testSitemush_licenselogs()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_licenselogs
+	 * @todo   Implement testSitemush_licenselogs().
+	 */
+	public function testSitemush_licenselogs()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_renewals
-     * @todo   Implement testSitemush_renewals().
-     */
-    public function testSitemush_renewals()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_renewals
+	 * @todo   Implement testSitemush_renewals().
+	 */
+	public function testSitemush_renewals()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_addautorenewal
-     * @todo   Implement testSitemush_addautorenewal().
-     */
-    public function testSitemush_addautorenewal()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_addautorenewal
+	 * @todo   Implement testSitemush_addautorenewal().
+	 */
+	public function testSitemush_addautorenewal()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_removeautorenewal
-     * @todo   Implement testSitemush_removeautorenewal().
-     */
-    public function testSitemush_removeautorenewal()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_removeautorenewal
+	 * @todo   Implement testSitemush_removeautorenewal().
+	 */
+	public function testSitemush_removeautorenewal()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::invoicedetails
-     * @todo   Implement testInvoicedetails().
-     */
-    public function testInvoicedetails()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::invoicedetails
+	 * @todo   Implement testInvoicedetails().
+	 */
+	public function testInvoicedetails()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 
-    /**
-     * @covers Detain\MyAdminSoftaculous\SOFT_NOC::r
-     * @todo   Implement testR().
-     */
-    public function testR()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
+	/**
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::r
+	 * @todo   Implement testR().
+	 */
+	public function testR()
+	{
+		// Remove the following lines when you implement this test.
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
 }
