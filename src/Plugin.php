@@ -64,7 +64,7 @@ class Plugin {
 			'licenses.activate' => [__CLASS__, 'Activate'],
 			'licenses.deactivate' => [__CLASS__, 'Deactivate'],
 			'licenses.change_ip' => [__CLASS__, 'ChangeIp'],
-			'function.requirements' => [__CLASS__, 'Requirements'],
+			'function.requirements' => [__CLASS__, 'getRequirements'],
 			'ui.menu' => [__CLASS__, 'Menu'],
 		];
 	}
@@ -131,7 +131,7 @@ class Plugin {
 		}
 	}
 
-	public static function Requirements(GenericEvent $event) {
+	public static function getRequirements(GenericEvent $event) {
 		$loader = $event->getSubject();
 		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
 		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
