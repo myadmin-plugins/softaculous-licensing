@@ -18,7 +18,7 @@ function deactivate_webuzo($ipAddress) {
 	try {
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 		// Buy / renew a License
-		$matches = $noc->webuzo_licenses('', $ipAddress);
+		$matches = $noc->webuzoLicenses('', $ipAddress);
 		$need = TRUE;
 		if ($matches['num_results'] > 0) {
 			foreach ($matches['licenses'] as $lid => $ldata) {

@@ -22,7 +22,7 @@ function activate_webuzo($ipAddress, $field = '', $email = '') {
 	try {
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 		// Buy / renew a License
-		$matches = $noc->webuzo_licenses('', $ipAddress);
+		$matches = $noc->webuzoLicenses('', $ipAddress);
 		$need = TRUE;
 		if ($matches['num_results'] > 0) {
 			myadmin_log('softaculous', 'info', "Found Existing webuzo licenses on {$ipAddress}, scanning them", __LINE__, __FILE__);
@@ -32,12 +32,12 @@ function activate_webuzo($ipAddress, $field = '', $email = '') {
 					$need = FALSE;
 				} else {
 					myadmin_log('softaculous', 'info', "Found different webuzo license type {$ldata['type']}, canceling {$lid}", __LINE__, __FILE__);
-					$noc->webuzo_cancel($ldata['license']);
+					$noc->webuzoCancel($ldata['license']);
 				}
 			}
 		}
 		if ($need == TRUE) {
-			$response = $noc->webuzo_buy($ipAddress, '1M', $field, $email, 1);
+			$response = $noc->webuzoBuy($ipAddress, '1M', $field, $email, 1);
 			if ($response === FALSE) {
 				myadmin_log('softaculous', 'error', "webuzo->buy({$ipAddress}, 1M, {$field}, {$email}) failed with error".json_encode($noc->error), __LINE__, __FILE__);
 				$output = $noc->error;

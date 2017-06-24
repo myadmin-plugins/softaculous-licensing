@@ -14,8 +14,8 @@ function webuzo_list() {
 		$table = new TFTable;
 		$table->set_title('webuzo License List');
 		$header = FALSE;
-		function_requirements('get_webuzo_licenses');
-		$licenses = get_webuzo_licenses();
+		function_requirements('get_webuzoLicenses');
+		$licenses = get_webuzoLicenses();
 		foreach ($licenses['licenses'] as $lid => $data) {
 			if (!$header) {
 				foreach (array_keys($data) as $field)

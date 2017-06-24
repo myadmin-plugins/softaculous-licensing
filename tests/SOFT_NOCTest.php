@@ -199,7 +199,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_buy
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoBuy
 	 * @todo   Implement testWebuzo_buy().
 	 */
 	public function testWebuzo_buy()
@@ -211,7 +211,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_refund
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoRefund
 	 * @todo   Implement testWebuzo_refund().
 	 */
 	public function testWebuzo_refund()
@@ -223,7 +223,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_licenses
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoLicenses
 	 * @todo   Implement testWebuzo_licenses().
 	 */
 	public function testWebuzo_licenses()
@@ -235,7 +235,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_cancel
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoCancel
 	 * @todo   Implement testWebuzo_cancel().
 	 */
 	public function testWebuzo_cancel()
@@ -247,7 +247,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_refund_and_cancel
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoRefund_and_cancel
 	 * @todo   Implement testWebuzo_refund_and_cancel().
 	 */
 	public function testWebuzo_refund_and_cancel()
@@ -259,7 +259,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_editips
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoEditips
 	 * @todo   Implement testWebuzo_editips().
 	 */
 	public function testWebuzo_editips()
@@ -271,7 +271,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_licenselogs
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoLicenselogs
 	 * @todo   Implement testWebuzo_licenselogs().
 	 */
 	public function testWebuzo_licenselogs()
@@ -283,7 +283,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_autorenewals
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoAutorenewals
 	 * @todo   Implement testWebuzo_autorenewals().
 	 */
 	public function testWebuzo_autorenewals()
@@ -295,7 +295,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_addautorenewal
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoAddautorenewal
 	 * @todo   Implement testWebuzo_addautorenewal().
 	 */
 	public function testWebuzo_addautorenewal()
@@ -307,7 +307,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzo_removeautorenewal
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoRemoveautorenewal
 	 * @todo   Implement testWebuzo_removeautorenewal().
 	 */
 	public function testWebuzo_removeautorenewal()
@@ -331,7 +331,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_buy
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtBuy
 	 * @todo   Implement testVirt_buy().
 	 */
 	public function testVirt_buy()
@@ -343,7 +343,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_refund
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtRefund
 	 * @todo   Implement testVirt_refund().
 	 */
 	public function testVirt_refund()
@@ -355,7 +355,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_licenses
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtLicenses
 	 * @todo   Implement testVirt_licenses().
 	 */
 	public function testVirt_licenses()
@@ -379,7 +379,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_refund_and_cancel
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtRefund_and_cancel
 	 * @todo   Implement testVirt_refund_and_cancel().
 	 */
 	public function testVirt_refund_and_cancel()
@@ -391,7 +391,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_editips
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtEditips
 	 * @todo   Implement testVirt_editips().
 	 */
 	public function testVirt_editips()
@@ -403,7 +403,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_licenselogs
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtLicenselogs
 	 * @todo   Implement testVirt_licenselogs().
 	 */
 	public function testVirt_licenselogs()
@@ -427,7 +427,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_addautorenewal
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtAddautorenewal
 	 * @todo   Implement testVirt_addautorenewal().
 	 */
 	public function testVirt_addautorenewal()
@@ -439,7 +439,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_removeautorenewal
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtRemoveautorenewal
 	 * @todo   Implement testVirt_removeautorenewal().
 	 */
 	public function testVirt_removeautorenewal()
@@ -451,7 +451,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_buy
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushBuy
 	 * @todo   Implement testSitemush_buy().
 	 */
 	public function testSitemush_buy()
@@ -463,7 +463,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_refund
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushRefund
 	 * @todo   Implement testSitemush_refund().
 	 */
 	public function testSitemush_refund()
@@ -475,7 +475,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_licenses
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushLicenses
 	 * @todo   Implement testSitemush_licenses().
 	 */
 	public function testSitemush_licenses()
@@ -499,7 +499,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_refund_and_cancel
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushRefund_and_cancel
 	 * @todo   Implement testSitemush_refund_and_cancel().
 	 */
 	public function testSitemush_refund_and_cancel()
@@ -511,7 +511,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_editips
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushEditips
 	 * @todo   Implement testSitemush_editips().
 	 */
 	public function testSitemush_editips()
@@ -523,7 +523,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_licenselogs
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushLicenselogs
 	 * @todo   Implement testSitemush_licenselogs().
 	 */
 	public function testSitemush_licenselogs()
@@ -547,7 +547,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_addautorenewal
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushAddautorenewal
 	 * @todo   Implement testSitemush_addautorenewal().
 	 */
 	public function testSitemush_addautorenewal()
@@ -559,7 +559,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_removeautorenewal
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushRemoveautorenewal
 	 * @todo   Implement testSitemush_removeautorenewal().
 	 */
 	public function testSitemush_removeautorenewal()
