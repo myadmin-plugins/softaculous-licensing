@@ -144,7 +144,6 @@ class Plugin {
 	}
 
 	public static function getSettings(GenericEvent $event) {
-		// will be executed when the licenses.settings event is dispatched
 		$settings = $event->getSubject();
 		$settings->add_text_setting('licenses', 'Softaculous', 'softaculous_username', 'Softaculous Username:', 'Softaculous Username', $settings->get_setting('SOFTACULOUS_USERNAME'));
 		$settings->add_text_setting('licenses', 'Softaculous', 'softaculous_password', 'Softaculous Password:', 'Softaculous Password', $settings->get_setting('SOFTACULOUS_PASSWORD'));
