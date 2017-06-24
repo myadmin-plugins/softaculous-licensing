@@ -1,6 +1,7 @@
 <?php
 /**
  * Softaculous Related Functionality
+ *
  * Last Changed: $LastChangedDate: 2015-09-23 14:50:01 -0400 (Wed, 23 Sep 2015) $
  * @author detain
  * @version $Revision: 15402 $
@@ -122,7 +123,6 @@ class Plugin {
 	}
 
 	public static function Menu(GenericEvent $event) {
-		// will be executed when the licenses.settings event is dispatched
 		$menu = $event->getSubject();
 		$module = 'licenses';
 		if ($GLOBALS['tf']->ima == 'admin') {
@@ -132,7 +132,6 @@ class Plugin {
 	}
 
 	public static function Requirements(GenericEvent $event) {
-		// will be executed when the licenses.loader event is dispatched
 		$loader = $event->getSubject();
 		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
 		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
