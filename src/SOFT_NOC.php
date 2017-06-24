@@ -70,7 +70,7 @@ class SOFT_NOC {
 			return FALSE;
 		}
 		// Extract the response details.
-		$this->response = $this->APImyadmin_unstringify($this->rawResponse);
+		$this->response = myadmin_unstringify($this->rawResponse);
 		if (empty($this->response['error'])) {
 			unset($this->response['error']);
 			return $this->response;
@@ -78,18 +78,6 @@ class SOFT_NOC {
 			$this->error = array_merge($this->error, $this->response['error']);
 			return FALSE;
 		}
-	}
-
-	/**
-	 * Decodes response as per JSON or serialize
-	 *
-	 * @param mixed returns the decoded information
-	 * @return false|array
-	 */
-	public function APImyadmin_unstringify($response) {
-		if (!empty($this->json))
-			return json_decode($response, TRUE);
-		return myadmin_unstringify($response);
 	}
 
 	/**
@@ -973,16 +961,16 @@ class SOFT_NOC {
 function array2json($arr) {
 	if (function_exists('json_encode')) return json_encode($arr); //Lastest versions of PHP already has this functionality.
 	$parts = [];
-	$is_list = FALSE;
+	$isList = FALSE;
 
 	//Find out if the given array is a numerical array
 	$keys = array_keys($arr);
 	$max_length = count($arr) - 1;
 	if (($keys[0] == 0) and ($keys[$max_length] == $max_length)) {//See if the first key is 0 and last key is length - 1
-		$is_list = TRUE;
+		$isList = TRUE;
 		for ($i = 0, $iMax = count($keys); $i < $iMax; $i++) { //See if each key corresponds to its position
 			if ($i != $keys[$i]) { //A key fails at position check.
-				$is_list = FALSE; //It is an associative array.
+				$isList = FALSE; //It is an associative array.
 				break;
 			}
 		}
@@ -990,11 +978,11 @@ function array2json($arr) {
 
 	foreach ($arr as $key=>$value) {
 		if (is_array($value)) { //Custom handling for arrays
-			if ($is_list) $parts[] = array2json($value); /* :RECURSION: */
+			if ($isList) $parts[] = array2json($value); /* :RECURSION: */
 			else $parts[] = '"'.$key.'":'.array2json($value); /* :RECURSION: */
 		} else {
 			$str = '';
-			if (!$is_list) $str = '"'.$key.'":';
+			if (!$isList) $str = '"'.$key.'":';
 
 			//Custom handling for multiple data types
 			if (is_numeric($value)) $str .= $value; //Numbers
@@ -1008,7 +996,7 @@ function array2json($arr) {
 	}
 	$json = implode(',', $parts);
 
-	if ($is_list) return '['.$json.']'; //Return numerical JSON
+	if ($isList) return '['.$json.']'; //Return numerical JSON
 	return '{'.$json.'}'; //Return associative JSON
 }
 
