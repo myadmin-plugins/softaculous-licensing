@@ -75,6 +75,11 @@ class Plugin {
 			function_requirements('activate_softaculous');
 			activate_softaculous($license->get_ip(), $event['field1'], $event['email']);
 			$event->stopPropagation();
+		} elseif ($event['category'] == SERVICE_TYPES_WEBUZO) {
+			myadmin_log('licenses', 'info', 'Webuzo Activation', __LINE__, __FILE__);
+			function_requirements('activate_webuzo');
+			activate_webuzo($license->get_ip(), $event['field1'], $event['email']);
+			$event->stopPropagation();
 		}
 	}
 
