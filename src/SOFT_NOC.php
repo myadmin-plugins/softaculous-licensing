@@ -202,7 +202,7 @@ class SOFT_NOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function refund_and_cancel($key = '', $ipAddress = '') {
+	public function refundAndCancel($key = '', $ipAddress = '') {
 		if (!empty($ipAddress)) {
 			// Search for a license
 			$lic = $this->licenses('', $ipAddress);
@@ -404,7 +404,7 @@ class SOFT_NOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function webuzoRefund_and_cancel($key = '', $ipAddress = '') {
+	public function webuzoRefundAndCancel($key = '', $ipAddress = '') {
 		if (!empty($ipAddress)) {
 			// Search for a license
 			$lic = $this->webuzoLicenses('', $ipAddress);
@@ -601,7 +601,7 @@ class SOFT_NOC {
 	 * @param string $key The License KEY
 	 * @return false|array
 	 */
-	public function virt_remove($key) {
+	public function virtRemove($key) {
 		$this->params['ca'] = 'virtualizor_cancel';
 		$this->params['lickey'] = $key;
 		$this->params['cancel_license'] = 1;
@@ -619,7 +619,7 @@ class SOFT_NOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function virtRefund_and_cancel($key = '', $ipAddress = '') {
+	public function virtRefundAndCancel($key = '', $ipAddress = '') {
 		if (!empty($ipAddress)) {
 			// Search for a license
 			$lic = $this->virtLicenses('', $ipAddress);
@@ -649,7 +649,7 @@ class SOFT_NOC {
 				}
 			}
 		// Cancel the license
-		return $this->virt_remove($key);
+		return $this->virtRemove($key);
 	}
 
 	/**
@@ -697,7 +697,7 @@ class SOFT_NOC {
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @return false|array
 	 */
-	public function virt_renewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
+	public function virtRenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'virtualizor_renewals';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -797,7 +797,7 @@ class SOFT_NOC {
 	 *
 	 * @param string $key The License KEY
 	 */
-	public function sitemush_remove($key) {
+	public function sitemushRemove($key) {
 		$this->params['ca'] = 'sitemushCancel';
 		$this->params['lickey'] = $key;
 		$this->params['cancel_license'] = 1;
@@ -813,7 +813,7 @@ class SOFT_NOC {
 	 * @param string $key (Optional) The License KEY
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 */
-	public function sitemushRefund_and_cancel($key = '', $ipAddress = '') {
+	public function sitemushRefundAndCancel($key = '', $ipAddress = '') {
 		if (!empty($ipAddress)) {
 			// Search for a license
 			$lic = $this->sitemushLicenses('', $ipAddress);
@@ -844,7 +844,7 @@ class SOFT_NOC {
 			}
 		}
 		// Cancel the license
-		return $this->sitemush_remove($key);
+		return $this->sitemushRemove($key);
 	}
 
 	/**
@@ -890,8 +890,8 @@ class SOFT_NOC {
 	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from  the 100th one then specify 99
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from  the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 */
-	public function sitemush_renewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
-		$this->params['ca'] = 'sitemush_renewals';
+	public function sitemushRenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
+		$this->params['ca'] = 'sitemushRenewals';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
 		$this->params['start'] = $start;
@@ -905,7 +905,7 @@ class SOFT_NOC {
 	 * @param string $key The License KEY that has to be added toAuto Renewal
 	 */
 	public function sitemushAddautorenewal($key = '') {
-		$this->params['ca'] = 'sitemush_renewals';
+		$this->params['ca'] = 'sitemushRenewals';
 		$this->params['addrenewal'] = 1;
 		$this->params['lickey'] = $key;
 		return $this->req();
@@ -918,7 +918,7 @@ class SOFT_NOC {
 	 * @param string $key The License KEY that has to be removed from Auto Renewal
 	 */
 	public function sitemushRemoveautorenewal($key = '') {
-		$this->params['ca'] = 'sitemush_renewals';
+		$this->params['ca'] = 'sitemushRenewals';
 		$this->params['cancelrenewal'] = 1;
 		$this->params['lickey'] = $key;
 		return $this->req();
@@ -1017,10 +1017,10 @@ $noc->r($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
 $noc->r($noc->refund(100));
 
 // Refund a Transaction and then cancel license
-$noc->r($noc->refund_and_cancel('88888-88888-88888-88888-88888'));
+$noc->r($noc->refundAndCancel('88888-88888-88888-88888-88888'));
 
 // Refund a Transaction and then cancel license by IP
-$noc->r($noc->refund_and_cancel('', '198.198.198.198'));
+$noc->r($noc->refundAndCancel('', '198.198.198.198'));
 
 // Get me all my licenses
 $noc->r($noc->licenses());
@@ -1075,10 +1075,10 @@ $noc->r($noc->webuzoBuy('174.37.113.98', '1M', 1, 'test@test.com', 1));
 $noc->r($noc->webuzoRefund(100));
 
 // Refund a Transaction and then cancel webuzo license
-$noc->r($noc->webuzoRefund_and_cancel('88888-88888-88888-88888-88888'));
+$noc->r($noc->webuzoRefundAndCancel('88888-88888-88888-88888-88888'));
 
 // Refund a Transaction and then cancel webuzo license by IP
-$noc->r($noc->webuzoRefund_and_cancel('', '198.198.198.198'));
+$noc->r($noc->webuzoRefundAndCancel('', '198.198.198.198'));
 
 // Get me all my licenses
 $noc->r($noc->webuzoLicenses());
@@ -1132,10 +1132,10 @@ $noc->r($noc->virtBuy('198.198.198.198', '1M', 1));
 $noc->r($noc->virtRefund(100));
 
 // Refund a Transaction and then cancel Virtualizor license
-$noc->r($noc->virtRefund_and_cancel('88888-88888-88888-88888-88888'));
+$noc->r($noc->virtRefundAndCancel('88888-88888-88888-88888-88888'));
 
 // Refund a Transaction and then cancel Virtualizor license by IP
-$noc->r($noc->virtRefund_and_cancel('', '198.198.198.198'));
+$noc->r($noc->virtRefundAndCancel('', '198.198.198.198'));
 
 // Get me all my licenses
 $noc->r($noc->virtLicenses());
@@ -1151,7 +1151,7 @@ $noc->r($noc->virtLicenses('', '', 2));
 $noc->r($noc->virtLicenses('', '', 3));
 
 // Cancel a License
-$noc->r($noc->virt_remove('88888-88888-88888-88888-88888')); // Remove by License Key
+$noc->r($noc->virtRemove('88888-88888-88888-88888-88888')); // Remove by License Key
 
 // Edit the IP of a license
 $noc->r($noc->virtEditips(1, '111.111.111.111'));
@@ -1163,7 +1163,7 @@ $noc->r($noc->virtLicenselogs('88888-88888-88888-88888-88888'));
 $noc->r($noc->virtLicenselogs('', 0, '111.111.111.111'));
 
 // Get me all auto renewing Licenses
-$noc->r($noc->virt_renewals());
+$noc->r($noc->virtRenewals());
 
 // Start auto renewing a license
 $noc->r($noc->virtAddautorenewal('88888-88888-88888-88888-88888'));
@@ -1189,10 +1189,10 @@ $noc->r($noc->sitemushBuy('188.188.188.188', '1M', 1));
 $noc->r($noc->sitemushRefund(100));
 
 // Refund a transaction and then cancel the license
-$noc->r($noc->sitemushRefund_and_cancel('SMUSH-88888-88888-88888-88888'));
+$noc->r($noc->sitemushRefundAndCancel('SMUSH-88888-88888-88888-88888'));
 
 // Refund a transaction and then cancel the license by IP
-$noc->r($noc->sitemushRefund_and_cancel('', '198.198.198.198'));
+$noc->r($noc->sitemushRefundAndCancel('', '198.198.198.198'));
 
 // Get me all my licenses
 $noc->r($noc->sitemushLicenses());
@@ -1210,7 +1210,7 @@ $noc->r($noc->sitemushLicenses('', '', 2));
 $noc->r($noc->sitemushLicenses('', '', 3));
 
 // Cancel a License
-$noc->r($noc->sitemush_remove('SMUSH-88888-88888-88888-88888')); // Cancel by License Key
+$noc->r($noc->sitemushRemove('SMUSH-88888-88888-88888-88888')); // Cancel by License Key
 
 // EDIT IP of a License
 $noc->r($noc->sitemushEditips(1000, '198.198.198.198')); // LID and new IP Address
@@ -1222,7 +1222,7 @@ $noc->r($noc->sitemushLicenselogs('SMUSH-88888-88888-88888-88888'));
 $noc->r($noc->sitemushLicenselogs('', 0, '188.188.188.188'));
 
 // Get me all auto renewing Licenses
-$noc->r($noc->sitemush_renewals());
+$noc->r($noc->sitemushRenewals());
 
 // Start auto renewing a license
 $noc->r($noc->sitemushAddautorenewal('SMUSH-88888-88888-88888-88888'));

@@ -127,10 +127,10 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::refund_and_cancel
-	 * @todo   Implement testRefund_and_cancel().
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::refundAndCancel
+	 * @todo   Implement testRefundAndCancel().
 	 */
-	public function testRefund_and_cancel()
+	public function testRefundAndCancel()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete(
@@ -247,10 +247,10 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoRefund_and_cancel
-	 * @todo   Implement testWebuzo_refund_and_cancel().
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::webuzoRefundAndCancel
+	 * @todo   Implement testWebuzoRefundAndCancel().
 	 */
-	public function testWebuzo_refund_and_cancel()
+	public function testWebuzoRefundAndCancel()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete(
@@ -367,7 +367,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_remove
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtRemove
 	 * @todo   Implement testVirt_remove().
 	 */
 	public function testVirt_remove()
@@ -379,10 +379,10 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtRefund_and_cancel
-	 * @todo   Implement testVirt_refund_and_cancel().
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtRefundAndCancel
+	 * @todo   Implement testVirtRefundAndCancel().
 	 */
-	public function testVirt_refund_and_cancel()
+	public function testVirtRefundAndCancel()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete(
@@ -415,7 +415,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virt_renewals
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::virtRenewals
 	 * @todo   Implement testVirt_renewals().
 	 */
 	public function testVirt_renewals()
@@ -487,7 +487,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_remove
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushRemove
 	 * @todo   Implement testSitemush_remove().
 	 */
 	public function testSitemush_remove()
@@ -499,10 +499,10 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushRefund_and_cancel
-	 * @todo   Implement testSitemush_refund_and_cancel().
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushRefundAndCancel
+	 * @todo   Implement testSitemushRefundAndCancel().
 	 */
-	public function testSitemush_refund_and_cancel()
+	public function testSitemushRefundAndCancel()
 	{
 		// Remove the following lines when you implement this test.
 		$this->markTestIncomplete(
@@ -535,7 +535,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemush_renewals
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::sitemushRenewals
 	 * @todo   Implement testSitemush_renewals().
 	 */
 	public function testSitemush_renewals()
