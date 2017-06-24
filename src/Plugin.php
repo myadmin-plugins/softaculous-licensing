@@ -126,8 +126,8 @@ class Plugin {
 		$menu = $event->getSubject();
 		$module = self::$module;
 		if ($GLOBALS['tf']->ima == 'admin') {
-			$menu->add_link($module.'api', 'choice=none.softaculous_list', 'whm/createacct.gif', 'List all Softaculous Licenses');
-			$menu->add_link($module.'api', 'choice=none.webuzo_list', 'whm/createacct.gif', 'List all Webuzo Licenses');
+			$menu->add_link(self::$module.'api', 'choice=none.softaculous_list', 'whm/createacct.gif', 'List all Softaculous Licenses');
+			$menu->add_link(self::$module.'api', 'choice=none.webuzo_list', 'whm/createacct.gif', 'List all Webuzo Licenses');
 		}
 	}
 
