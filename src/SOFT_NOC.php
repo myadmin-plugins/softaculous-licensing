@@ -940,7 +940,7 @@ class SOFT_NOC {
 	/**
 	 * @param $r
 	 */
-	public function r($r) {
+	public function displayResponse$r) {
 		if (empty($r))
 			$r = $this->error;
 		myadmin_log('licenses', 'info', '<pre>'.json_encode($r).'</pre>', __LINE__, __FILE__);
@@ -1011,51 +1011,51 @@ function array2json($arr) {
 $noc = new SOFT_NOC('username', 'password');
 
 // Buy / renew a License
-$noc->r($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
+$noc->displayResponse($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
 
 // Refund a Transaction
-$noc->r($noc->refund(100));
+$noc->displayResponse($noc->refund(100));
 
 // Refund a Transaction and then cancel license
-$noc->r($noc->refundAndCancel('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->refundAndCancel('88888-88888-88888-88888-88888'));
 
 // Refund a Transaction and then cancel license by IP
-$noc->r($noc->refundAndCancel('', '198.198.198.198'));
+$noc->displayResponse($noc->refundAndCancel('', '198.198.198.198'));
 
 // Get me all my licenses
-$noc->r($noc->licenses());
+$noc->displayResponse($noc->licenses());
 // Search for a license by IP
-$noc->r($noc->licenses('', '198.198.198.198'));
+$noc->displayResponse($noc->licenses('', '198.198.198.198'));
 // Search for a license by KEY
-$noc->r($noc->licenses('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->licenses('88888-88888-88888-88888-88888'));
 // All Expired Licenses
-$noc->r($noc->licenses('', '', 1));
+$noc->displayResponse($noc->licenses('', '', 1));
 // Expiring in next 7 Days
-$noc->r($noc->licenses('', '', 2));
+$noc->displayResponse($noc->licenses('', '', 2));
 // Expiring in next 15 Days
-$noc->r($noc->licenses('', '', 3));
+$noc->displayResponse($noc->licenses('', '', 3));
 
 // Cancel a License
-$noc->r($noc->cancel('88888-88888-88888-88888-88888')); // Cancel by License Key
-$noc->r($noc->cancel('', '198.198.198.198')); // Cancel by IP
+$noc->displayResponse($noc->cancel('88888-88888-88888-88888-88888')); // Cancel by License Key
+$noc->displayResponse($noc->cancel('', '198.198.198.198')); // Cancel by IP
 
 // EDIT IP of a License
-$noc->r($noc->editips(1000, '198.198.198.198')); // LID and new IP Address
+$noc->displayResponse($noc->editips(1000, '198.198.198.198')); // LID and new IP Address
 
 // Get the Action/Activity Logs of a License
-$noc->r($noc->licenselogs('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->licenselogs('88888-88888-88888-88888-88888'));
 
 // Get the Action/Activity Logs of a License by IP
-$noc->r($noc->licenselogs('', 0, '198.198.198.198'));
+$noc->displayResponse($noc->licenselogs('', 0, '198.198.198.198'));
 
 // Get me all auto renewing Licenses
-$noc->r($noc->autorenewals());
+$noc->displayResponse($noc->autorenewals());
 
 // Start auto renewing a license
-$noc->r($noc->addautorenewal('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->addautorenewal('88888-88888-88888-88888-88888'));
 
 // Stop auto renewing a license
-$noc->r($noc->removeautorenewal('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->removeautorenewal('88888-88888-88888-88888-88888'));
 
 */
 
@@ -1069,54 +1069,54 @@ $noc->r($noc->removeautorenewal('88888-88888-88888-88888-88888'));
 $noc = new SOFT_NOC('username', 'password');
 
 // Buy / renew a License
-$noc->r($noc->webuzoBuy('174.37.113.98', '1M', 1, 'test@test.com', 1));
+$noc->displayResponse($noc->webuzoBuy('174.37.113.98', '1M', 1, 'test@test.com', 1));
 
 // Refund a Transaction
-$noc->r($noc->webuzoRefund(100));
+$noc->displayResponse($noc->webuzoRefund(100));
 
 // Refund a Transaction and then cancel webuzo license
-$noc->r($noc->webuzoRefundAndCancel('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->webuzoRefundAndCancel('88888-88888-88888-88888-88888'));
 
 // Refund a Transaction and then cancel webuzo license by IP
-$noc->r($noc->webuzoRefundAndCancel('', '198.198.198.198'));
+$noc->displayResponse($noc->webuzoRefundAndCancel('', '198.198.198.198'));
 
 // Get me all my licenses
-$noc->r($noc->webuzoLicenses());
+$noc->displayResponse($noc->webuzoLicenses());
 // Search for a license by IP
-$noc->r($noc->webuzoLicenses('', '198.198.198.198'));
+$noc->displayResponse($noc->webuzoLicenses('', '198.198.198.198'));
 // Search for a license by KEY
-$noc->r($noc->webuzoLicenses('webuzo-88888-88888-88888-88888'));
+$noc->displayResponse($noc->webuzoLicenses('webuzo-88888-88888-88888-88888'));
 // All Expired Licenses
-$noc->r($noc->webuzoLicenses('', '', 1));
+$noc->displayResponse($noc->webuzoLicenses('', '', 1));
 // Expiring in next 7 Days
-$noc->r($noc->webuzoLicenses('', '', 2));
+$noc->displayResponse($noc->webuzoLicenses('', '', 2));
 // Expiring in next 15 Days
-$noc->r($noc->webuzoLicenses('', '', 3));
+$noc->displayResponse($noc->webuzoLicenses('', '', 3));
 
 // Cancel a License
-$noc->r($noc->webuzoCancel('webuzo-88888-88888-88888-88888')); // Cancel by License Key
-$noc->r($noc->webuzoCancel('', '198.198.198.198')); // Cancel by IP
+$noc->displayResponse($noc->webuzoCancel('webuzo-88888-88888-88888-88888')); // Cancel by License Key
+$noc->displayResponse($noc->webuzoCancel('', '198.198.198.198')); // Cancel by IP
 
 // EDIT IP of a License
-$noc->r($noc->webuzoEditips(1000, '198.198.198.198')); // LID and new IP Address
+$noc->displayResponse($noc->webuzoEditips(1000, '198.198.198.198')); // LID and new IP Address
 
 // Get the Action/Activity Logs of a License
-$noc->r($noc->webuzoLicenselogs('webuzo-88888-88888-88888-88888'));
+$noc->displayResponse($noc->webuzoLicenselogs('webuzo-88888-88888-88888-88888'));
 
 // Get the Action/Activity Logs of a License by IP
-$noc->r($noc->webuzoLicenselogs('', 0, '198.198.198.198'));
+$noc->displayResponse($noc->webuzoLicenselogs('', 0, '198.198.198.198'));
 
 // Get me all auto renewing Licenses
-$noc->r($noc->webuzoAutorenewals());
+$noc->displayResponse($noc->webuzoAutorenewals());
 
 // Start auto renewing a license
-$noc->r($noc->webuzoAddautorenewal('webuzo-88888-88888-88888-88888'));
+$noc->displayResponse($noc->webuzoAddautorenewal('webuzo-88888-88888-88888-88888'));
 
 // Stop auto renewing a license
-$noc->r($noc->webuzoRemoveautorenewal('webuzo-88888-88888-88888-88888'));
+$noc->displayResponse($noc->webuzoRemoveautorenewal('webuzo-88888-88888-88888-88888'));
 
 // Get a Trial license
-$noc->r($noc->webuzotrial('198.198.198.198', 1));
+$noc->displayResponse($noc->webuzotrial('198.198.198.198', 1));
 
 */
 
@@ -1126,50 +1126,50 @@ $noc->r($noc->webuzotrial('198.198.198.198', 1));
 ////////////////////////
 
 // Buy / renew a License
-$noc->r($noc->virtBuy('198.198.198.198', '1M', 1));
+$noc->displayResponse($noc->virtBuy('198.198.198.198', '1M', 1));
 
 // Refund a Transaction
-$noc->r($noc->virtRefund(100));
+$noc->displayResponse($noc->virtRefund(100));
 
 // Refund a Transaction and then cancel Virtualizor license
-$noc->r($noc->virtRefundAndCancel('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->virtRefundAndCancel('88888-88888-88888-88888-88888'));
 
 // Refund a Transaction and then cancel Virtualizor license by IP
-$noc->r($noc->virtRefundAndCancel('', '198.198.198.198'));
+$noc->displayResponse($noc->virtRefundAndCancel('', '198.198.198.198'));
 
 // Get me all my licenses
-$noc->r($noc->virtLicenses());
+$noc->displayResponse($noc->virtLicenses());
 // Search for a license by IP
-$noc->r($noc->virtLicenses('', '198.198.198.198'));
+$noc->displayResponse($noc->virtLicenses('', '198.198.198.198'));
 // Search for a license by KEY
-$noc->r($noc->virtLicenses('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->virtLicenses('88888-88888-88888-88888-88888'));
 // All Expired Licenses
-$noc->r($noc->virtLicenses('', '', 1));
+$noc->displayResponse($noc->virtLicenses('', '', 1));
 // Expiring in next 7 Days
-$noc->r($noc->virtLicenses('', '', 2));
+$noc->displayResponse($noc->virtLicenses('', '', 2));
 // Expiring in next 15 Days
-$noc->r($noc->virtLicenses('', '', 3));
+$noc->displayResponse($noc->virtLicenses('', '', 3));
 
 // Cancel a License
-$noc->r($noc->virtRemove('88888-88888-88888-88888-88888')); // Remove by License Key
+$noc->displayResponse($noc->virtRemove('88888-88888-88888-88888-88888')); // Remove by License Key
 
 // Edit the IP of a license
-$noc->r($noc->virtEditips(1, '111.111.111.111'));
+$noc->displayResponse($noc->virtEditips(1, '111.111.111.111'));
 
 // Get the Action/Activity Logs of a License
-$noc->r($noc->virtLicenselogs('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->virtLicenselogs('88888-88888-88888-88888-88888'));
 
 // Get the Action/Activity Logs of a License by IP
-$noc->r($noc->virtLicenselogs('', 0, '111.111.111.111'));
+$noc->displayResponse($noc->virtLicenselogs('', 0, '111.111.111.111'));
 
 // Get me all auto renewing Licenses
-$noc->r($noc->virtRenewals());
+$noc->displayResponse($noc->virtRenewals());
 
 // Start auto renewing a license
-$noc->r($noc->virtAddautorenewal('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->virtAddautorenewal('88888-88888-88888-88888-88888'));
 
 // Stop auto renewing a license
-$noc->r($noc->virtRemoveautorenewal('88888-88888-88888-88888-88888'));
+$noc->displayResponse($noc->virtRemoveautorenewal('88888-88888-88888-88888-88888'));
 
 */
 
@@ -1183,52 +1183,52 @@ $noc->r($noc->virtRemoveautorenewal('88888-88888-88888-88888-88888'));
 $noc = new SOFT_NOC('username', 'password');
 
 // Buy / renew a License
-$noc->r($noc->sitemushBuy('188.188.188.188', '1M', 1));
+$noc->displayResponse($noc->sitemushBuy('188.188.188.188', '1M', 1));
 
 // Refund a Transaction
-$noc->r($noc->sitemushRefund(100));
+$noc->displayResponse($noc->sitemushRefund(100));
 
 // Refund a transaction and then cancel the license
-$noc->r($noc->sitemushRefundAndCancel('SMUSH-88888-88888-88888-88888'));
+$noc->displayResponse($noc->sitemushRefundAndCancel('SMUSH-88888-88888-88888-88888'));
 
 // Refund a transaction and then cancel the license by IP
-$noc->r($noc->sitemushRefundAndCancel('', '198.198.198.198'));
+$noc->displayResponse($noc->sitemushRefundAndCancel('', '198.198.198.198'));
 
 // Get me all my licenses
-$noc->r($noc->sitemushLicenses());
+$noc->displayResponse($noc->sitemushLicenses());
 // Search for a license by IP
-$noc->r($noc->sitemushLicenses('', '198.198.198.198'));
+$noc->displayResponse($noc->sitemushLicenses('', '198.198.198.198'));
 // Search for a license by KEY
-$noc->r($noc->sitemushLicenses('SMUSH-88888-88888-88888-88888'));
+$noc->displayResponse($noc->sitemushLicenses('SMUSH-88888-88888-88888-88888'));
 // Search licenes by email
-$noc->r($noc->sitemushLicenses('', '', '', '', '', 'a@a.com'));
+$noc->displayResponse($noc->sitemushLicenses('', '', '', '', '', 'a@a.com'));
 // All Expired Licenses
-$noc->r($noc->sitemushLicenses('', '', 1));
+$noc->displayResponse($noc->sitemushLicenses('', '', 1));
 // Expiring in next 7 Days
-$noc->r($noc->sitemushLicenses('', '', 2));
+$noc->displayResponse($noc->sitemushLicenses('', '', 2));
 // Expiring in next 15 Days
-$noc->r($noc->sitemushLicenses('', '', 3));
+$noc->displayResponse($noc->sitemushLicenses('', '', 3));
 
 // Cancel a License
-$noc->r($noc->sitemushRemove('SMUSH-88888-88888-88888-88888')); // Cancel by License Key
+$noc->displayResponse($noc->sitemushRemove('SMUSH-88888-88888-88888-88888')); // Cancel by License Key
 
 // EDIT IP of a License
-$noc->r($noc->sitemushEditips(1000, '198.198.198.198')); // LID and new IP Address
+$noc->displayResponse($noc->sitemushEditips(1000, '198.198.198.198')); // LID and new IP Address
 
 // Get the Action/Activity Logs of a License
-$noc->r($noc->sitemushLicenselogs('SMUSH-88888-88888-88888-88888'));
+$noc->displayResponse($noc->sitemushLicenselogs('SMUSH-88888-88888-88888-88888'));
 
 // Get the Action/Activity Logs of a License by IP
-$noc->r($noc->sitemushLicenselogs('', 0, '188.188.188.188'));
+$noc->displayResponse($noc->sitemushLicenselogs('', 0, '188.188.188.188'));
 
 // Get me all auto renewing Licenses
-$noc->r($noc->sitemushRenewals());
+$noc->displayResponse($noc->sitemushRenewals());
 
 // Start auto renewing a license
-$noc->r($noc->sitemushAddautorenewal('SMUSH-88888-88888-88888-88888'));
+$noc->displayResponse($noc->sitemushAddautorenewal('SMUSH-88888-88888-88888-88888'));
 
 // Stop auto renewing a license
-$noc->r($noc->sitemushRemoveautorenewal('SMUSH-88888-88888-88888-88888'));
+$noc->displayResponse($noc->sitemushRemoveautorenewal('SMUSH-88888-88888-88888-88888'));
 
 */
 
@@ -1239,9 +1239,9 @@ $noc->r($noc->sitemushRemoveautorenewal('SMUSH-88888-88888-88888-88888'));
 ////////////////////
 
 // Get all transactions of a Invoice
-$noc->r($noc->invoicedetails(100));
+$noc->displayResponse($noc->invoicedetails(100));
 // Get all unbilled transactions for the current month
-$noc->r($noc->invoicedetails());
+$noc->displayResponse($noc->invoicedetails());
 
 */
 

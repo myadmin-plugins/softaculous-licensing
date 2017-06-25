@@ -18,32 +18,32 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 /*
  * $noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
  * // Buy / renew a License
- * $noc->r($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
+ * $noc->displayResponse($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
  * // Refund a Transaction
- * $noc->r($noc->refund(100));
+ * $noc->displayResponse($noc->refund(100));
  * // Get me all my licenses
- * $noc->r($noc->licenses());
+ * $noc->displayResponse($noc->licenses());
  * // Search for a license by IP
- * $noc->r($noc->licenses('', '198.198.198.198'));
+ * $noc->displayResponse($noc->licenses('', '198.198.198.198'));
  * // Search for a license by KEY
- * $noc->r($noc->licenses('88888-88888-88888-88888-88888'));
+ * $noc->displayResponse($noc->licenses('88888-88888-88888-88888-88888'));
  * // All Expired Licenses
- * $noc->r($noc->licenses('', '', 1));
+ * $noc->displayResponse($noc->licenses('', '', 1));
  * // Expiring in next 7 Days
- * $noc->r($noc->licenses('', '', 2));
+ * $noc->displayResponse($noc->licenses('', '', 2));
  * // Expiring in next 15 Days
- * $noc->r($noc->licenses('', '', 3));
+ * $noc->displayResponse($noc->licenses('', '', 3));
  * // Get all transactions of a Invoice
- * $noc->r($noc->invoicedetails(100));
+ * $noc->displayResponse($noc->invoicedetails(100));
  * // Get all unbilled transactions for the current month
- * $noc->r($noc->invoicedetails());
+ * $noc->displayResponse($noc->invoicedetails());
  * // Cancel a License
- * $noc->r($noc->cancel('88888-88888-88888-88888-88888')); // Cancel by License Key
- * $noc->r($noc->cancel('', '198.198.198.198')); // Cancel by IP
+ * $noc->displayResponse($noc->cancel('88888-88888-88888-88888-88888')); // Cancel by License Key
+ * $noc->displayResponse($noc->cancel('', '198.198.198.198')); // Cancel by IP
  * // EDIT IP of a License
- * $noc->r($noc->editips(1000, '198.198.198.198')); // LID and new IP Address
+ * $noc->displayResponse($noc->editips(1000, '198.198.198.198')); // LID and new IP Address
  * // Get the Action/Activity Logs of a License
- * $noc->r($noc->licenselogs('88888-88888-88888-88888-88888'));
+ * $noc->displayResponse($noc->licenselogs('88888-88888-88888-88888-88888'));
  */
 
 class Plugin {
