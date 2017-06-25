@@ -29,5 +29,5 @@ function webuzo_list() {
 		}
 		add_output($table->get_table());
 	}
-	//add_output('<div style="text-align: left;"><pre>' . var_export(get_softaculous_licenses(), TRUE) . '</pre></div>');
+	//add_output('<div style="text-align: left;"><pre>'.var_export(get_softaculous_licenses(), TRUE) . '</pre></div>');
 }
