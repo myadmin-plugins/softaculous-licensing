@@ -940,7 +940,7 @@ class SOFT_NOC {
 	/**
 	 * @param $r
 	 */
-	public function displayResponse$r) {
+	public function displayResponse($r) {
 		if (empty($r))
 			$r = $this->error;
 		myadmin_log('licenses', 'info', '<pre>'.json_encode($r).'</pre>', __LINE__, __FILE__);
