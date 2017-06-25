@@ -938,12 +938,15 @@ class SOFT_NOC {
 	}
 
 	/**
-	 * @param $r
+	 * displays the response
+	 *
+	 * @param mixed $response the response from an a function/api command
+	 * @return void
 	 */
-	public function displayResponse($r) {
-		if (empty($r))
-			$r = $this->error;
-		myadmin_log('licenses', 'info', '<pre>'.json_encode($r).'</pre>', __LINE__, __FILE__);
+	public function displayResponse($response) {
+		if (empty($response))
+			$response = $this->error;
+		myadmin_log('licenses', 'info', '<pre>'.json_encode($response).'</pre>', __LINE__, __FILE__);
 	}
 
 }
