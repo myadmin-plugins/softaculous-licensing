@@ -147,9 +147,9 @@ class SOFT_NOC {
 		$matches = $this->licenses('', $ipAddress);
 		myadmin_log('licenses', 'info', "noc->licenses('', {$ipAddress}) = ".json_encode($matches), __LINE__, __FILE__);
 		if ($matches['num_results'] > 0) {
-			foreach ($matches['licenses'] as $lid => $ldata) {
+			$matchesValues = array_values($matches['licenses']);
+			foreach ($matchesValues as $ldata)
 				return $ldata['license'];
-			}
 		}
 		return FALSE;
 	}
@@ -223,7 +223,8 @@ class SOFT_NOC {
 		$logs = $this->licenselogs($key);
 		// Did we get any logs ?
 		if (!empty($logs['actions']))
-			foreach ($logs['actions'] as $k => $v) {
+			$logsValues = array_values($logs['actions']);
+			foreach ($logsValues as $v) {
 				// Is it a valid transaction ?
 				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
@@ -425,7 +426,8 @@ class SOFT_NOC {
 		$logs = $this->webuzoLicenselogs($key);
 		// Did we get any logs ?
 		if (!empty($logs['actions']))
-			foreach ($logs['actions'] as $k => $v) {
+			$logsValues = array_values($logs['actions']);
+			foreach ($logsValues as $v) {
 				// Is it a valid transaction ?
 				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
@@ -585,9 +587,9 @@ class SOFT_NOC {
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
 		$this->params['expiry'] = $expiry;
-		$this->params['start'] = '(Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99';
+		$this->params['start'] = $start;
 		$this->params['len'] = $len;
-		$this->params['email'] = '(Optional) The authorised email of the user for which you want to get the list of licenses.';
+		$this->params['email'] = $email;
 		return $this->req();
 	}
 
