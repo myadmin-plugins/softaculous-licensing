@@ -71,48 +71,48 @@ class Plugin {
 	}
 
 	public static function getActivate(GenericEvent $event) {
-		$license = $event->getSubject();
+		$serviceClass = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
 			myadmin_log(self::$module, 'info', 'Softaculous Activation', __LINE__, __FILE__);
 			function_requirements('activate_softaculous');
-			activate_softaculous($license->get_ip(), $event['field1'], $event['email']);
+			activate_softaculous($serviceClass->get_ip(), $event['field1'], $event['email']);
 			$event->stopPropagation();
 		} elseif ($event['category'] == SERVICE_TYPES_WEBUZO) {
 			myadmin_log(self::$module, 'info', 'Webuzo Activation', __LINE__, __FILE__);
 			function_requirements('activate_webuzo');
-			activate_webuzo($license->get_ip(), $event['field1'], $event['email']);
+			activate_webuzo($serviceClass->get_ip(), $event['field1'], $event['email']);
 			$event->stopPropagation();
 		}
 	}
 
 	public static function getDeactivate(GenericEvent $event) {
-		$license = $event->getSubject();
+		$serviceClass = $event->getSubject();
 		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
 			myadmin_log(self::$module, 'info', 'Softaculous Deactivation', __LINE__, __FILE__);
 			function_requirements('deactivate_softaculous');
-			deactivate_softaculous($license->get_ip());
+			deactivate_softaculous($serviceClass->get_ip());
 			$event->stopPropagation();
 		} elseif ($event['category'] == SERVICE_TYPES_WEBUZO) {
 			myadmin_log(self::$module, 'info', 'Webuzo Deactivation', __LINE__, __FILE__);
 			function_requirements('deactivate_webuzo');
-			deactivate_webuzo($license->get_ip());
+			deactivate_webuzo($serviceClass->get_ip());
 			$event->stopPropagation();
 		}
 	}
 
 	public static function getChangeIp(GenericEvent $event) {
 		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
-			$license = $event->getSubject();
+			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
-			myadmin_log(self::$module, 'info', "IP Change - (OLD:".$license->get_ip().") (NEW:{$event['newip']})", __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', "IP Change - (OLD:".$serviceClass->get_ip().") (NEW:{$event['newip']})", __LINE__, __FILE__);
 			function_requirements('get_softaculous_licenses');
-			$data = get_softaculous_licenses($license->get_ip());
+			$data = get_softaculous_licenses($serviceClass->get_ip());
 			$lid = array_keys($data[self::$module]);
 			$lid = $lid[0];
 			$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 			if ($noc->editips($lid[0], $event['newip']) !== FALSE) {
-				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $license->get_ip());
-				$license->set_ip($event['newip'])->save();
+				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $serviceClass->get_ip());
+				$serviceClass->set_ip($event['newip'])->save();
 				$return['status'] = 'ok';
 				$return['status_text'] = 'The IP Address has been changed.';
 			} else {
