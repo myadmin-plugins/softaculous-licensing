@@ -38,7 +38,7 @@ function activate_softaculous($ipAddress, $field, $email) {
 		}
 		if ($need == TRUE) {
 			$response = $noc->buy($ipAddress, '1M', $field, $email, 1);
-			$output = print_r($response, TRUE);
+			$output = json_encode($response, JSON_PRETTY_PRINT);
 			myadmin_log('softaculous', 'info', 'Softaculous order output '.str_replace("\n", '', $output), __LINE__, __FILE__);
 		}
 	} catch (Exception $e) {

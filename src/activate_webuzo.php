@@ -40,7 +40,7 @@ function activate_webuzo($ipAddress, $field = '', $email = '') {
 			$response = $noc->webuzoBuy($ipAddress, '1M', $field, $email, 1);
 			if ($response === FALSE) {
 				myadmin_log('softaculous', 'error', "webuzo->buy({$ipAddress}, 1M, {$field}, {$email}) failed with error".json_encode($noc->error), __LINE__, __FILE__);
-				$output = $noc->error;
+				//$output = $noc->error;
 			} else
 				myadmin_log('softaculous', 'info', 'webuzo order output '.json_encode($response), __LINE__, __FILE__);
 		}

@@ -19,11 +19,10 @@ function deactivate_webuzo($ipAddress) {
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 		// Buy / renew a License
 		$matches = $noc->webuzoLicenses('', $ipAddress);
-		$need = TRUE;
 		if ($matches['num_results'] > 0) {
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				myadmin_log('softaculous', 'info', "canceling webuzo license {$lid}", __LINE__, __FILE__);
-				myadmin_log('softaculous', 'info', "noc->cancel_with_refund('{$ldata['license']}','') = ".json_encode($noc->cancel_with_refund($ldata['license'])), __LINE__, __FILE__);
+				myadmin_log('softaculous', 'info', "noc->cancelWithRefund('{$ldata['license']}','') = ".json_encode($noc->cancelWithRefund($ldata['license'])), __LINE__, __FILE__);
 				myadmin_log('softaculous', 'info', 'noc response '.json_encode($noc->response), __LINE__, __FILE__);
 			}
 		}

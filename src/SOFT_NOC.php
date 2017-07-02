@@ -143,7 +143,7 @@ class SOFT_NOC {
 	 * @param string $ipAddress
 	 * @return bool|string
 	 */
-	public function ip_to_key($ipAddress) {
+	public function ipToKey($ipAddress) {
 		$matches = $this->licenses('', $ipAddress);
 		myadmin_log('licenses', 'info', "noc->licenses('', {$ipAddress}) = ".json_encode($matches), __LINE__, __FILE__);
 		if ($matches['num_results'] > 0) {
@@ -158,10 +158,10 @@ class SOFT_NOC {
 	 * @param string $key
 	 * @param string $ipAddress
 	 */
-	public function cancel_with_refund($key = '', $ipAddress = '') {
-		myadmin_log('licenses', 'info', "noc->cancel_with_refund('{$key}','{$ipAddress}') called", __LINE__, __FILE__);
+	public function cancelWithRefund($key = '', $ipAddress = '') {
+		myadmin_log('licenses', 'info', "noc->cancelWithRefund('{$key}','{$ipAddress}') called", __LINE__, __FILE__);
 		if ($key == '' && $ipAddress != '')
-			$key = $this->ip_to_key($ipAddress);
+			$key = $this->ipToKey($ipAddress);
 		$logs = $this->licenselogs($key);
 		$oldestAction = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_sub(NULL, 'INTERVAL 7 DAY')));
 		$oldestExpire = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_add(NULL, 'INTERVAL 1 MONTH')));

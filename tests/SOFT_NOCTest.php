@@ -91,7 +91,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::ip_to_key
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::ipToKey
 	 * @todo   Implement testIp_to_key().
 	 */
 	public function testIp_to_key()
@@ -103,7 +103,7 @@ class SOFT_NOCTest extends TestCase
 	}
 
 	/**
-	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::cancel_with_refund
+	 * @covers Detain\MyAdminSoftaculous\SOFT_NOC::cancelWithRefund
 	 * @todo   Implement testCancel_with_refund().
 	 */
 	public function testCancel_with_refund()

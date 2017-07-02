@@ -16,14 +16,17 @@ function webuzo_list() {
 		$header = FALSE;
 		function_requirements('get_webuzoLicenses');
 		$licenses = get_webuzoLicenses();
-		foreach ($licenses['licenses'] as $lid => $data) {
+		$licensesValues = array_values($licenses['licenses']);
+		foreach ($licensesValues as $data) {
 			if (!$header) {
-				foreach (array_keys($data) as $field)
+				$dataKeys = array_keys($data);
+				foreach ($dataKeys as $field)
 					$table->add_field(ucwords(str_replace('_', ' ', $field)));
 				$table->add_row();
 				$header = TRUE;
 			}
-			foreach ($data as $key => $field)
+			$dataValues = array_values($data);
+			foreach ($dataValues as $field)
 				$table->add_field($field);
 			$table->add_row();
 		}
