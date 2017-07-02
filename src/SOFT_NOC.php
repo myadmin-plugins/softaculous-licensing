@@ -642,7 +642,8 @@ class SOFT_NOC {
 		$logs = $this->virtLicenselogs($key);
 		// Did we get any logs ?
 		if (!empty($logs['actions']))
-			foreach ($logs['actions'] as $k => $v) {
+			$logsValues = array_values($logs['actions']);
+			foreach ($logsValues as $v) {
 				// Is it a valid transaction ?
 				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
@@ -836,7 +837,8 @@ class SOFT_NOC {
 		$logs = $this->sitemushLicenselogs($key);
 		// Did we get any logs ?
 		if (!empty($logs['actions'])) {
-			foreach ($logs['actions'] as $k => $v) {
+			$logsValues = array_values($logs['actions']);
+			foreach ($logsValues as $v) {
 				// Is it a valid transaction ?
 				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
@@ -994,8 +996,6 @@ function array2json($arr) {
 			elseif ($value === FALSE) $str .= 'false'; //The booleans
 			elseif ($value === TRUE) $str .= 'true';
 			else $str .= '"'.addslashes($value).'"'; //All other things
-			// :TODO: Is there any more datatype we should be in the lookout for? (Object?)
-
 			$parts[] = $str;
 		}
 	}
