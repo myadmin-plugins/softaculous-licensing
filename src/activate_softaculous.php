@@ -20,7 +20,7 @@
 function activate_softaculous($ipAddress, $field, $email) {
 	myadmin_log('softaculous', 'info', "activating softaculous({$ipAddress}, {$field}, {$email})", __LINE__, __FILE__);
 	try {
-		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 		// Buy / renew a License
 		$matches = $noc->licenses('', $ipAddress);
 		$need = TRUE;

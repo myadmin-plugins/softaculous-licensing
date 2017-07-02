@@ -13,7 +13,7 @@ namespace Detain\MyAdminSoftaculous;
 
 use Detain\MyAdminSoftaculous\ArrayToXML;
 
-class SOFT_NOC {
+class SoftaculousNOC {
 	private $nocname;
 	private $nocpass;
 	public $softaculous = 'https://www.softaculous.com/noc';
@@ -25,7 +25,7 @@ class SOFT_NOC {
 	public $json = 0;
 
 	/**
-	 * SOFT_NOC constructor.
+	 * SoftaculousNOC constructor.
 	 *
 	 * @param string $nocname
 	 * @param string $nocpass
@@ -1013,7 +1013,7 @@ function array2json($arr) {
 ////////////////////////
 
 // Initiate the class with your NOC Account Credentials
-$noc = new SOFT_NOC('username', 'password');
+$noc = new SoftaculousNOC('username', 'password');
 
 // Buy / renew a License
 $noc->displayResponse($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
@@ -1071,7 +1071,7 @@ $noc->displayResponse($noc->removeautorenewal('88888-88888-88888-88888-88888'));
 ////////////////////
 
 // Initiate the class with your NOC Account Credentials
-$noc = new SOFT_NOC('username', 'password');
+$noc = new SoftaculousNOC('username', 'password');
 
 // Buy / renew a License
 $noc->displayResponse($noc->webuzoBuy('174.37.113.98', '1M', 1, 'test@test.com', 1));
@@ -1185,7 +1185,7 @@ $noc->displayResponse($noc->virtRemoveautorenewal('88888-88888-88888-88888-88888
 ////////////////////////
 
 // Initiate the class with your NOC Account Credentials
-$noc = new SOFT_NOC('username', 'password');
+$noc = new SoftaculousNOC('username', 'password');
 
 // Buy / renew a License
 $noc->displayResponse($noc->sitemushBuy('188.188.188.188', '1M', 1));
@@ -1274,7 +1274,7 @@ echo array2json($result);
 
 // After any query, the class variable 'error' will be filled up IF there was an error
 
-$noc = new SOFT_NOC('username', 'password');
+$noc = new SoftaculousNOC('username', 'password');
 
 // Buy / renew a License
 $result = $noc->webuzoBuy('174.37.113.98', '1M', 1, 'test@test.com', 1);

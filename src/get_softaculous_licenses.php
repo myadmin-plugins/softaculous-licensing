@@ -14,7 +14,7 @@
  * @return FALSE|array
  */
 function get_softaculous_licenses($ipAddress = '') {
-	$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+	$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 	return $noc->licenses('', $ipAddress);
 }
 

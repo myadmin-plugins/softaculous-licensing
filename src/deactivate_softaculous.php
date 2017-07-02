@@ -16,7 +16,7 @@
 function deactivate_softaculous($ipAddress) {
 	myadmin_log('softaculous', 'info', 'deactivating softaculous($ipAddress)', __LINE__, __FILE__);
 	try {
-		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 		// Buy / renew a License
 		$matches = $noc->licenses('', $ipAddress);
 		if ($matches['num_results'] > 0) {

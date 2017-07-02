@@ -25,7 +25,7 @@
 	$good = 0;
 	$cancels = 0;
 	$unknowns = 0;
-	$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+	$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 	$licenses = $noc->licenses();
 	foreach ($licenses['licenses'] as $lid => $license)
 	{

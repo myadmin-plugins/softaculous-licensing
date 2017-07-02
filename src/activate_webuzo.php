@@ -20,7 +20,7 @@
 function activate_webuzo($ipAddress, $field = '', $email = '') {
 	myadmin_log('softaculous', 'info', "activating webuzo({$ipAddress}, {$field}, {$email})", __LINE__, __FILE__);
 	try {
-		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
+		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 		// Buy / renew a License
 		$matches = $noc->webuzoLicenses('', $ipAddress);
 		$need = TRUE;

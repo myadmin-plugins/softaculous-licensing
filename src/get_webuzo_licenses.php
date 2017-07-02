@@ -14,6 +14,6 @@
  * @return array|bool
  */
 function get_webuzoLicenses($ipAddress = '') {
-	$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
+	$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 	return $noc->webuzoLicenses('', $ipAddress);
 }

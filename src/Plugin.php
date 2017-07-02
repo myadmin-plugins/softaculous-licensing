@@ -16,7 +16,7 @@ namespace Detain\MyAdminSoftaculous;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /*
- * $noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+ * $noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
  * // Buy / renew a License
  * $noc->displayResponse($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
  * // Refund a Transaction
@@ -109,7 +109,7 @@ class Plugin {
 			$data = get_softaculous_licenses($serviceClass->getIp());
 			$lid = array_keys($data[self::$module]);
 			$lid = $lid[0];
-			$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+			$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 			if ($noc->editips($lid[0], $event['newip']) !== FALSE) {
 				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $serviceClass->getIp());
 				$serviceClass->set_ip($event['newip'])->save();
