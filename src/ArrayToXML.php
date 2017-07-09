@@ -3,7 +3,6 @@
  * Softaculous Related Functionality
  * Last Changed: $LastChangedDate: 2017-05-30 05:54:53 -0400 (Tue, 30 May 2017) $
  * @author detain
- * @version $Revision: 24894 $
  * @copyright 2017
  * @package MyAdmin-Softaculous-Licensing
  * @category Licenses
