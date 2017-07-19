@@ -20,7 +20,7 @@
 	$GLOBALS['tf']->session->create(160307, 'services');
 	$GLOBALS['tf']->session->verify();
 	$db = get_module_db($module);
-	$softaculous_type = SERVICE_TYPES_SOFTACULOUS;
+	$softaculous_type = get_service_define('SOFTACULOUS');
 	$hostdates = 0;
 	$good = 0;
 	$cancels = 0;

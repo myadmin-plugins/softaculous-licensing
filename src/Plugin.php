@@ -72,12 +72,12 @@ class Plugin {
 
 	public static function getActivate(GenericEvent $event) {
 		$serviceClass = $event->getSubject();
-		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
+		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			myadmin_log(self::$module, 'info', 'Softaculous Activation', __LINE__, __FILE__);
 			function_requirements('activate_softaculous');
 			activate_softaculous($serviceClass->getIp(), $event['field1'], $event['email']);
 			$event->stopPropagation();
-		} elseif ($event['category'] == SERVICE_TYPES_WEBUZO) {
+		} elseif ($event['category'] == get_service_define('WEBUZO')) {
 			myadmin_log(self::$module, 'info', 'Webuzo Activation', __LINE__, __FILE__);
 			function_requirements('activate_webuzo');
 			activate_webuzo($serviceClass->getIp(), $event['field1'], $event['email']);
@@ -87,12 +87,12 @@ class Plugin {
 
 	public static function getDeactivate(GenericEvent $event) {
 		$serviceClass = $event->getSubject();
-		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
+		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			myadmin_log(self::$module, 'info', 'Softaculous Deactivation', __LINE__, __FILE__);
 			function_requirements('deactivate_softaculous');
 			deactivate_softaculous($serviceClass->getIp());
 			$event->stopPropagation();
-		} elseif ($event['category'] == SERVICE_TYPES_WEBUZO) {
+		} elseif ($event['category'] == get_service_define('WEBUZO')) {
 			myadmin_log(self::$module, 'info', 'Webuzo Deactivation', __LINE__, __FILE__);
 			function_requirements('deactivate_webuzo');
 			deactivate_webuzo($serviceClass->getIp());
@@ -101,7 +101,7 @@ class Plugin {
 	}
 
 	public static function getChangeIp(GenericEvent $event) {
-		if ($event['category'] == SERVICE_TYPES_SOFTACULOUS) {
+		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
 			myadmin_log(self::$module, 'info', "IP Change - (OLD:".$serviceClass->getIp().") (NEW:{$event['newip']})", __LINE__, __FILE__);
