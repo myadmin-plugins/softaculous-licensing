@@ -62,7 +62,7 @@ class SoftaculousNOC {
 		// Turn off the server and peer verification (TrustManager Concept).
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-		$this->post = array('nocname' => $this->nocname, 'nocpass' => $this->nocpass);
+		$this->post = ['nocname' => $this->nocname, 'nocpass' => $this->nocpass];
 		$this->post = http_build_query($this->post);
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $this->post);
