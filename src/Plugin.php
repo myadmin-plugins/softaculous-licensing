@@ -76,7 +76,7 @@ class Plugin {
 			self::$module.'.deactivate_ip' => [__CLASS__, 'getDeactivate'],
 			self::$module.'.change_ip' => [__CLASS__, 'getChangeIp'],
 			'function.requirements' => [__CLASS__, 'getRequirements'],
-			'ui.menu' => [__CLASS__, 'getMenu'],
+			'ui.menu' => [__CLASS__, 'getMenu']
 		];
 	}
 
