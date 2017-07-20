@@ -25,7 +25,7 @@ class ArrayToXML
 	 * @return string XML
 	 */
 	public function toXML($data, $rootNodeName = 'ResultSet', $xml = NULL) {
-		if (is_null($xml)) //$xml = simplexml_load_string( "" );
+		if (null === $xml) //$xml = simplexml_load_string( "" );
 			$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
 		// loop through the data passed in.
 		foreach ($data as $key => $value) {
