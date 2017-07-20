@@ -12,6 +12,11 @@ namespace Detain\MyAdminSoftaculous;
 
 use Detain\MyAdminSoftaculous\ArrayToXML;
 
+/**
+ * Class SoftaculousNOC
+ *
+ * @package Detain\MyAdminSoftaculous
+ */
 class SoftaculousNOC {
 	private $nocname;
 	private $nocpass;
@@ -761,6 +766,7 @@ class SoftaculousNOC {
 	 * NOTE: A refund can be claimed only within 7 days of buying/renewing the license
 	 *
 	 * @param mixed $actid The Action ID for which you want to claim refund
+	 * @return array|FALSE
 	 */
 	public function sitemushRefund($actid) {
 		$this->params['ca'] = 'sitemushRefund';
@@ -773,12 +779,13 @@ class SoftaculousNOC {
 	 * NOTE: $key, $ipAddress, $expiry, $start, $len (i.e. All Paras) are Optional When
 	 * nothing is specified a list of all your license will be returned.
 	 *
-	 * @param string $key (Optional) The License KEY to get the details of that particular License
+	 * @param string $key       (Optional) The License KEY to get the details of that particular License
 	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
-	 * @param string $expiry (Optional) To get a List of License that are expiring. Valid Options - 1 , 2 , 3 . Explanation is as follows:  $expiry = 1; (All Expired License in your account)   $expiry = 2; (Expiring in 7 Days)  $expiry = 3; (Expiring in 15 Days)
-	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
-	 * @param int $len (Optional) The length to return from the start. e.g.  If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify  $start = 99 and $len = 200
-	 * @param string $email (Optional) The authorised email of the user for which you want to get the list of licenses.
+	 * @param string $expiry    (Optional) To get a List of License that are expiring. Valid Options - 1 , 2 , 3 . Explanation is as follows:  $expiry = 1; (All Expired License in your account)   $expiry = 2; (Expiring in 7 Days)  $expiry = 3; (Expiring in 15 Days)
+	 * @param int    $start     (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from the 100th one then specify 99
+	 * @param int    $len       (Optional) The length to return from the start. e.g.  If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify  $start = 99 and $len = 200
+	 * @param string $email     (Optional) The authorised email of the user for which you want to get the list of licenses.
+	 * @return array|FALSE
 	 */
 	public function sitemushLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
 		$this->params['ca'] = 'sitemush';
@@ -794,10 +801,11 @@ class SoftaculousNOC {
 	/**
 	 * remove SiteMush license and its auto renewal
 	 * NOTE: 1) $key needs to be specified
-	 *			  2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
-	 *			  3) Also a refund is not made when you cancel a license. You must first claim the refund using the sitemushRefund() API
+	 *              2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
+	 *              3) Also a refund is not made when you cancel a license. You must first claim the refund using the sitemushRefund() API
 	 *
 	 * @param string $key The License KEY
+	 * @return array|FALSE
 	 */
 	public function sitemushRemove($key) {
 		$this->params['ca'] = 'sitemushCancel';
@@ -809,11 +817,12 @@ class SoftaculousNOC {
 	/**
 	 * refund SiteMush license and then remove SiteMush license and its auto renewal
 	 * NOTE: 1) Either of $ipAddress, $key needs to be specified
-	 *			  2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
-	 *			  3) We will try to refund you if the license is purchased less than 7 days ago. And then we will cancel the license.
+	 *              2) A cancel will not be allowed if you have a license expiring after MORE than a MONTH.
+	 *              3) We will try to refund you if the license is purchased less than 7 days ago. And then we will cancel the license.
 	 *
-	 * @param string $key (Optional) The License KEY
+	 * @param string $key       (Optional) The License KEY
 	 * @param string $ipAddress (Optional) The Primary IP of the License
+	 * @return array|bool|FALSE
 	 */
 	public function sitemushRefundAndCancel($key = '', $ipAddress = '') {
 		if (!empty($ipAddress)) {
@@ -854,8 +863,9 @@ class SoftaculousNOC {
 	 * Edit the IPs of a SiteMush License
 	 * NOTE: Either of $ipAddress, $key needs to be specified
 	 *
-	 * @param string|int $lid The License ID (NOT the license key) e.g. lid could be 1000
+	 * @param string|int   $lid The License ID (NOT the license key) e.g. lid could be 1000
 	 * @param string|array $ips The NEW IP of the server
+	 * @return array|FALSE
 	 */
 	public function sitemushEditips($lid, $ips) {
 		$this->params['ca'] = 'sitemush_showlicense';
@@ -869,9 +879,10 @@ class SoftaculousNOC {
 	 * Action Logs of a SiteMush License
 	 * NOTE: The logs are returned in DESCENDING ORDER, meaning the latest logs will be return first.
 	 *
-	 * @param string $key The License KEY
-	 * @param int $limit The number of action logs to be retrieved
-	 * @param string$ipAddress The License IP
+	 * @param string $key       The License KEY
+	 * @param int    $limit     The number of action logs to be retrieved
+	 * @param string $ipAddress The License IP
+	 * @return array|FALSE
 	 */
 	public function sitemushLicenselogs($key, $limit = 0, $ipAddress = '') {
 		$this->params['ca'] = 'sitemushLicenselogs';
@@ -888,10 +899,11 @@ class SoftaculousNOC {
 	 * NOTE: $key, $ipAddress, $start, $len (i.e. All Params) are Optional When nothing
 	 * is specified a list of all your licenses under auto renewals will be returned.
 	 *
-	 * @param string $key (Optional) The License KEY to get the details of that particular License
+	 * @param string $key       (Optional) The License KEY to get the details of that particular License
 	 * @param string $ipAddress (Optional) The Primary IP of a License to get the details of that particular License
-	 * @param int $start (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from  the 100th one then specify 99
-	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from  the 200 items after the 100th one then specify $start = 99 and $len = 200
+	 * @param int    $start     (Optional) The starting key to return from. e.g. If the result is 500 licenses and you wanted only from  the 100th one then specify 99
+	 * @param int    $len       (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from  the 200 items after the 100th one then specify $start = 99 and $len = 200
+	 * @return array|FALSE
 	 */
 	public function sitemushRenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
 		$this->params['ca'] = 'sitemushRenewals';
@@ -906,6 +918,7 @@ class SoftaculousNOC {
 	 * Add SiteMush Auto Renewals
 	 *
 	 * @param string $key The License KEY that has to be added toAuto Renewal
+	 * @return array|FALSE
 	 */
 	public function sitemushAddautorenewal($key = '') {
 		$this->params['ca'] = 'sitemushRenewals';
@@ -914,11 +927,11 @@ class SoftaculousNOC {
 		return $this->req();
 	}
 
-
 	/**
 	 * Remove SiteMush Auto Renewals
 	 *
 	 * @param string $key The License KEY that has to be removed from Auto Renewal
+	 * @return array|FALSE
 	 */
 	public function sitemushRemoveautorenewal($key = '') {
 		$this->params['ca'] = 'sitemushRenewals';
