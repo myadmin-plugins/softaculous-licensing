@@ -21,7 +21,7 @@ class ArrayToXML
 	 *
 	 * @param array $data
 	 * @param string $rootNodeName - what you want the root node to be - defaults to data.
-	 * @param SimpleXMLElement $xml - should only be used recursively
+	 * @param \SimpleXMLElement $xml - should only be used recursively
 	 * @return string XML
 	 */
 	public function toXML($data, $rootNodeName = 'ResultSet', $xml = NULL) {
@@ -63,23 +63,23 @@ class ArrayToXML
 	 * Convert an XML document to a multi dimensional array
 	 * Pass in an XML document (or SimpleXMLElement object) and this recursively loops through and builds a representative array
 	 *
-	 * @param string $xml - XML document - can optionally be a SimpleXMLElement object
+	 * @param string|\SimpleXMLElement $xml - XML document - can optionally be a SimpleXMLElement object
 	 * @return array ARRAY
 	 */
 	public function toArray($xml) {
-		if (is_string($xml)) $xml = new SimpleXMLElement($xml);
+		if (is_string($xml))
+			$xml = new \SimpleXMLElement($xml);
 		$children = $xml->children();
 		if (!$children) return (string) $xml;
 		$arr = [];
 		foreach ($children as $key => $node) {
 			$node = ArrayToXML::toArray($node);
-
 			// support for 'anon' non-associative arrays
 			if ($key == 'anon') $key = count($arr);
-
 			// if the node is already set, put it into an array
 			if (isset($arr[$key])) {
-				if (!is_array($arr[$key]) || $arr[$key][0] == NULL) $arr[$key] = array($arr[$key]);
+				if (!is_array($arr[$key]) || $arr[$key][0] == NULL)
+					$arr[$key] = array($arr[$key]);
 				$arr[$key][] = $node;
 			} else {
 				$arr[$key] = $node;
