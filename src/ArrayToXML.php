@@ -64,7 +64,7 @@ class ArrayToXML
 	 * Pass in an XML document (or SimpleXMLElement object) and this recursively loops through and builds a representative array
 	 *
 	 * @param string|\SimpleXMLElement $xml - XML document - can optionally be a SimpleXMLElement object
-	 * @return array ARRAY
+	 * @return array|string
 	 */
 	public function toArray($xml) {
 		if (is_string($xml))
