@@ -10,8 +10,6 @@
 
 namespace Detain\MyAdminSoftaculous;
 
-use Detain\MyAdminSoftaculous\ArrayToXML;
-
 /**
  * Class SoftaculousNOC
  *
@@ -985,10 +983,13 @@ function array2json($arr) {
 	//Find out if the given array is a numerical array
 	$keys = array_keys($arr);
 	$maxLength = count($arr) - 1;
-	if (($keys[0] == 0) and ($keys[$maxLength] == $maxLength)) {//See if the first key is 0 and last key is length - 1
+	if (($keys[0] == 0) and ($keys[$maxLength] == $maxLength)) {
+//See if the first key is 0 and last key is length - 1
 		$isList = TRUE;
-		for ($i = 0, $iMax = count($keys); $i < $iMax; $i++) { //See if each key corresponds to its position
-			if ($i != $keys[$i]) { //A key fails at position check.
+		for ($i = 0, $iMax = count($keys); $i < $iMax; $i++) {
+//See if each key corresponds to its position
+			if ($i != $keys[$i]) {
+//A key fails at position check.
 				$isList = FALSE; //It is an associative array.
 				break;
 			}
@@ -996,7 +997,8 @@ function array2json($arr) {
 	}
 
 	foreach ($arr as $key=>$value) {
-		if (is_array($value)) { //Custom handling for arrays
+		if (is_array($value)) {
+//Custom handling for arrays
 			if ($isList) $parts[] = array2json($value); /* :RECURSION: */
 			else $parts[] = '"'.$key.'":'.array2json($value); /* :RECURSION: */
 		} else {

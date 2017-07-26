@@ -13,8 +13,7 @@ namespace Detain\MyAdminSoftaculous;
 /**
  * Converts an Array to XML
  */
-class ArrayToXML
-{
+class ArrayToXML {
 	/**
 	 * The main function for converting to an XML document.
 	 * Pass in a multi dimensional array and this recursively loops through and builds up an XML document.
@@ -25,7 +24,7 @@ class ArrayToXML
 	 * @return string XML
 	 */
 	public function toXML($data, $rootNodeName = 'ResultSet', $xml = NULL) {
-		if (null === $xml) //$xml = simplexml_load_string( "" );
+		if (NULL === $xml) //$xml = simplexml_load_string( "" );
 			$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
 		// loop through the data passed in.
 		foreach ($data as $key => $value) {
