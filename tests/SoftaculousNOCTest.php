@@ -19,7 +19,11 @@ class SoftaculousNOCTest extends TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new SoftaculousNOC;
+		if (file_exists(__DIR__.'/.env')) {
+			$dotenv = new Dotenv\Dotenv(__DIR__);
+			$dotenv->load();
+		}
+		$this->object = new SoftaculousNOC(getenv('SOFTACULOUS_USERNAME'), getenv('SOFTACULOUS_PASSWORD'));
 	}
 
 	/**
