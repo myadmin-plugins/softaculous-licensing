@@ -38,10 +38,10 @@ class ArrayToXML {
 			$key = preg_replace('/[^a-z0-9\-\_\.\:]/i', '', $key);
 			// if there is another array found recursively call this function
 			if (is_array($value)) {
-				$node = ArrayToXML::isAssoc($value) || $numeric ? $xml->addChild($key) : $xml;
+				$node = self::isAssoc($value) || $numeric ? $xml->addChild($key) : $xml;
 				// recursive call.
 				if ($numeric) $key = 'anon';
-				ArrayToXML::toXML($value, $key, $node);
+				self::toXML($value, $key, $node);
 			} else {
 				// add single node.
 				$value = htmlentities($value, ENT_QUOTES, 'UTF-8');
@@ -72,7 +72,7 @@ class ArrayToXML {
 		if (!$children) return (string) $xml;
 		$arr = [];
 		foreach ($children as $key => $node) {
-			$node = ArrayToXML::toArray($node);
+			$node = self::toArray($node);
 			// support for 'anon' non-associative arrays
 			if ($key == 'anon') $key = count($arr);
 			// if the node is already set, put it into an array
