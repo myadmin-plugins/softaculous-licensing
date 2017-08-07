@@ -157,7 +157,7 @@ class SoftaculousNOC {
 	}
 
 	/**
-	 * @param string $key
+	 * @param string|bool $key
 	 * @param string $ipAddress
 	 */
 	public function cancelWithRefund($key = '', $ipAddress = '') {
