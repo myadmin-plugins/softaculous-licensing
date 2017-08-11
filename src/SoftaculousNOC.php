@@ -969,7 +969,7 @@ class SoftaculousNOC {
  * Converts array to JSON
  *
  * @package      softaculous
- * @subpackage   json
+ * @category   json
  * @author       Pulkit Gupta
  * @param        array $arr An array that needs to be converted to JSON
  * @return       string The JSON string
