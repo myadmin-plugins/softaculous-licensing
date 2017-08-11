@@ -2,8 +2,7 @@
 /**
  * Softaculous Related Functionality
  *
- * Last Changed: $LastChangedDate: 2015-09-23 14:50:01 -0400 (Wed, 23 Sep 2015) $
- * @author detain
+ * @author Joe Huss <detain@interserver.net>
  * @copyright 2017
  * @package MyAdmin-Softaculous-Licensing
  * @category Licenses
