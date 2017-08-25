@@ -164,8 +164,8 @@ class SoftaculousNOC {
 		if ($key == '' && $ipAddress != '')
 			$key = $this->ipToKey($ipAddress);
 		$logs = $this->licenselogs($key);
-		$oldestAction = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_sub(NULL, 'INTERVAL 7 DAY')));
-		$oldestExpire = date('Ymd', $GLOBALS['tf']->db->from_timestamp(mysql_date_add(NULL, 'INTERVAL 1 MONTH')));
+		$oldestAction = date('Ymd', $GLOBALS['tf']->db->fromTimestamp(mysql_date_sub(NULL, 'INTERVAL 7 DAY')));
+		$oldestExpire = date('Ymd', $GLOBALS['tf']->db->fromTimestamp(mysql_date_add(NULL, 'INTERVAL 1 MONTH')));
 		//myadmin_log('licenses', 'info', "noc->licenselogs({$key}) = " . json_encode($logs), __LINE__, __FILE__);
 		if (isset($logs['actions']))
 			foreach ($logs['actions'] as $actid => $adata)
