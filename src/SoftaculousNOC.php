@@ -229,9 +229,8 @@ class SoftaculousNOC {
 				// Is it a valid transaction ?
 				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
-				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7)
 					$this->refund($v['actid']);
-				}
 			}
 		// Cancel the license
 		return $this->cancel($key);
@@ -432,9 +431,8 @@ class SoftaculousNOC {
 				// Is it a valid transaction ?
 				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
-				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7)
 					$this->webuzoRefund($v['actid']);
-				}
 			}
 		// Cancel the license
 		return $this->webuzoCancel($key);
@@ -648,9 +646,8 @@ class SoftaculousNOC {
 				// Is it a valid transaction ?
 				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
-				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7)
 					$this->virtRefund($v['actid']);
-				}
 			}
 		// Cancel the license
 		return $this->virtRemove($key);
@@ -847,9 +844,8 @@ class SoftaculousNOC {
 				// Is it a valid transaction ?
 				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
 				// Is it purchased within last 7 days
-				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7)
 					$this->sitemushRefund($v['actid']);
-				}
 			}
 		}
 		// Cancel the license
@@ -885,9 +881,8 @@ class SoftaculousNOC {
 		$this->params['ca'] = 'sitemushLicenselogs';
 		$this->params['key'] = $key;
 		$this->params['licip'] = $ipAddress;
-		if (!empty($limit)) {
+		if (!empty($limit))
 			$this->params['limit'] = $limit;
-		}
 		return $this->req();
 	}
 
