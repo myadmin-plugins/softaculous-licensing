@@ -147,8 +147,8 @@ class Plugin {
 	public static function getMenu(GenericEvent $event) {
 		$menu = $event->getSubject();
 		if ($GLOBALS['tf']->ima == 'admin') {
-			$menu->add_link(self::$module.'api', 'choice=none.softaculous_list', '/images/whm/createacct.gif', 'List all Softaculous Licenses');
-			$menu->add_link(self::$module.'api', 'choice=none.webuzo_list', '/images/whm/createacct.gif', 'List all Webuzo Licenses');
+			$menu->add_link(self::$module.'api', 'choice=none.softaculous_list', '/images/myadmin/list.png', 'List all Softaculous Licenses');
+			$menu->add_link(self::$module.'api', 'choice=none.webuzo_list', '/images/myadmin/list.png', 'List all Webuzo Licenses');
 		}
 	}
 
