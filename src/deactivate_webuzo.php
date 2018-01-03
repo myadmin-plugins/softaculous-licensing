@@ -24,7 +24,7 @@ function deactivate_webuzo($ipAddress) {
 				myadmin_log('softaculous', 'info', 'noc response '.json_encode($noc->response), __LINE__, __FILE__);
 			}
 		}
-		//myadmin_log('softaculous', 'info', "noc->cancel('','$ipAddress') = " . json_encode($noc->cancel('', $ipAddress)), __LINE__, __FILE__);
+		//myadmin_log('softaculous', 'info', "noc->cancel('','{$ipAddress}') = " . json_encode($noc->cancel('', $ipAddress)), __LINE__, __FILE__);
 		//myadmin_log('softaculous', 'info', "noc response " . json_encode($noc->response), __LINE__, __FILE__);
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);
