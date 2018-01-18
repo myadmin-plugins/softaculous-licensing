@@ -24,5 +24,5 @@ composer require detain/myadmin-softaculous-licensing
 
 ## License
 
-The Softaculous Licensing Class class is licensed under the LGPL-v2 license.
+The Softaculous Licensing Class class is licensed under the LGPL-v2.1 license.
 
