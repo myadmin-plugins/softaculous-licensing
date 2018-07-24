@@ -22,7 +22,7 @@
 		"php": ">=5.3.0",
 		"ext-soap": "*",
 		"detain/myadmin-plugin-installer": "dev-master",
-		"symfony/event-dispatcher": "*",
+		"symfony/event-dispatcher": ">=2.8.26",
 		"roave/security-advisories": "dev-master"
 	},
 	"require-dev": {
