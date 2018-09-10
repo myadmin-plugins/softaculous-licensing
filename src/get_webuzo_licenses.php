@@ -11,7 +11,8 @@
  * @param string $ipAddress
  * @return array|bool
  */
-function get_webuzoLicenses($ipAddress = '') {
+function get_webuzoLicenses($ipAddress = '')
+{
 	$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
 	return $noc->webuzoLicenses('', $ipAddress);
 }

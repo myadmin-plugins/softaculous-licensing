@@ -49,8 +49,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @package Detain\MyAdminSoftaculous
  */
-class Plugin {
-
+class Plugin
+{
 	public static $name = 'Softaculous Licensing';
 	public static $description = 'Allows selling of Softaculous Server and VPS License Types.  More info at http://softaculous.com/';
 	public static $help = 'Softaculous is a great Auto Installer having 175 great scripts and we are still adding more. Softaculous is ideal for Web Hosting companies and it could give a significant boost to your sales. These scripts cover most of the uses a customer could ever have. We have covered a wide array of Categories so that everyone could find the required script one would need to power their Web Site. The best part is we keep on adding new scripts which we know will satisfy the needs of a User.';
@@ -60,13 +60,15 @@ class Plugin {
 	/**
 	 * Plugin constructor.
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 	}
 
 	/**
 	 * @return array
 	 */
-	public static function getHooks() {
+	public static function getHooks()
+	{
 		return [
 			self::$module.'.settings' => [__CLASS__, 'getSettings'],
 			self::$module.'.activate' => [__CLASS__, 'getActivate'],
@@ -82,7 +84,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getActivate(GenericEvent $event) {
+	public static function getActivate(GenericEvent $event)
+	{
 		$serviceClass = $event->getSubject();
 		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			myadmin_log(self::$module, 'info', 'Softaculous Activation', __LINE__, __FILE__);
@@ -100,7 +103,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getDeactivate(GenericEvent $event) {
+	public static function getDeactivate(GenericEvent $event)
+	{
 		$serviceClass = $event->getSubject();
 		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			myadmin_log(self::$module, 'info', 'Softaculous Deactivation', __LINE__, __FILE__);
@@ -118,7 +122,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getChangeIp(GenericEvent $event) {
+	public static function getChangeIp(GenericEvent $event)
+	{
 		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
@@ -128,7 +133,7 @@ class Plugin {
 			$lid = array_keys($data[self::$module]);
 			$lid = $lid[0];
 			$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-			if ($noc->editips($lid[0], $event['newip']) !== FALSE) {
+			if ($noc->editips($lid[0], $event['newip']) !== false) {
 				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $serviceClass->getIp());
 				$serviceClass->set_ip($event['newip'])->save();
 				$return['status'] = 'ok';
@@ -144,7 +149,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getMenu(GenericEvent $event) {
+	public static function getMenu(GenericEvent $event)
+	{
 		$menu = $event->getSubject();
 		if ($GLOBALS['tf']->ima == 'admin') {
 			$menu->add_link(self::$module.'api', 'choice=none.softaculous_list', '/images/myadmin/list.png', 'List all Softaculous Licenses');
@@ -155,7 +161,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getRequirements(GenericEvent $event) {
+	public static function getRequirements(GenericEvent $event)
+	{
 		$loader = $event->getSubject();
 		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
 		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
@@ -170,7 +177,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getSettings(GenericEvent $event) {
+	public static function getSettings(GenericEvent $event)
+	{
 		$settings = $event->getSubject();
 		$settings->add_text_setting(self::$module, 'Softaculous', 'softaculous_username', 'Softaculous Username:', 'Softaculous Username', $settings->get_setting('SOFTACULOUS_USERNAME'));
 		$settings->add_text_setting(self::$module, 'Softaculous', 'softaculous_password', 'Softaculous Password:', 'Softaculous Password', $settings->get_setting('SOFTACULOUS_PASSWORD'));
@@ -178,5 +186,4 @@ class Plugin {
 		$settings->add_text_setting(self::$module, 'Softaculous', 'webuzo_password', 'Webuzo Password:', 'Webuzo Password', $settings->get_setting('WEBUZO_PASSWORD'));
 		$settings->add_dropdown_setting(self::$module, 'Softaculous', 'outofstock_licenses_softaculous', 'Out Of Stock Softaculous Licenses', 'Enable/Disable Sales Of This Type', $settings->get_setting('OUTOFSTOCK_LICENSES_SOFTACULOUS'), ['0', '1'], ['No', 'Yes']);
 	}
-
 }

@@ -11,7 +11,8 @@
  * @param $ipAddress
  * @return bool
  */
-function deactivate_webuzo($ipAddress) {
+function deactivate_webuzo($ipAddress)
+{
 	myadmin_log('softaculous', 'info', "deactivating webuzo({$ipAddress})", __LINE__, __FILE__);
 	try {
 		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
@@ -28,8 +29,7 @@ function deactivate_webuzo($ipAddress) {
 		//myadmin_log('softaculous', 'info', "noc response " . json_encode($noc->response), __LINE__, __FILE__);
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }
-

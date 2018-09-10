@@ -11,7 +11,8 @@
  * @param $ipAddress
  * @return bool
  */
-function deactivate_softaculous($ipAddress) {
+function deactivate_softaculous($ipAddress)
+{
 	myadmin_log('softaculous', 'info', 'deactivating softaculous($ipAddress)', __LINE__, __FILE__);
 	try {
 		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
@@ -28,7 +29,7 @@ function deactivate_softaculous($ipAddress) {
 		//myadmin_log('softaculous', 'info', "noc response " . json_encode($noc->response), __LINE__, __FILE__);
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }

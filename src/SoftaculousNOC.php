@@ -14,7 +14,8 @@ namespace Detain\MyAdminSoftaculous;
  *
  * @package Detain\MyAdminSoftaculous
  */
-class SoftaculousNOC {
+class SoftaculousNOC
+{
 	private $nocname;
 	private $nocpass;
 	public $softaculous = 'https://www.softaculous.com/noc';
@@ -33,32 +34,38 @@ class SoftaculousNOC {
 	 * @param string $url
 	 * @param int $json
 	 */
-	public function __construct($nocname, $nocpass, $url = '', $json = 0) {
+	public function __construct($nocname, $nocpass, $url = '', $json = 0)
+	{
 		$this->nocname = $nocname;
 		$this->nocpass = $nocpass;
-		if (!empty($url))
+		if (!empty($url)) {
 			$this->softaculous = $url;
-		if (!empty($json))
+		}
+		if (!empty($json)) {
 			$this->json = 1;
+		}
 	}
 
 	/**
 	 * Handles the API curl Call, parsing the response and storing it
 	 * @return FALSE|array FALSE if there was an error (setting  $this->error or returning the response)
 	 */
-	public function req() {
+	public function req()
+	{
 		$url = $this->softaculous.'?';
-		foreach ($this->params as $k => $v)
+		foreach ($this->params as $k => $v) {
 			$url .= '&'.$k.'='.rawurlencode($v);
-		if (!empty($this->json))
+		}
+		if (!empty($this->json)) {
 			$url .= '&json=1';
+		}
 		//echo $url.'<br>';
 		// Set the curl parameters.
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		// Turn off the server and peer verification (TrustManager Concept).
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		$this->post = ['nocname' => $this->nocname, 'nocpass' => $this->nocpass];
 		$this->post = http_build_query($this->post);
 		curl_setopt($ch, CURLOPT_POST, 1);
@@ -68,7 +75,7 @@ class SoftaculousNOC {
 		$this->rawResponse = curl_exec($ch);
 		if (!$this->rawResponse) {
 			$this->error[] = 'There was some error in connecting to Softaculous. This may be because of no internet connectivity at your end.';
-			return FALSE;
+			return false;
 		}
 		// Extract the response details.
 		$this->response = myadmin_unstringify($this->rawResponse);
@@ -77,7 +84,7 @@ class SoftaculousNOC {
 			return $this->response;
 		} else {
 			$this->error = array_merge($this->error, $this->response['error']);
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -91,7 +98,8 @@ class SoftaculousNOC {
 	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for TRUE   0 (i.e. any empty value) or 2 for FALSE   Emails will be sent when renewed.
 	 * @return FALSE|array
 	 */
-	public function buy($ipAddress, $toadd, $servertype, $authemail, $autorenew) {
+	public function buy($ipAddress, $toadd, $servertype, $authemail, $autorenew)
+	{
 		$this->params['ca'] = 'softaculous_buy';
 		$this->params['purchase'] = 1;
 		$this->params['ips'] = $ipAddress;
@@ -109,7 +117,8 @@ class SoftaculousNOC {
 	 * @param mixed $actid The Action ID for which you want to claim refund
 	 * @return FALSE|array
 	 */
-	public function refund($actid) {
+	public function refund($actid)
+	{
 		$this->params['ca'] = 'softaculous_refund';
 		$this->params['actid'] = $actid;
 		return $this->req();
@@ -129,7 +138,8 @@ class SoftaculousNOC {
 	 * @param string $email (Optional) The authorised email of the user for which  you want to get the list of licenses.
 	 * @return FALSE|array
 	 */
-	public function licenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
+	public function licenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '')
+	{
 		$this->params['ca'] = 'softaculous';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -144,34 +154,41 @@ class SoftaculousNOC {
 	 * @param string $ipAddress
 	 * @return bool|string
 	 */
-	public function ipToKey($ipAddress) {
+	public function ipToKey($ipAddress)
+	{
 		$matches = $this->licenses('', $ipAddress);
 		myadmin_log('licenses', 'info', "noc->licenses('', {$ipAddress}) = ".json_encode($matches), __LINE__, __FILE__);
 		if ($matches['num_results'] > 0) {
 			$matchesValues = array_values($matches['licenses']);
-			foreach ($matchesValues as $ldata)
+			foreach ($matchesValues as $ldata) {
 				return $ldata['license'];
+			}
 		}
-		return FALSE;
+		return false;
 	}
 
 	/**
 	 * @param string|bool $key
 	 * @param string $ipAddress
 	 */
-	public function cancelWithRefund($key = '', $ipAddress = '') {
+	public function cancelWithRefund($key = '', $ipAddress = '')
+	{
 		myadmin_log('licenses', 'info', "noc->cancelWithRefund('{$key}','{$ipAddress}') called", __LINE__, __FILE__);
-		if ($key == '' && $ipAddress != '')
+		if ($key == '' && $ipAddress != '') {
 			$key = $this->ipToKey($ipAddress);
+		}
 		$logs = $this->licenselogs($key);
-		$oldestAction = date('Ymd', $GLOBALS['tf']->db->fromTimestamp(mysql_date_sub(NULL, 'INTERVAL 7 DAY')));
-		$oldestExpire = date('Ymd', $GLOBALS['tf']->db->fromTimestamp(mysql_date_add(NULL, 'INTERVAL 1 MONTH')));
+		$oldestAction = date('Ymd', $GLOBALS['tf']->db->fromTimestamp(mysql_date_sub(null, 'INTERVAL 7 DAY')));
+		$oldestExpire = date('Ymd', $GLOBALS['tf']->db->fromTimestamp(mysql_date_add(null, 'INTERVAL 1 MONTH')));
 		//myadmin_log('licenses', 'info', "noc->licenselogs({$key}) = " . json_encode($logs), __LINE__, __FILE__);
-		if (isset($logs['actions']))
-			foreach ($logs['actions'] as $actid => $adata)
-				if ($adata['date'] >= $oldestAction || $logs['license']['expires'] >= $oldestExpire)
+		if (isset($logs['actions'])) {
+			foreach ($logs['actions'] as $actid => $adata) {
+				if ($adata['date'] >= $oldestAction || $logs['license']['expires'] >= $oldestExpire) {
 					myadmin_log('licenses', 'info', "noc->refund({$actid}) = ".json_encode($this->refund($actid)), __LINE__, __FILE__);
-				myadmin_log('licenses', 'info', "noc->cancel('{$key}','{$ipAddress}') = ".json_encode($this->cancel($key, $ipAddress)), __LINE__, __FILE__);
+				}
+			}
+		}
+		myadmin_log('licenses', 'info', "noc->cancel('{$key}','{$ipAddress}') = ".json_encode($this->cancel($key, $ipAddress)), __LINE__, __FILE__);
 		//myadmin_log('licenses', 'info', "noc->cancel response " . json_encode($this->response), __LINE__, __FILE__);
 	}
 
@@ -185,7 +202,8 @@ class SoftaculousNOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return FALSE|array
 	 */
-	public function cancel($key = '', $ipAddress = '') {
+	public function cancel($key = '', $ipAddress = '')
+	{
 		$this->params['ca'] = 'softaculous_cancel';
 		$this->params['lickey'] = $key;
 		$this->params['licip'] = $ipAddress;
@@ -203,14 +221,15 @@ class SoftaculousNOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function refundAndCancel($key = '', $ipAddress = '') {
+	public function refundAndCancel($key = '', $ipAddress = '')
+	{
 		if (!empty($ipAddress)) {
 			// Search for a license
 			$lic = $this->licenses('', $ipAddress);
 			// No license with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
-				return FALSE;
+				return false;
 			}
 			$myLicense = current(current($lic));
 			$key = $myLicense['license'];
@@ -218,20 +237,24 @@ class SoftaculousNOC {
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
-			return FALSE;
+			return false;
 		}
 		// Lets get the logs
 		$logs = $this->licenselogs($key);
 		// Did we get any logs ?
-		if (!empty($logs['actions']))
+		if (!empty($logs['actions'])) {
 			$logsValues = array_values($logs['actions']);
-			foreach ($logsValues as $v) {
-				// Is it a valid transaction ?
-				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
-				// Is it purchased within last 7 days
-				if ((time() - $v['time']) / (24 * 60 * 60) < 7)
-					$this->refund($v['actid']);
+		}
+		foreach ($logsValues as $v) {
+			// Is it a valid transaction ?
+			if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) {
+				continue;
 			}
+			// Is it purchased within last 7 days
+			if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
+				$this->refund($v['actid']);
+			}
+		}
 		// Cancel the license
 		return $this->cancel($key);
 	}
@@ -244,7 +267,8 @@ class SoftaculousNOC {
 	 * @param string|array $ips The list of IPs of the same VPS / Server. The first IP you enter will be the primary IP Address of the License. You can enter up to a maximum of 8 IP Address per license.
 	 * @return FALSE|array
 	 */
-	public function editips($lid, $ips) {
+	public function editips($lid, $ips)
+	{
 		$this->params['ca'] = 'softaculous_showlicense';
 		$this->params['lid'] = $lid;
 		$this->params['ips[]'] = $ips;
@@ -261,12 +285,14 @@ class SoftaculousNOC {
 	 * @param string $ipAddress The License IP
 	 * @return FALSE|array
 	 */
-	public function licenselogs($key, $limit = 0, $ipAddress = '') {
+	public function licenselogs($key, $limit = 0, $ipAddress = '')
+	{
 		$this->params['ca'] = 'softaculous_licenselogs';
 		$this->params['key'] = $key;
 		$this->params['licip'] = $ipAddress;
-		if (!empty($limit))
+		if (!empty($limit)) {
 			$this->params['limit'] = $limit;
+		}
 		return $this->req();
 	}
 
@@ -281,7 +307,8 @@ class SoftaculousNOC {
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @return FALSE|array
 	 */
-	public function autorenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
+	public function autorenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000)
+	{
 		$this->params['ca'] = 'softaculous_renewals';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -296,7 +323,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY to get the details of that particular License
 	 * @return FALSE|array
 	 */
-	public function addautorenewal($key = '') {
+	public function addautorenewal($key = '')
+	{
 		$this->params['ca'] = 'softaculous_renewals';
 		$this->params['addrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -309,7 +337,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY to get the details of that particular License
 	 * @return FALSE|array
 	 */
-	public function removeautorenewal($key = '') {
+	public function removeautorenewal($key = '')
+	{
 		$this->params['ca'] = 'softaculous_renewals';
 		$this->params['cancelrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -330,7 +359,8 @@ class SoftaculousNOC {
 	 * @param integer $autorenew To be renewed Automatically before expiry. Values - 1 for TRUE    0 (i.e. any empty value) or 2 for FALSE     Emails will be sent when renewed.
 	 * @return FALSE|array
 	 */
-	public function webuzoBuy($ipAddress, $toadd, $servertype, $authemail, $autorenew) {
+	public function webuzoBuy($ipAddress, $toadd, $servertype, $authemail, $autorenew)
+	{
 		$this->params['ca'] = 'webuzoBuy';
 		$this->params['purchase'] = 1;
 		$this->params['ips'] = $ipAddress;
@@ -348,7 +378,8 @@ class SoftaculousNOC {
 	 * @param string $actid The Action ID for which you want to claim refund
 	 * @return FALSE|array
 	 */
-	public function webuzoRefund($actid) {
+	public function webuzoRefund($actid)
+	{
 		$this->params['ca'] = 'webuzoRefund';
 		$this->params['actid'] = $actid;
 		return $this->req();
@@ -366,7 +397,8 @@ class SoftaculousNOC {
 	 * @param string $email (Optional) The authorised email of the user for which you want to get the list of licenses.
 	 * @return FALSE|array
 	 */
-	public function webuzoLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
+	public function webuzoLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '')
+	{
 		$this->params['ca'] = 'webuzo';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -387,7 +419,8 @@ class SoftaculousNOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return FALSE|array
 	 */
-	public function webuzoCancel($key = '', $ipAddress = '') {
+	public function webuzoCancel($key = '', $ipAddress = '')
+	{
 		$this->params['ca'] = 'webuzoCancel';
 		$this->params['lickey'] = $key;
 		$this->params['licip'] = $ipAddress;
@@ -405,14 +438,15 @@ class SoftaculousNOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function webuzoRefundAndCancel($key = '', $ipAddress = '') {
+	public function webuzoRefundAndCancel($key = '', $ipAddress = '')
+	{
 		if (!empty($ipAddress)) {
 			// Search for a license
 			$lic = $this->webuzoLicenses('', $ipAddress);
 			// No licenses with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
-				return FALSE;
+				return false;
 			}
 			$myLicense = current(current($lic));
 			$key = $myLicense['license'];
@@ -420,20 +454,24 @@ class SoftaculousNOC {
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
-			return FALSE;
+			return false;
 		}
 		// Lets get the logs
 		$logs = $this->webuzoLicenselogs($key);
 		// Did we get any logs ?
-		if (!empty($logs['actions']))
+		if (!empty($logs['actions'])) {
 			$logsValues = array_values($logs['actions']);
-			foreach ($logsValues as $v) {
-				// Is it a valid transaction ?
-				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
-				// Is it purchased within last 7 days
-				if ((time() - $v['time']) / (24 * 60 * 60) < 7)
-					$this->webuzoRefund($v['actid']);
+		}
+		foreach ($logsValues as $v) {
+			// Is it a valid transaction ?
+			if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) {
+				continue;
 			}
+			// Is it purchased within last 7 days
+			if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
+				$this->webuzoRefund($v['actid']);
+			}
+		}
 		// Cancel the license
 		return $this->webuzoCancel($key);
 	}
@@ -446,7 +484,8 @@ class SoftaculousNOC {
 	 * @param $ips The IP (SINGLE IP ONLY) of the VPS / Server. Unlike Softaculous only one IP is allowed here
 	 * @return FALSE|array
 	 */
-	public function webuzoEditips($lid, $ips) {
+	public function webuzoEditips($lid, $ips)
+	{
 		$this->params['ca'] = 'webuzo_showlicense';
 		$this->params['lid'] = $lid;
 		$this->params['ips'] = $ips;
@@ -463,12 +502,14 @@ class SoftaculousNOC {
 	 * @param string $ipAddress The License IP
 	 * @return FALSE|array
 	 */
-	public function webuzoLicenselogs($key, $limit = 0, $ipAddress = '') {
+	public function webuzoLicenselogs($key, $limit = 0, $ipAddress = '')
+	{
 		$this->params['ca'] = 'webuzoLicenselogs';
 		$this->params['key'] = $key;
 		$this->params['licip'] = $ipAddress;
-		if (!empty($limit))
+		if (!empty($limit)) {
 			$this->params['limit'] = $limit;
+		}
 		return $this->req();
 	}
 
@@ -483,7 +524,8 @@ class SoftaculousNOC {
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @return FALSE|array
 	 */
-	public function webuzoAutorenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
+	public function webuzoAutorenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000)
+	{
 		$this->params['ca'] = 'webuzo_renewals';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -498,7 +540,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY that has to be added to Auto Renewal
 	 * @return FALSE|array
 	 */
-	public function webuzoAddautorenewal($key = '') {
+	public function webuzoAddautorenewal($key = '')
+	{
 		$this->params['ca'] = 'webuzo_renewals';
 		$this->params['addrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -511,7 +554,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY that has to be removed from Auto Renewal
 	 * @return FALSE|array
 	 */
-	public function webuzoRemoveautorenewal($key = '') {
+	public function webuzoRemoveautorenewal($key = '')
+	{
 		$this->params['ca'] = 'webuzo_renewals';
 		$this->params['cancelrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -525,7 +569,8 @@ class SoftaculousNOC {
 	 * @param $servertype Whether its a VPS or a Dedicated Server License
 	 * @return FALSE|array
 	 */
-	public function webuzotrial($ipAddress, $servertype) {
+	public function webuzotrial($ipAddress, $servertype)
+	{
 		$this->params['ca'] = 'webuzotrial';
 		$this->params['ips'] = $ipAddress;
 		$this->params['type'] = $servertype;
@@ -546,7 +591,8 @@ class SoftaculousNOC {
 	 * @param int $autorenew To be renewed Automatically before expiry.  Values - 1 for TRUE    0 for FALSE.
 	 * @return FALSE|array
 	 */
-	public function virtBuy($ipAddress, $toadd, $autorenew) {
+	public function virtBuy($ipAddress, $toadd, $autorenew)
+	{
 		$this->params['ca'] = 'virtualizor_buy';
 		$this->params['purchase'] = 1;
 		$this->params['ips'] = $ipAddress;
@@ -562,7 +608,8 @@ class SoftaculousNOC {
 	 * @param $actid The Action ID for which you want to claim refund
 	 * @return FALSE|array
 	 */
-	public function virtRefund($actid) {
+	public function virtRefund($actid)
+	{
 		$this->params['ca'] = 'virtualizor_refund';
 		$this->params['actid'] = $actid;
 		return $this->req();
@@ -581,7 +628,8 @@ class SoftaculousNOC {
 	 * @param string $email
 	 * @return FALSE|array
 	 */
-	public function virtLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
+	public function virtLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '')
+	{
 		$this->params['ca'] = 'virtualizor';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -602,7 +650,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY
 	 * @return FALSE|array
 	 */
-	public function virtRemove($key) {
+	public function virtRemove($key)
+	{
 		$this->params['ca'] = 'virtualizor_cancel';
 		$this->params['lickey'] = $key;
 		$this->params['cancel_license'] = 1;
@@ -620,14 +669,15 @@ class SoftaculousNOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return bool|mixed
 	 */
-	public function virtRefundAndCancel($key = '', $ipAddress = '') {
+	public function virtRefundAndCancel($key = '', $ipAddress = '')
+	{
 		if (!empty($ipAddress)) {
 			// Search for a license
 			$lic = $this->virtLicenses('', $ipAddress);
 			// No licenses with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
-				return FALSE;
+				return false;
 			}
 			$myLicense = current(current($lic));
 			$key = $myLicense['license'];
@@ -635,20 +685,24 @@ class SoftaculousNOC {
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
-			return FALSE;
+			return false;
 		}
 		// Lets get the logs
 		$logs = $this->virtLicenselogs($key);
 		// Did we get any logs ?
-		if (!empty($logs['actions']))
+		if (!empty($logs['actions'])) {
 			$logsValues = array_values($logs['actions']);
-			foreach ($logsValues as $v) {
-				// Is it a valid transaction ?
-				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
-				// Is it purchased within last 7 days
-				if ((time() - $v['time']) / (24 * 60 * 60) < 7)
-					$this->virtRefund($v['actid']);
+		}
+		foreach ($logsValues as $v) {
+			// Is it a valid transaction ?
+			if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) {
+				continue;
 			}
+			// Is it purchased within last 7 days
+			if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
+				$this->virtRefund($v['actid']);
+			}
+		}
 		// Cancel the license
 		return $this->virtRemove($key);
 	}
@@ -661,7 +715,8 @@ class SoftaculousNOC {
 	 * @param $ips The NEW IP of the server
 	 * @return FALSE|array
 	 */
-	public function virtEditips($lid, $ips) {
+	public function virtEditips($lid, $ips)
+	{
 		$this->params['ca'] = 'virtualizor_showlicense';
 		$this->params['lid'] = $lid;
 		$this->params['ips'] = $ips;
@@ -678,12 +733,14 @@ class SoftaculousNOC {
 	 * @param string $ipAddress The License IP
 	 * @return FALSE|array
 	 */
-	public function virtLicenselogs($key, $limit = 0, $ipAddress = '') {
+	public function virtLicenselogs($key, $limit = 0, $ipAddress = '')
+	{
 		$this->params['ca'] = 'virtualizor_licenselogs';
 		$this->params['key'] = $key;
 		$this->params['licip'] = $ipAddress;
-		if (!empty($limit))
+		if (!empty($limit)) {
 			$this->params['limit'] = $limit;
+		}
 		return $this->req();
 	}
 
@@ -698,7 +755,8 @@ class SoftaculousNOC {
 	 * @param int $len (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @return FALSE|array
 	 */
-	public function virtRenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
+	public function virtRenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000)
+	{
 		$this->params['ca'] = 'virtualizor_renewals';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -713,7 +771,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY that has to be added to Auto Renewal
 	 * @return FALSE|array
 	 */
-	public function virtAddautorenewal($key = '') {
+	public function virtAddautorenewal($key = '')
+	{
 		$this->params['ca'] = 'virtualizor_renewals';
 		$this->params['addrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -726,7 +785,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY that has to be removed from Auto Renewal
 	 * @return FALSE|array
 	 */
-	public function virtRemoveautorenewal($key = '') {
+	public function virtRemoveautorenewal($key = '')
+	{
 		$this->params['ca'] = 'virtualizor_renewals';
 		$this->params['cancelrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -746,7 +806,8 @@ class SoftaculousNOC {
 	 * @param int $autorenew To be renewed Automatically before expiry. Values - 1 for TRUE   0 (i.e. any empty value) or 2 for FALSE    Emails will be sent when renewed.
 	 * @return FALSE|array
 	 */
-	public function sitemushBuy($ipAddress, $toadd, $autorenew) {
+	public function sitemushBuy($ipAddress, $toadd, $autorenew)
+	{
 		$this->params['ca'] = 'sitemushBuy';
 		$this->params['purchase'] = 1;
 		$this->params['ips'] = $ipAddress;
@@ -762,7 +823,8 @@ class SoftaculousNOC {
 	 * @param mixed $actid The Action ID for which you want to claim refund
 	 * @return array|FALSE
 	 */
-	public function sitemushRefund($actid) {
+	public function sitemushRefund($actid)
+	{
 		$this->params['ca'] = 'sitemushRefund';
 		$this->params['actid'] = $actid;
 		return $this->req();
@@ -781,7 +843,8 @@ class SoftaculousNOC {
 	 * @param string $email     (Optional) The authorised email of the user for which you want to get the list of licenses.
 	 * @return array|FALSE
 	 */
-	public function sitemushLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '') {
+	public function sitemushLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '')
+	{
 		$this->params['ca'] = 'sitemush';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -801,7 +864,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY
 	 * @return array|FALSE
 	 */
-	public function sitemushRemove($key) {
+	public function sitemushRemove($key)
+	{
 		$this->params['ca'] = 'sitemushCancel';
 		$this->params['lickey'] = $key;
 		$this->params['cancel_license'] = 1;
@@ -818,14 +882,15 @@ class SoftaculousNOC {
 	 * @param string $ipAddress (Optional) The Primary IP of the License
 	 * @return array|bool|FALSE
 	 */
-	public function sitemushRefundAndCancel($key = '', $ipAddress = '') {
+	public function sitemushRefundAndCancel($key = '', $ipAddress = '')
+	{
 		if (!empty($ipAddress)) {
 			// Search for a license
 			$lic = $this->sitemushLicenses('', $ipAddress);
 			// No licenes with this IP
 			if (empty($lic['licenses'])) {
 				$this->error[] = 'No Licenses found.';
-				return FALSE;
+				return false;
 			}
 			$myLicense = current(current($lic));
 			$key = $myLicense['license'];
@@ -833,7 +898,7 @@ class SoftaculousNOC {
 		// No key to search for the logs or to cancel
 		if (empty($key)) {
 			$this->error[] = 'Please provide a License Key or a Valid IP.';
-			return FALSE;
+			return false;
 		}
 		// Lets get the logs
 		$logs = $this->sitemushLicenselogs($key);
@@ -842,10 +907,13 @@ class SoftaculousNOC {
 			$logsValues = array_values($logs['actions']);
 			foreach ($logsValues as $v) {
 				// Is it a valid transaction ?
-				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) continue;
+				if (($v['action'] != 'renew' && $v['action'] != 'new') || !empty($v['refunded'])) {
+					continue;
+				}
 				// Is it purchased within last 7 days
-				if ((time() - $v['time']) / (24 * 60 * 60) < 7)
+				if ((time() - $v['time']) / (24 * 60 * 60) < 7) {
 					$this->sitemushRefund($v['actid']);
+				}
 			}
 		}
 		// Cancel the license
@@ -860,7 +928,8 @@ class SoftaculousNOC {
 	 * @param string|array $ips The NEW IP of the server
 	 * @return array|FALSE
 	 */
-	public function sitemushEditips($lid, $ips) {
+	public function sitemushEditips($lid, $ips)
+	{
 		$this->params['ca'] = 'sitemush_showlicense';
 		$this->params['lid'] = $lid;
 		$this->params['ips'] = $ips;
@@ -877,12 +946,14 @@ class SoftaculousNOC {
 	 * @param string $ipAddress The License IP
 	 * @return array|FALSE
 	 */
-	public function sitemushLicenselogs($key, $limit = 0, $ipAddress = '') {
+	public function sitemushLicenselogs($key, $limit = 0, $ipAddress = '')
+	{
 		$this->params['ca'] = 'sitemushLicenselogs';
 		$this->params['key'] = $key;
 		$this->params['licip'] = $ipAddress;
-		if (!empty($limit))
+		if (!empty($limit)) {
 			$this->params['limit'] = $limit;
+		}
 		return $this->req();
 	}
 
@@ -897,7 +968,8 @@ class SoftaculousNOC {
 	 * @param int    $len       (Optional) The length to return from the start. e.g. If the result is 500 licenses and you wanted only from  the 200 items after the 100th one then specify $start = 99 and $len = 200
 	 * @return array|FALSE
 	 */
-	public function sitemushRenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000) {
+	public function sitemushRenewals($key = '', $ipAddress = '', $start = 0, $len = 1000000)
+	{
 		$this->params['ca'] = 'sitemushRenewals';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
@@ -912,7 +984,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY that has to be added toAuto Renewal
 	 * @return array|FALSE
 	 */
-	public function sitemushAddautorenewal($key = '') {
+	public function sitemushAddautorenewal($key = '')
+	{
 		$this->params['ca'] = 'sitemushRenewals';
 		$this->params['addrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -925,7 +998,8 @@ class SoftaculousNOC {
 	 * @param string $key The License KEY that has to be removed from Auto Renewal
 	 * @return array|FALSE
 	 */
-	public function sitemushRemoveautorenewal($key = '') {
+	public function sitemushRemoveautorenewal($key = '')
+	{
 		$this->params['ca'] = 'sitemushRenewals';
 		$this->params['cancelrenewal'] = 1;
 		$this->params['lickey'] = $key;
@@ -939,7 +1013,8 @@ class SoftaculousNOC {
 	 * @param int $invoid The Invoice ID the details of which you want to see. If nothing is specified i.e. invoid = 0 then all unbilled transactions for the current month will be returned
 	 * @return FALSE|array
 	 */
-	public function invoicedetails($invoid = 0) {
+	public function invoicedetails($invoid = 0)
+	{
 		$this->params['ca'] = 'invoicedetails';
 		$this->params['invoid'] = $invoid;
 		return $this->req();
@@ -951,12 +1026,13 @@ class SoftaculousNOC {
 	 * @param mixed $response the response from an a function/api command
 	 * @return void
 	 */
-	public function displayResponse($response) {
-		if (empty($response))
+	public function displayResponse($response)
+	{
+		if (empty($response)) {
 			$response = $this->error;
+		}
 		myadmin_log('licenses', 'info', '<pre>'.json_encode($response).'</pre>', __LINE__, __FILE__);
 	}
-
 }
 
 /**
@@ -969,22 +1045,25 @@ class SoftaculousNOC {
  * @return       string The JSON string
  * @since     	 3.9
  */
-function array2json($arr) {
-	if (function_exists('json_encode')) return json_encode($arr); //Lastest versions of PHP already has this functionality.
+function array2json($arr)
+{
+	if (function_exists('json_encode')) {
+		return json_encode($arr);
+	} //Lastest versions of PHP already has this functionality.
 	$parts = [];
-	$isList = FALSE;
+	$isList = false;
 
 	//Find out if the given array is a numerical array
 	$keys = array_keys($arr);
 	$maxLength = count($arr) - 1;
 	if (($keys[0] == 0) and ($keys[$maxLength] == $maxLength)) {
-//See if the first key is 0 and last key is length - 1
-		$isList = TRUE;
+		//See if the first key is 0 and last key is length - 1
+		$isList = true;
 		for ($i = 0, $iMax = count($keys); $i < $iMax; $i++) {
-//See if each key corresponds to its position
+			//See if each key corresponds to its position
 			if ($i != $keys[$i]) {
-//A key fails at position check.
-				$isList = FALSE; //It is an associative array.
+				//A key fails at position check.
+				$isList = false; //It is an associative array.
 				break;
 			}
 		}
@@ -992,24 +1071,39 @@ function array2json($arr) {
 
 	foreach ($arr as $key=>$value) {
 		if (is_array($value)) {
-//Custom handling for arrays
-			if ($isList) $parts[] = array2json($value); /* :RECURSION: */
-			else $parts[] = '"'.$key.'":'.array2json($value); /* :RECURSION: */
+			//Custom handling for arrays
+			if ($isList) {
+				$parts[] = array2json($value);
+			} /* :RECURSION: */
+			else {
+				$parts[] = '"'.$key.'":'.array2json($value);
+			} /* :RECURSION: */
 		} else {
 			$str = '';
-			if (!$isList) $str = '"'.$key.'":';
+			if (!$isList) {
+				$str = '"'.$key.'":';
+			}
 
 			//Custom handling for multiple data types
-			if (is_numeric($value)) $str .= $value; //Numbers
-			elseif ($value === FALSE) $str .= 'false'; //The booleans
-			elseif ($value === TRUE) $str .= 'true';
-			else $str .= '"'.addslashes($value).'"'; //All other things
+			if (is_numeric($value)) {
+				$str .= $value;
+			} //Numbers
+			elseif ($value === false) {
+				$str .= 'false';
+			} //The booleans
+			elseif ($value === true) {
+				$str .= 'true';
+			} else {
+				$str .= '"'.addslashes($value).'"';
+			} //All other things
 			$parts[] = $str;
 		}
 	}
 	$json = implode(',', $parts);
 
-	if ($isList) return '['.$json.']'; //Return numerical JSON
+	if ($isList) {
+		return '['.$json.']';
+	} //Return numerical JSON
 	return '{'.$json.'}'; //Return associative JSON
 }
 

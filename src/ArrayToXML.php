@@ -12,7 +12,8 @@ namespace Detain\MyAdminSoftaculous;
 /**
  * Converts an Array to XML
  */
-class ArrayToXML {
+class ArrayToXML
+{
 	/**
 	 * The main function for converting to an XML document.
 	 * Pass in a multi dimensional array and this recursively loops through and builds up an XML document.
@@ -22,12 +23,14 @@ class ArrayToXML {
 	 * @param \SimpleXMLElement $xml - should only be used recursively
 	 * @return string XML
 	 */
-	public function toXML($data, $rootNodeName = 'ResultSet', $xml = NULL) {
-		if (NULL === $xml) //$xml = simplexml_load_string( "" );
+	public function toXML($data, $rootNodeName = 'ResultSet', $xml = null)
+	{
+		if (null === $xml) { //$xml = simplexml_load_string( "" );
 			$xml = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$rootNodeName />");
+		}
 		// loop through the data passed in.
 		foreach ($data as $key => $value) {
-			$numeric = FALSE;
+			$numeric = false;
 			// no numeric keys in our xml please!
 			if (is_numeric($key)) {
 				$numeric = 1;
@@ -39,7 +42,9 @@ class ArrayToXML {
 			if (is_array($value)) {
 				$node = self::isAssoc($value) || $numeric ? $xml->addChild($key) : $xml;
 				// recursive call.
-				if ($numeric) $key = 'anon';
+				if ($numeric) {
+					$key = 'anon';
+				}
 				self::toXML($value, $key, $node);
 			} else {
 				// add single node.
@@ -64,20 +69,27 @@ class ArrayToXML {
 	 * @param string|\SimpleXMLElement $xml - XML document - can optionally be a SimpleXMLElement object
 	 * @return array|string
 	 */
-	public function toArray($xml) {
-		if (is_string($xml))
+	public function toArray($xml)
+	{
+		if (is_string($xml)) {
 			$xml = new \SimpleXMLElement($xml);
+		}
 		$children = $xml->children();
-		if (!$children) return (string) $xml;
+		if (!$children) {
+			return (string) $xml;
+		}
 		$arr = [];
 		foreach ($children as $key => $node) {
 			$node = self::toArray($node);
 			// support for 'anon' non-associative arrays
-			if ($key == 'anon') $key = count($arr);
+			if ($key == 'anon') {
+				$key = count($arr);
+			}
 			// if the node is already set, put it into an array
 			if (isset($arr[$key])) {
-				if (!is_array($arr[$key]) || $arr[$key][0] == NULL)
+				if (!is_array($arr[$key]) || $arr[$key][0] == null) {
 					$arr[$key] = [$arr[$key]];
+				}
 				$arr[$key][] = $node;
 			} else {
 				$arr[$key] = $node;
@@ -92,9 +104,8 @@ class ArrayToXML {
 	 * @param $array
 	 * @return bool
 	 */
-	public function isAssoc($array) {
+	public function isAssoc($array)
+	{
 		return (is_array($array) && 0 !== count(array_diff_key($array, array_keys(array_keys($array)))));
 	}
-
 }
-

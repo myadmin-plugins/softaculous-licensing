@@ -11,8 +11,8 @@
  * @param string $ipAddress
  * @return FALSE|array
  */
-function get_softaculous_licenses($ipAddress = '') {
+function get_softaculous_licenses($ipAddress = '')
+{
 	$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 	return $noc->licenses('', $ipAddress);
 }
-
