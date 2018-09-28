@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/myadmin-softaculous-licensing.iml" filepath="$PROJECT_DIR$/.idea/myadmin-softaculous-licensing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/softaculous-licensing.iml" filepath="$PROJECT_DIR$/.idea/softaculous-licensing.iml" />
     </modules>
   </component>
 </project>

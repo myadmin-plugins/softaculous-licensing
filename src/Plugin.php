@@ -164,14 +164,14 @@ class Plugin
 	public static function getRequirements(GenericEvent $event)
 	{
 		$loader = $event->getSubject();
-		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
-		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
-		$loader->add_page_requirement('softaculous_list', '/../vendor/detain/myadmin-softaculous-licensing/src/softaculous_list.php');
-		$loader->add_page_requirement('webuzo_list', '/../vendor/detain/myadmin-softaculous-licensing/src/webuzo_list.php');
-		$loader->add_requirement('deactivate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/deactivate_softaculous.php');
-		$loader->add_requirement('deactivate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/deactivate_webuzo.php');
-		$loader->add_requirement('get_softaculous_licenses', '/../vendor/detain/myadmin-softaculous-licensing/src/get_softaculous_licenses.php');
-		$loader->add_requirement('get_webuzo_licenses', '/../vendor/detain/myadmin-softaculous-licensing/src/get_webuzo_licenses.php');
+		$loader->add_requirement('activate_softaculous', '/../vendor/detain/softaculous-licensing/src/activate_softaculous.php');
+		$loader->add_requirement('activate_webuzo', '/../vendor/detain/softaculous-licensing/src/activate_webuzo.php');
+		$loader->add_page_requirement('softaculous_list', '/../vendor/detain/softaculous-licensing/src/softaculous_list.php');
+		$loader->add_page_requirement('webuzo_list', '/../vendor/detain/softaculous-licensing/src/webuzo_list.php');
+		$loader->add_requirement('deactivate_softaculous', '/../vendor/detain/softaculous-licensing/src/deactivate_softaculous.php');
+		$loader->add_requirement('deactivate_webuzo', '/../vendor/detain/softaculous-licensing/src/deactivate_webuzo.php');
+		$loader->add_requirement('get_softaculous_licenses', '/../vendor/detain/softaculous-licensing/src/get_softaculous_licenses.php');
+		$loader->add_requirement('get_webuzo_licenses', '/../vendor/detain/softaculous-licensing/src/get_webuzo_licenses.php');
 	}
 
 	/**
