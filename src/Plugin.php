@@ -134,7 +134,7 @@ class Plugin
 			$lid = $lid[0];
 			$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 			if ($noc->editips($lid[0], $event['newip']) !== false) {
-				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $serviceClass->getIp());
+				$GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $serviceClass->getId(), $serviceClass->getCustid());
 				$serviceClass->set_ip($event['newip'])->save();
 				$return['status'] = 'ok';
 				$return['status_text'] = 'The IP Address has been changed.';
