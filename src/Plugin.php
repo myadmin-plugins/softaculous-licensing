@@ -153,8 +153,8 @@ class Plugin
 	{
 		$menu = $event->getSubject();
 		if ($GLOBALS['tf']->ima == 'admin') {
-			$menu->add_link(self::$module.'api', 'choice=none.softaculous_list', '/images/myadmin/list.png', 'List all Softaculous Licenses');
-			$menu->add_link(self::$module.'api', 'choice=none.webuzo_list', '/images/myadmin/list.png', 'List all Webuzo Licenses');
+			$menu->add_link(self::$module.'api', 'choice=none.softaculous_list', '/images/myadmin/list.png', __('List all Softaculous Licenses'));
+			$menu->add_link(self::$module.'api', 'choice=none.webuzo_list', '/images/myadmin/list.png', __('List all Webuzo Licenses'));
 		}
 	}
 
@@ -163,7 +163,10 @@ class Plugin
 	 */
 	public static function getRequirements(GenericEvent $event)
 	{
-		$loader = $event->getSubject();
+        /**
+         * @var \MyAdmin\Plugins\Loader $this->loader
+         */
+        $loader = $event->getSubject();
 		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
 		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
 		$loader->add_page_requirement('softaculous_list', '/../vendor/detain/myadmin-softaculous-licensing/src/softaculous_list.php');
@@ -177,13 +180,16 @@ class Plugin
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getSettings(GenericEvent $event)
-	{
-		$settings = $event->getSubject();
-		$settings->add_text_setting(self::$module, 'Softaculous', 'softaculous_username', 'Softaculous Username:', 'Softaculous Username', $settings->get_setting('SOFTACULOUS_USERNAME'));
-		$settings->add_text_setting(self::$module, 'Softaculous', 'softaculous_password', 'Softaculous Password:', 'Softaculous Password', $settings->get_setting('SOFTACULOUS_PASSWORD'));
-		$settings->add_text_setting(self::$module, 'Softaculous', 'webuzo_username', 'Webuzo Username:', 'Webuzo Username', $settings->get_setting('WEBUZO_USERNAME'));
-		$settings->add_text_setting(self::$module, 'Softaculous', 'webuzo_password', 'Webuzo Password:', 'Webuzo Password', $settings->get_setting('WEBUZO_PASSWORD'));
-		$settings->add_dropdown_setting(self::$module, 'Softaculous', 'outofstock_licenses_softaculous', 'Out Of Stock Softaculous Licenses', 'Enable/Disable Sales Of This Type', $settings->get_setting('OUTOFSTOCK_LICENSES_SOFTACULOUS'), ['0', '1'], ['No', 'Yes']);
+    public static function getSettings(GenericEvent $event)
+    {
+        /**
+         * @var \MyAdmin\Settings $settings
+         **/
+        $settings = $event->getSubject();
+		$settings->add_text_setting(self::$module, __('Softaculous'), 'softaculous_username', __('Softaculous Username'), __('Softaculous Username'), $settings->get_setting('SOFTACULOUS_USERNAME'));
+		$settings->add_text_setting(self::$module, __('Softaculous'), 'softaculous_password', __('Softaculous Password'), __('Softaculous Password'), $settings->get_setting('SOFTACULOUS_PASSWORD'));
+		$settings->add_text_setting(self::$module, __('Softaculous'), 'webuzo_username', __('Webuzo Username'), __('Webuzo Username'), $settings->get_setting('WEBUZO_USERNAME'));
+		$settings->add_text_setting(self::$module, __('Softaculous'), 'webuzo_password', __('Webuzo Password'), __('Webuzo Password'), $settings->get_setting('WEBUZO_PASSWORD'));
+		$settings->add_dropdown_setting(self::$module, __('Softaculous'), 'outofstock_licenses_softaculous', __('Out Of Stock Softaculous Licenses'), __('Enable/Disable Sales Of This Type'), $settings->get_setting('OUTOFSTOCK_LICENSES_SOFTACULOUS'), ['0', '1'], ['No', 'Yes']);
 	}
 }
