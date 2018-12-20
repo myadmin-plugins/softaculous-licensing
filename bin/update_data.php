@@ -15,8 +15,6 @@
 	$show_help = false;
 	$endprog = false;
 	$module = 'licenses';
-	$GLOBALS['tf']->accounts->set_db_module($module);
-	$GLOBALS['tf']->history->set_db_module($module);
 	$GLOBALS['tf']->session->create(160307, 'services');
 	$GLOBALS['tf']->session->verify();
 	$db = get_module_db($module);
