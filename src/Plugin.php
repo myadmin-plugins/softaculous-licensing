@@ -90,12 +90,22 @@ class Plugin
 		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			myadmin_log(self::$module, 'info', 'Softaculous Activation', __LINE__, __FILE__);
 			function_requirements('activate_softaculous');
-			activate_softaculous($serviceClass->getIp(), $event['field1'], $event['email']);
+			$response = activate_softaculous($serviceClass->getIp(), $event['field1'], $event['email']);
+            if ($response !== false) {
+                $serviceClass
+                    ->setKey($response)
+                    ->save;
+            }
 			$event->stopPropagation();
 		} elseif ($event['category'] == get_service_define('WEBUZO')) {
 			myadmin_log(self::$module, 'info', 'Webuzo Activation', __LINE__, __FILE__);
 			function_requirements('activate_webuzo');
-			activate_webuzo($serviceClass->getIp(), $event['field1'], $event['email']);
+			$response = activate_webuzo($serviceClass->getIp(), $event['field1'], $event['email']);
+            if ($response !== false) {
+                $serviceClass
+                    ->setKey($response)
+                    ->save;
+            }
 			$event->stopPropagation();
 		}
 	}
