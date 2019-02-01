@@ -94,7 +94,7 @@ class Plugin
             if ($response !== false) {
                 $serviceClass
                     ->setKey($response)
-                    ->save;
+                    ->save();
             }
 			$event->stopPropagation();
 		} elseif ($event['category'] == get_service_define('WEBUZO')) {
@@ -104,7 +104,7 @@ class Plugin
             if ($response !== false) {
                 $serviceClass
                     ->setKey($response)
-                    ->save;
+                    ->save();
             }
 			$event->stopPropagation();
 		}
