@@ -137,7 +137,7 @@ class Plugin
 		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
-			myadmin_log(self::$module, 'info', 'IP Change - (OLD:'.$serviceClass->getIp().") (NEW:{$event['newip']})", __LINE__, __FILE__, self::$module);
+			myadmin_log(self::$module, 'info', 'IP Change - (OLD:'.$serviceClass->getIp().") (NEW:{$event['newip']})", __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('get_softaculous_licenses');
 			$data = get_softaculous_licenses($serviceClass->getIp());
 			$lid = array_keys($data[self::$module]);
