@@ -88,7 +88,7 @@ class Plugin
 	{
 		$serviceClass = $event->getSubject();
 		if ($event['category'] == get_service_define('SOFTACULOUS')) {
-			myadmin_log(self::$module, 'info', 'Softaculous Activation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'Softaculous Activation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('activate_softaculous');
 			$response = activate_softaculous($serviceClass->getIp(), $event['field1'], $event['email']);
             if ($response !== false) {
@@ -98,7 +98,7 @@ class Plugin
             }
 			$event->stopPropagation();
 		} elseif ($event['category'] == get_service_define('WEBUZO')) {
-			myadmin_log(self::$module, 'info', 'Webuzo Activation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'Webuzo Activation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('activate_webuzo');
 			$response = activate_webuzo($serviceClass->getIp(), $event['field1'], $event['email']);
             if ($response !== false) {
@@ -117,12 +117,12 @@ class Plugin
 	{
 		$serviceClass = $event->getSubject();
 		if ($event['category'] == get_service_define('SOFTACULOUS')) {
-			myadmin_log(self::$module, 'info', 'Softaculous Deactivation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'Softaculous Deactivation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('deactivate_softaculous');
 			deactivate_softaculous($serviceClass->getIp());
 			$event->stopPropagation();
 		} elseif ($event['category'] == get_service_define('WEBUZO')) {
-			myadmin_log(self::$module, 'info', 'Webuzo Deactivation', __LINE__, __FILE__);
+			myadmin_log(self::$module, 'info', 'Webuzo Deactivation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('deactivate_webuzo');
 			deactivate_webuzo($serviceClass->getIp());
 			$event->stopPropagation();
