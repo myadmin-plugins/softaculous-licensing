@@ -27,7 +27,7 @@ function activate_softaculous($ipAddress, $field, $email)
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				if ($ldata['type'] == $field) {
 					myadmin_log('softaculous', 'info', 'Found matching license type, skipping creating a new one', __LINE__, __FILE__);
-                    return $ldata['license'];
+					return $ldata['license'];
 				} else {
 					myadmin_log('softaculous', 'info', "Found different softaculous license type {$ldata['type']}, canceling {$lid}", __LINE__, __FILE__);
 					$noc->cancel($ldata['license']);
@@ -36,9 +36,9 @@ function activate_softaculous($ipAddress, $field, $email)
 		}
 		$response = $noc->buy($ipAddress, '1M', $field, $email, 1);
 		$output = json_encode($response);
-        $return = $response['license'];
+		$return = $response['license'];
 		myadmin_log('softaculous', 'info', 'Softaculous order output '.$output, __LINE__, __FILE__);
-        return $response['license'];
+		return $response['license'];
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);
 		return false;

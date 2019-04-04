@@ -28,7 +28,7 @@ function activate_webuzo($ipAddress, $field = '', $email = '')
 				if ($ldata['type'] == $field) {
 					myadmin_log('softaculous', 'info', 'Found matching license type, skipping creating a new one', __LINE__, __FILE__);
 					$need = false;
-                    return $ldata['license'];
+					return $ldata['license'];
 				} else {
 					myadmin_log('softaculous', 'info', "Found different webuzo license type {$ldata['type']}, canceling {$lid}", __LINE__, __FILE__);
 					$noc->webuzoCancel($ldata['license']);
@@ -42,7 +42,7 @@ function activate_webuzo($ipAddress, $field = '', $email = '')
 		} else {
 			myadmin_log('softaculous', 'info', 'webuzo order output '.json_encode($response), __LINE__, __FILE__);
 		}
-        return $response['license'];
+		return $response['license'];
 	} catch (Exception $e) {
 		myadmin_log('softaculous', 'info', 'Canceling Caught exception: '.$e->getMessage(), __LINE__, __FILE__);
 		return false;

@@ -91,21 +91,21 @@ class Plugin
 			myadmin_log(self::$module, 'info', 'Softaculous Activation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('activate_softaculous');
 			$response = activate_softaculous($serviceClass->getIp(), $event['field1'], $event['email']);
-            if ($response !== false) {
-                $serviceClass
-                    ->setKey($response)
-                    ->save();
-            }
+			if ($response !== false) {
+				$serviceClass
+					->setKey($response)
+					->save();
+			}
 			$event->stopPropagation();
 		} elseif ($event['category'] == get_service_define('WEBUZO')) {
 			myadmin_log(self::$module, 'info', 'Webuzo Activation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('activate_webuzo');
 			$response = activate_webuzo($serviceClass->getIp(), $event['field1'], $event['email']);
-            if ($response !== false) {
-                $serviceClass
-                    ->setKey($response)
-                    ->save();
-            }
+			if ($response !== false) {
+				$serviceClass
+					->setKey($response)
+					->save();
+			}
 			$event->stopPropagation();
 		}
 	}
@@ -173,10 +173,10 @@ class Plugin
 	 */
 	public static function getRequirements(GenericEvent $event)
 	{
-        /**
-         * @var \MyAdmin\Plugins\Loader $this->loader
-         */
-        $loader = $event->getSubject();
+		/**
+		 * @var \MyAdmin\Plugins\Loader $this->loader
+		 */
+		$loader = $event->getSubject();
 		$loader->add_requirement('activate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_softaculous.php');
 		$loader->add_requirement('activate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/activate_webuzo.php');
 		$loader->add_page_requirement('softaculous_list', '/../vendor/detain/myadmin-softaculous-licensing/src/softaculous_list.php');
@@ -190,12 +190,12 @@ class Plugin
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-    public static function getSettings(GenericEvent $event)
-    {
-        /**
-         * @var \MyAdmin\Settings $settings
-         **/
-        $settings = $event->getSubject();
+	public static function getSettings(GenericEvent $event)
+	{
+		/**
+		 * @var \MyAdmin\Settings $settings
+		 **/
+		$settings = $event->getSubject();
 		$settings->add_text_setting(self::$module, _('Softaculous'), 'softaculous_username', _('Softaculous Username'), _('Softaculous Username'), $settings->get_setting('SOFTACULOUS_USERNAME'));
 		$settings->add_text_setting(self::$module, _('Softaculous'), 'softaculous_password', _('Softaculous Password'), _('Softaculous Password'), $settings->get_setting('SOFTACULOUS_PASSWORD'));
 		$settings->add_text_setting(self::$module, _('Softaculous'), 'webuzo_username', _('Webuzo Username'), _('Webuzo Username'), $settings->get_setting('WEBUZO_USERNAME'));
