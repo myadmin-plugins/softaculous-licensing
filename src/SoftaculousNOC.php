@@ -361,7 +361,7 @@ class SoftaculousNOC
 	 */
 	public function webuzoBuy($ipAddress, $toadd, $servertype, $authemail, $autorenew)
 	{
-		$this->params['ca'] = 'webuzoBuy';
+		$this->params['ca'] = 'webuzo_buy';
 		$this->params['purchase'] = 1;
 		$this->params['ips'] = $ipAddress;
 		$this->params['toadd'] = $toadd;
@@ -380,7 +380,7 @@ class SoftaculousNOC
 	 */
 	public function webuzoRefund($actid)
 	{
-		$this->params['ca'] = 'webuzoRefund';
+		$this->params['ca'] = 'webuzo_refund';
 		$this->params['actid'] = $actid;
 		return $this->req();
 	}
@@ -421,7 +421,7 @@ class SoftaculousNOC
 	 */
 	public function webuzoCancel($key = '', $ipAddress = '')
 	{
-		$this->params['ca'] = 'webuzoCancel';
+		$this->params['ca'] = 'webuzo_cancel';
 		$this->params['lickey'] = $key;
 		$this->params['licip'] = $ipAddress;
 		$this->params['cancel_license'] = 1;
@@ -504,7 +504,7 @@ class SoftaculousNOC
 	 */
 	public function webuzoLicenselogs($key, $limit = 0, $ipAddress = '')
 	{
-		$this->params['ca'] = 'webuzoLicenselogs';
+		$this->params['ca'] = 'webuzo_licenselogs';
 		$this->params['key'] = $key;
 		$this->params['licip'] = $ipAddress;
 		if (!empty($limit)) {
