@@ -399,7 +399,7 @@ class SoftaculousNOC
 	 */
 	public function webuzoLicenses($key = '', $ipAddress = '', $expiry = '', $start = 0, $len = 1000000, $email = '')
 	{
-		$this->params['ca'] = 'webuzo';
+		$this->params['ca'] = 'webuzo_licenses';
 		$this->params['lickey'] = $key;
 		$this->params['ips'] = $ipAddress;
 		$this->params['expiry'] = $expiry;
