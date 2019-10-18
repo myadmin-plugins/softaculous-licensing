@@ -26,6 +26,7 @@ function activate_webuzo($ipAddress, $field = '', $email = '')
         if ($matches['num_results'] > 0) {
             myadmin_log('softaculous', 'info', "Found Existing webuzo licenses on {$ipAddress}, scanning them", __LINE__, __FILE__);
             foreach ($matches['licenses'] as $lid => $ldata) {
+                return $ldata['license'];
                 if ($ldata['type'] == $field) {
                     myadmin_log('softaculous', 'info', 'Found matching license type, skipping creating a new one', __LINE__, __FILE__);
                     $need = false;
