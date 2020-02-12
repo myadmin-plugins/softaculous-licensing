@@ -119,12 +119,12 @@ class Plugin
 		if ($event['category'] == get_service_define('SOFTACULOUS')) {
 			myadmin_log(self::$module, 'info', 'Softaculous Deactivation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('deactivate_softaculous');
-			deactivate_softaculous($serviceClass->getIp());
+			$event['success'] = deactivate_softaculous($serviceClass->getIp());
 			$event->stopPropagation();
 		} elseif ($event['category'] == get_service_define('WEBUZO')) {
 			myadmin_log(self::$module, 'info', 'Webuzo Deactivation', __LINE__, __FILE__, self::$module, $serviceClass->getId());
 			function_requirements('deactivate_webuzo');
-			deactivate_webuzo($serviceClass->getIp());
+			$event['success'] = deactivate_webuzo($serviceClass->getIp());
 			$event->stopPropagation();
 		}
 	}
