@@ -13,8 +13,8 @@ function webuzo_list()
 		$table = new \TFTable;
 		$table->set_title('webuzo License List');
 		$header = false;
-		function_requirements('get_webuzoLicenses');
-		$licenses = get_webuzoLicenses();
+		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
+		$licenses =  $noc->webuzo_licenses('', $ipAddress);
 		$licensesValues = array_values($licenses['licenses']);
 		foreach ($licensesValues as $data) {
 			if (!$header) {
@@ -33,5 +33,4 @@ function webuzo_list()
 		}
 		add_output($table->get_table());
 	}
-	//add_output('<div style="text-align: left;"><pre>'.var_export(get_softaculous_licenses(), TRUE).'</pre></div>');
 }

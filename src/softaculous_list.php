@@ -13,8 +13,8 @@ function softaculous_list()
 		$table = new \TFTable;
 		$table->set_title('Softaculous License List');
 		$header = false;
-		function_requirements('get_softaculous_licenses');
-		$licenses = get_softaculous_licenses();
+		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+		$licenses = $noc->licenses('', $ipAddress);
 		$licensesValues = array_values($licenses['licenses']);
 		foreach ($licensesValues as $data) {
 			if (!$header) {
@@ -33,5 +33,4 @@ function softaculous_list()
 		}
 		add_output($table->get_table());
 	}
-	//add_output('<div style="text-align: left;"><pre>'.var_export(get_softaculous_licenses(), TRUE).'</pre></div>');
 }

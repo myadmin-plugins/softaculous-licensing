@@ -16,32 +16,32 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 /*
  * $noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
  * // Buy / renew a License
- * $noc->displayResponse($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
+ * $noc->r($noc->buy('174.37.113.98', '1M', 1, 'test@test.com', 1));
  * // Refund a Transaction
- * $noc->displayResponse($noc->refund(100));
+ * $noc->r($noc->refund(100));
  * // Get me all my licenses
- * $noc->displayResponse($noc->licenses());
+ * $noc->r($noc->licenses());
  * // Search for a license by IP
- * $noc->displayResponse($noc->licenses('', '198.198.198.198'));
+ * $noc->r($noc->licenses('', '198.198.198.198'));
  * // Search for a license by KEY
- * $noc->displayResponse($noc->licenses('88888-88888-88888-88888-88888'));
+ * $noc->r($noc->licenses('88888-88888-88888-88888-88888'));
  * // All Expired Licenses
- * $noc->displayResponse($noc->licenses('', '', 1));
+ * $noc->r($noc->licenses('', '', 1));
  * // Expiring in next 7 Days
- * $noc->displayResponse($noc->licenses('', '', 2));
+ * $noc->r($noc->licenses('', '', 2));
  * // Expiring in next 15 Days
- * $noc->displayResponse($noc->licenses('', '', 3));
+ * $noc->r($noc->licenses('', '', 3));
  * // Get all transactions of a Invoice
- * $noc->displayResponse($noc->invoicedetails(100));
+ * $noc->r($noc->invoicedetails(100));
  * // Get all unbilled transactions for the current month
- * $noc->displayResponse($noc->invoicedetails());
+ * $noc->r($noc->invoicedetails());
  * // Cancel a License
- * $noc->displayResponse($noc->cancel('88888-88888-88888-88888-88888')); // Cancel by License Key
- * $noc->displayResponse($noc->cancel('', '198.198.198.198')); // Cancel by IP
+ * $noc->r($noc->cancel('88888-88888-88888-88888-88888')); // Cancel by License Key
+ * $noc->r($noc->cancel('', '198.198.198.198')); // Cancel by IP
  * // EDIT IP of a License
- * $noc->displayResponse($noc->editips(1000, '198.198.198.198')); // LID and new IP Address
+ * $noc->r($noc->editips(1000, '198.198.198.198')); // LID and new IP Address
  * // Get the Action/Activity Logs of a License
- * $noc->displayResponse($noc->licenselogs('88888-88888-88888-88888-88888'));
+ * $noc->r($noc->licenselogs('88888-88888-88888-88888-88888'));
  */
 
 /**
@@ -138,8 +138,8 @@ class Plugin
 			$serviceClass = $event->getSubject();
 			$settings = get_module_settings(self::$module);
 			myadmin_log(self::$module, 'info', 'IP Change - (OLD:'.$serviceClass->getIp().") (NEW:{$event['newip']})", __LINE__, __FILE__, self::$module, $serviceClass->getId());
-			function_requirements('get_softaculous_licenses');
-			$data = get_softaculous_licenses($serviceClass->getIp());
+			$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+			$data = $noc->licenses('', $serviceClass->getIp());
 			$lid = array_keys($data[self::$module]);
 			$lid = $lid[0];
 			$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
@@ -183,8 +183,6 @@ class Plugin
 		$loader->add_page_requirement('webuzo_list', '/../vendor/detain/myadmin-softaculous-licensing/src/webuzo_list.php');
 		$loader->add_requirement('deactivate_softaculous', '/../vendor/detain/myadmin-softaculous-licensing/src/deactivate_softaculous.php');
 		$loader->add_requirement('deactivate_webuzo', '/../vendor/detain/myadmin-softaculous-licensing/src/deactivate_webuzo.php');
-		$loader->add_requirement('get_softaculous_licenses', '/../vendor/detain/myadmin-softaculous-licensing/src/get_softaculous_licenses.php');
-		$loader->add_requirement('get_webuzo_licenses', '/../vendor/detain/myadmin-softaculous-licensing/src/get_webuzo_licenses.php');
 	}
 
 	/**

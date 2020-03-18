@@ -21,7 +21,8 @@ function deactivate_softaculous($ipAddress)
 		if ($matches['num_results'] > 0) {
 			foreach ($matches['licenses'] as $lid => $ldata) {
 				myadmin_log('softaculous', 'info', "canceling softaculous license {$lid}", __LINE__, __FILE__);
-				myadmin_log('softaculous', 'info', "noc->cancelWithRefund('{$ldata['license']}','') = ".json_encode($noc->cancelWithRefund($ldata['license'])), __LINE__, __FILE__);
+				$response = $noc->refund_and_cancel($ldata['license'], '', 1);
+				myadmin_log('softaculous', 'info', "noc->refund_and_cancel('{$ldata['license']}','', 1) = ".json_encode($response), __LINE__, __FILE__);
 				myadmin_log('softaculous', 'info', 'noc response '.json_encode($noc->response), __LINE__, __FILE__);
 			}
 		}
