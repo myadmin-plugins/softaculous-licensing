@@ -195,9 +195,9 @@ class Plugin
          **/
         $settings = $event->getSubject();
         $settings->add_text_setting(self::$module, _('Softaculous'), 'softaculous_username', _('Softaculous Username'), _('Softaculous Username'), $settings->get_setting('SOFTACULOUS_USERNAME'));
-        $settings->add_text_setting(self::$module, _('Softaculous'), 'softaculous_password', _('Softaculous Password'), _('Softaculous Password'), $settings->get_setting('SOFTACULOUS_PASSWORD'));
+        $settings->add_password_setting(self::$module, _('Softaculous'), 'softaculous_password', _('Softaculous Password'), _('Softaculous Password'), $settings->get_setting('SOFTACULOUS_PASSWORD'));
         $settings->add_text_setting(self::$module, _('Softaculous'), 'webuzo_username', _('Webuzo Username'), _('Webuzo Username'), $settings->get_setting('WEBUZO_USERNAME'));
-        $settings->add_text_setting(self::$module, _('Softaculous'), 'webuzo_password', _('Webuzo Password'), _('Webuzo Password'), $settings->get_setting('WEBUZO_PASSWORD'));
+        $settings->add_password_setting(self::$module, _('Softaculous'), 'webuzo_password', _('Webuzo Password'), _('Webuzo Password'), $settings->get_setting('WEBUZO_PASSWORD'));
         $settings->add_dropdown_setting(self::$module, _('Softaculous'), 'outofstock_licenses_softaculous', _('Out Of Stock Softaculous Licenses'), _('Enable/Disable Sales Of This Type'), $settings->get_setting('OUTOFSTOCK_LICENSES_SOFTACULOUS'), ['0', '1'], ['No', 'Yes']);
     }
 }
