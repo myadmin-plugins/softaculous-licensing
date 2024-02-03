@@ -79,8 +79,8 @@ class SoftaculousNOC
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
 
-        $this->post = array('nocname' => $this->nocname,
-                'nocpass' => $this->nocpass);
+        $this->post = ['nocname' => $this->nocname,
+                'nocpass' => $this->nocpass];
 
         $this->post = http_build_query($this->post);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -1153,7 +1153,7 @@ class ArrayToXML
             // if the node is already set, put it into an array
             if (isset($arr[$key])) {
                 if (!is_array($arr[$key]) || $arr[$key][0] == null) {
-                    $arr[$key] = array( $arr[$key] );
+                    $arr[$key] = [ $arr[$key] ];
                 }
                 $arr[$key][] = $node;
             } else {
