@@ -1,28 +1,59 @@
-# Softaculous Licensing Class
+# MyAdmin Softaculous Licensing
 
-Softaculous Licensing Class
+[![Tests](https://github.com/detain/myadmin-softaculous-licensing/actions/workflows/tests.yml/badge.svg)](https://github.com/detain/myadmin-softaculous-licensing/actions/workflows/tests.yml)
+[![Latest Stable Version](https://poser.pugx.org/detain/myadmin-softaculous-licensing/version)](https://packagist.org/packages/detain/myadmin-softaculous-licensing)
+[![Total Downloads](https://poser.pugx.org/detain/myadmin-softaculous-licensing/downloads)](https://packagist.org/packages/detain/myadmin-softaculous-licensing)
+[![License](https://poser.pugx.org/detain/myadmin-softaculous-licensing/license)](https://packagist.org/packages/detain/myadmin-softaculous-licensing)
 
-## Build Status and Code Analysis
+A PHP library for managing Softaculous, Webuzo, Virtualizor, and SiteMush licenses through the Softaculous NOC API. This package provides a MyAdmin plugin integration layer along with a standalone API client for license lifecycle operations including purchasing, renewal, cancellation, refunds, IP management, and auto-renewal configuration.
 
-Site          | Status
---------------|---------------------------
-![Travis-CI](http://i.is.cc/storage/GYd75qN.png "Travis-CI")     | [![Build Status](https://travis-ci.org/detain/myadmin-softaculous-licensing.svg?branch=master)](https://travis-ci.org/detain/myadmin-softaculous-licensing)
-![CodeClimate](http://i.is.cc/storage/GYlageh.png "CodeClimate")  | [![Code Climate](https://codeclimate.com/github/detain/myadmin-softaculous-licensing/badges/gpa.svg)](https://codeclimate.com/github/detain/myadmin-softaculous-licensing) [![Test Coverage](https://codeclimate.com/github/detain/myadmin-softaculous-licensing/badges/coverage.svg)](https://codeclimate.com/github/detain/myadmin-softaculous-licensing/coverage) [![Issue Count](https://codeclimate.com/github/detain/myadmin-softaculous-licensing/badges/issue_count.svg)](https://codeclimate.com/github/detain/myadmin-softaculous-licensing)
-![Scrutinizer](http://i.is.cc/storage/GYeUnux.png "Scrutinizer")   | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/myadmin-plugins/softaculous-licensing/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/myadmin-plugins/softaculous-licensing/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/myadmin-plugins/softaculous-licensing/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/myadmin-plugins/softaculous-licensing/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/myadmin-plugins/softaculous-licensing/badges/build.png?b=master)](https://scrutinizer-ci.com/g/myadmin-plugins/softaculous-licensing/build-status/master)
-![Codacy](http://i.is.cc/storage/GYi66Cx.png "Codacy")        | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/226251fc068f4fd5b4b4ef9a40011d06)](https://www.codacy.com/app/detain/myadmin-softaculous-licensing) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/25fa74eb74c947bf969602fcfe87e349)](https://www.codacy.com/app/detain/myadmin-softaculous-licensing?utm_source=github.com&utm_medium=referral&utm_content=detain/myadmin-softaculous-licensing&utm_campaign=Badge_Coverage)
-![Coveralls](http://i.is.cc/storage/GYjNSim.png "Coveralls")    | [![Coverage Status](https://coveralls.io/repos/github/detain/db_abstraction/badge.svg?branch=master)](https://coveralls.io/github/detain/myadmin-softaculous-licensing?branch=master)
-![Packagist](http://i.is.cc/storage/GYacBEX.png "Packagist")     | [![Latest Stable Version](https://poser.pugx.org/detain/myadmin-softaculous-licensing/version)](https://packagist.org/packages/detain/myadmin-softaculous-licensing) [![Total Downloads](https://poser.pugx.org/detain/myadmin-softaculous-licensing/downloads)](https://packagist.org/packages/detain/myadmin-softaculous-licensing) [![Latest Unstable Version](https://poser.pugx.org/detain/myadmin-softaculous-licensing/v/unstable)](//packagist.org/packages/detain/myadmin-softaculous-licensing) [![Monthly Downloads](https://poser.pugx.org/detain/myadmin-softaculous-licensing/d/monthly)](https://packagist.org/packages/detain/myadmin-softaculous-licensing) [![Daily Downloads](https://poser.pugx.org/detain/myadmin-softaculous-licensing/d/daily)](https://packagist.org/packages/detain/myadmin-softaculous-licensing) [![License](https://poser.pugx.org/detain/myadmin-softaculous-licensing/license)](https://packagist.org/packages/detain/myadmin-softaculous-licensing)
+## Features
 
+- Full Softaculous NOC API client (`SoftaculousNOC`) supporting Softaculous, Webuzo, Virtualizor, and SiteMush products
+- MyAdmin plugin integration with event-driven hooks for license activation, deactivation, and IP changes
+- XML/Array conversion utilities (`ArrayToXML`)
+- Invoice and billing transaction management
+- Auto-renewal management
+
+## Requirements
+
+- PHP 8.2 or higher
+- ext-soap
+- ext-curl
+- ext-simplexml
 
 ## Installation
 
-Install with composer like
+Install via Composer:
 
 ```sh
 composer require detain/myadmin-softaculous-licensing
 ```
 
+## Usage
+
+```php
+use Detain\MyAdminSoftaculous\SoftaculousNOC;
+
+$noc = new SoftaculousNOC('your-username', 'your-password');
+
+// Purchase a license
+$result = $noc->buy('198.198.198.198', '1M', 1, 'admin@example.com', 1);
+
+// List all licenses
+$licenses = $noc->licenses();
+
+// Cancel a license by key
+$noc->cancel('88888-88888-88888-88888-88888');
+```
+
+## Running Tests
+
+```sh
+composer install
+vendor/bin/phpunit
+```
+
 ## License
 
-The Softaculous Licensing Class class is licensed under the LGPL-v2.1 license.
-
+This package is licensed under the LGPL-2.1 license.
