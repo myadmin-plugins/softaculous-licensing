@@ -9,7 +9,7 @@
 
 function softaculous_list()
 {
-    if ($GLOBALS['tf']->ima == 'admin') {
+    if (\MyAdmin\App::ima() == 'admin') {
         $table = new \TFTable();
         $table->set_title('Softaculous License List');
         $header = false;

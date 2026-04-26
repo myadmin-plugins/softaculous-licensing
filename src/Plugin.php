@@ -144,7 +144,7 @@ class Plugin
             $lid = $lid[0];
             $noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
             if ($noc->editips($lid[0], $event['newip']) !== false) {
-                $GLOBALS['tf']->history->add($settings['TABLE'], 'change_ip', $event['newip'], $serviceClass->getId(), $serviceClass->getCustid());
+                \MyAdmin\App::history()->add($settings['TABLE'], 'change_ip', $event['newip'], $serviceClass->getId(), $serviceClass->getCustid());
                 $serviceClass->set_ip($event['newip'])->save();
                 $return['status'] = 'ok';
                 $return['status_text'] = 'The IP Address has been changed.';
@@ -162,7 +162,7 @@ class Plugin
     public static function getMenu(GenericEvent $event)
     {
         $menu = $event->getSubject();
-        if ($GLOBALS['tf']->ima == 'admin') {
+        if (\MyAdmin\App::ima() == 'admin') {
             $menu->add_link(self::$module.'api', 'choice=none.softaculous_list', '/images/myadmin/list.png', _('List all Softaculous Licenses'));
             $menu->add_link(self::$module.'api', 'choice=none.webuzo_list', '/images/myadmin/list.png', _('List all Webuzo Licenses'));
         }

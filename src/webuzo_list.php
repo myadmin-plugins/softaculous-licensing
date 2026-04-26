@@ -9,7 +9,7 @@
 
 function webuzo_list()
 {
-    if ($GLOBALS['tf']->ima == 'admin') {
+    if (\MyAdmin\App::ima() == 'admin') {
         $table = new \TFTable();
         $table->set_title('webuzo License List');
         $header = false;

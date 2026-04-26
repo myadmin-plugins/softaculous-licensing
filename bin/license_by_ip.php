@@ -7,4 +7,4 @@ $noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTA
 
 print_r($noc->licenses('', $_SERVER['argv'][1]));
 
-//$GLOBALS['tf']->session->destroy();
+//\MyAdmin\App::session()->destroy();

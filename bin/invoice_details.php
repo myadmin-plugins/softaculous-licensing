@@ -8,4 +8,4 @@ $noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTA
 print_r($noc->invoicedetails($_SERVER['argv'][1]));
 print_r($noc->response);
 
-//$GLOBALS['tf']->session->destroy();
+//\MyAdmin\App::session()->destroy();

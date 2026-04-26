@@ -15,8 +15,8 @@ define('VERBOSE_MODE', false);
 $show_help = false;
 $endprog = false;
 $module = 'licenses';
-$GLOBALS['tf']->session->create(160307, 'services');
-$GLOBALS['tf']->session->verify();
+\MyAdmin\App::session()->create(160307, 'services');
+\MyAdmin\App::session()->verify();
 $db = get_module_db($module);
 $softaculous_type = get_service_define('SOFTACULOUS');
 $hostdates = 0;
@@ -29,7 +29,7 @@ foreach ($licenses['licenses'] as $lid => $license) {
     $email = $license['authemail'];
     $key = $license['license'];
     $ipAddress = $license['ip'];
-    $custid = $GLOBALS['tf']->accounts->cross_reference($email);
+    $custid = \MyAdmin\App::accounts()->cross_reference($email);
     if ($custid === false) {
         echo "Couldnt match up {$email} for license ip {$ipAddress} key {$key} to customer id\n";
         continue;
@@ -73,4 +73,4 @@ Good Softaculous Licensese {$good}
 Cancable Softaculous Licenses {$cancels}
 Unknown Licenses {$unknowns}
 ";
-$GLOBALS['tf']->session->destroy();
+\MyAdmin\App::session()->destroy();
