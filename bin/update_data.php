@@ -15,8 +15,10 @@ define('VERBOSE_MODE', false);
 $show_help = false;
 $endprog = false;
 $module = 'licenses';
-\MyAdmin\App::session()->create(160307, 'services');
-\MyAdmin\App::session()->verify();
+\MyAdmin\App::session()->sessionid = substr(basename($_SERVER['argv'][0], '.php'), 0, 32);
+\MyAdmin\App::session()->account_id = 160307;
+\MyAdmin\App::session()->appnocache('ima', 'services');
+\MyAdmin\App::tf()->ima = 'services';
 $db = get_module_db($module);
 $softaculous_type = get_service_define('SOFTACULOUS');
 $hostdates = 0;
@@ -73,4 +75,3 @@ Good Softaculous Licensese {$good}
 Cancable Softaculous Licenses {$cancels}
 Unknown Licenses {$unknowns}
 ";
-\MyAdmin\App::session()->destroy();
