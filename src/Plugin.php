@@ -95,6 +95,10 @@ class Plugin
                 $serviceClass
                     ->setKey($response)
                     ->save();
+            } else {
+                $event['success'] = false;
+                myadmin_log(self::$module, 'error', 'Softaculous activate_softaculous returned false for IP '.$serviceClass->getIp().' Type '.$event['field1'], __LINE__, __FILE__, self::$module, $serviceClass->getId());
+                chatNotify('Failed [License '.$serviceClass->getId().'](https://my.interserver.net/admin/view_service?id='.$serviceClass->getId().'&module=licenses) Softaculous Activation IP:'.$serviceClass->getIp().' Type:'.$event['field1'].' Email:'.$event['email'].' - activate_softaculous() returned false', 'notifications');
             }
             $event->stopPropagation();
         } elseif ($event['category'] == get_service_define('WEBUZO')) {
@@ -105,6 +109,10 @@ class Plugin
                 $serviceClass
                     ->setKey($response)
                     ->save();
+            } else {
+                $event['success'] = false;
+                myadmin_log(self::$module, 'error', 'Webuzo activate_webuzo returned false for IP '.$serviceClass->getIp().' Type '.$event['field1'], __LINE__, __FILE__, self::$module, $serviceClass->getId());
+                chatNotify('Failed [License '.$serviceClass->getId().'](https://my.interserver.net/admin/view_service?id='.$serviceClass->getId().'&module=licenses) Webuzo Activation IP:'.$serviceClass->getIp().' Type:'.$event['field1'].' Email:'.$event['email'].' - activate_webuzo() returned false', 'notifications');
             }
             $event->stopPropagation();
         }
