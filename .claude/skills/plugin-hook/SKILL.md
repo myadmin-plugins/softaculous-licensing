@@ -1,6 +1,6 @@
 ---
 name: plugin-hook
-description: Wires a new event hook into src/Plugin.php following the GenericEvent pattern with get_service_define() category checks and stopPropagation(). Use when user says 'add hook', 'new event handler', 'add plugin event', or 'register license event'. Do NOT use for CLI scripts or API client methods. NOTE: for a plugin's contract/behavioral tests (tests/ContractTest.php, the shared harness, composer myadmin:scaffold-tests) use the plugin-contract-tests skill instead — this skill's reflection-only guidance predates that harness.
+description: Wires a new event hook into src/Plugin.php following the GenericEvent pattern with get_service_define() category checks and stopPropagation(). Use when user says 'add hook', 'new event handler', 'add plugin event', or 'register license event'. Do NOT use for CLI scripts or API client methods. For a plugin's contract or behavioral tests (tests/ContractTest.php, the shared harness, composer myadmin:scaffold-tests) use the plugin-contract-tests skill instead — this skill's reflection-only guidance predates that harness.
 ---
 <!-- myadmin-contract-harness-notice -->
 > ### ⚠️ Read this before the rest of the file
